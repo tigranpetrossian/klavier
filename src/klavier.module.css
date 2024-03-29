@@ -7,15 +7,17 @@
 .whiteKey {
   background-color: #fff;
   aspect-ratio: 23 / 150;
-  grid-column: span 12;
+  grid-column: var(--grid-column-start) / span 12;
   grid-row: 1 / span 1;
   border: 1px solid #000;
-  border-radius: 4px;
+  border-radius:  0 0 2px 2px;
 }
 
 .blackKey {
   background-color: #000;
-  aspect-ratio: 14 / 101;
-  grid-column: span 7;
+  position: relative;
+  aspect-ratio: 15 / 100;
+  grid-column: var(--grid-column-start) / span 8;
   grid-row: 1 / span 1;
+  border-radius:  0 0 2px 2px;
 }

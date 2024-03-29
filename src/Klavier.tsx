@@ -14,7 +14,7 @@ export const Klavier = (props: KlavierProps) => {
   return (
     <div className={classNames.klavier}>
       {range(first, last + 1).map((midiNumber) => (
-        <Key key={midiNumber} midiNumber={midiNumber} />
+        <Key key={midiNumber} midiNumber={midiNumber} firstNoteMidiNumber={first} />
       ))}
     </div>
   );
