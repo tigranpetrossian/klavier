@@ -1,14 +1,19 @@
-import classNames from 'klavier.module.css';
-import { KeyColor } from 'types.ts';
+import styles from 'klavier.module.css';
 import React from 'react';
+import { midiToNote } from 'midi/midi.utils.ts';
 
 type Props = {
-  color: KeyColor;
+  midiNumber: number;
+};
+
+const classNames = {
+  black: styles.blackKey,
+  white: styles.whiteKey,
 };
 
 export const Key = (props: Props) => {
-  const { color } = props;
-  const className = color === 'white' ? classNames.whiteKey : classNames.blackKey;
+  const { midiNumber } = props;
+  const { keyColor } = midiToNote(midiNumber);
 
-  return <div className={className} />;
+  return <div className={classNames[keyColor]} />;
 };

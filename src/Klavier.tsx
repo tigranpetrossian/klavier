@@ -1,22 +1,21 @@
 import classNames from 'klavier.module.css';
 import { Key } from 'Key.tsx';
+import { range } from 'utils.ts';
 
-export const Klavier = () => {
+export interface KlavierProps {
+  activeNotes?: Array<number>;
+  noteRange: [number, number];
+}
+
+export const Klavier = (props: KlavierProps) => {
+  const { noteRange = [21, 108] } = props;
+  const [first, last] = noteRange;
+
   return (
     <div className={classNames.klavier}>
-      <Key color="white" />
-      <Key color="black" />
-      <Key color="white" />
-      <Key color="black" />
-      <Key color="white" />
-      <Key color="white" />
-      <Key color="black" />
-      <Key color="white" />
-      <Key color="black" />
-      <Key color="white" />
-      <Key color="black" />
-      <Key color="white" />
-      <Key color="white" />
+      {range(first, last + 1).map((midiNumber) => (
+        <Key key={midiNumber} midiNumber={midiNumber} />
+      ))}
     </div>
   );
 };
