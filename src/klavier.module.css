@@ -1,0 +1,21 @@
+.klavier {
+  display: grid;
+  gap: 1px;
+  position: relative;
+}
+
+.whiteKey {
+  background-color: #fff;
+  aspect-ratio: 23 / 150;
+  grid-column: span 12;
+  grid-row: 1 / span 1;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.blackKey {
+  background-color: #000;
+  aspect-ratio: 14 / 101;
+  grid-column: span 7;
+  grid-row: 1 / span 1;
+}

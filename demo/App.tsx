@@ -1,7 +1,8 @@
 import './App.css';
+import { Klavier } from '../src';
 
 function App() {
-  return <></>;
+  return <Klavier />;
 }
 
 export default App;
