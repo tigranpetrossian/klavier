@@ -8,13 +8,18 @@ export interface KlavierProps {
 }
 
 export const Klavier = (props: KlavierProps) => {
-  const { noteRange = [21, 108] } = props;
+  const { activeNotes = [], noteRange = [21, 108] } = props;
   const [first, last] = noteRange;
 
   return (
     <div className={classNames.klavier}>
       {range(first, last + 1).map((midiNumber) => (
-        <Key key={midiNumber} midiNumber={midiNumber} firstNoteMidiNumber={first} />
+        <Key
+          key={midiNumber}
+          midiNumber={midiNumber}
+          firstNoteMidiNumber={first}
+          active={activeNotes.includes(midiNumber)}
+        />
       ))}
     </div>
   );

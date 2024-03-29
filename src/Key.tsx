@@ -5,6 +5,7 @@ import { midiToNote } from 'midi/midi.utils.ts';
 type Props = {
   midiNumber: number;
   firstNoteMidiNumber: number;
+  active: boolean;
 };
 
 const classNames = {
