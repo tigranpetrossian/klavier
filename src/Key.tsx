@@ -32,11 +32,11 @@ function buildClassName(color: KeyColor, active: boolean) {
   return active ? `${baseClass} active` : baseClass;
 }
 
-// The keyboard is laid out on a horizontal CSS grid with a 1px gap.
+// The keyboard is laid out on a horizontal CSS grid.
 // Position represents a starting column: `grid-column-start` in CSS terms.
 // White keys span over 12 columns each, making the octave length 84 columns total.
 // Black keys span over 8 columns each, and are overlaid on top white keys.
-// Key positions (starting columns) are calculated by hand to match a real piano keyboard as closely as possible.
+// Key positions (starting columns) of a single octave are calculated by hand to match a real piano keyboard as closely as possible.
 const KEY_POSITIONS = [1, 8, 13, 22, 25, 37, 44, 49, 57, 61, 70, 73];
 const OCTAVE_LENGTH_IN_COLUMNS = 84;
 function getAbsoluteKeyPosition(midiNumber: number) {
