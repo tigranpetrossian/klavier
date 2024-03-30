@@ -26,4 +26,7 @@ export default defineConfig({
     environment: 'happy-dom',
     setupFiles: './vitest/setup.js',
   },
+  server: {
+    open: true,
+  },
 });
