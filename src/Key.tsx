@@ -7,10 +7,10 @@ type Props = {
   midiNumber: number;
   firstNoteMidiNumber: number;
   active: boolean;
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export const Key = (props: Props) => {
-  const { active, midiNumber, firstNoteMidiNumber } = props;
+  const { active, midiNumber, firstNoteMidiNumber, ...htmlAttributes } = props;
   const { keyColor } = midiToNote(midiNumber);
   const position = getKeyPosition(midiNumber, firstNoteMidiNumber);
 
@@ -18,6 +18,7 @@ export const Key = (props: Props) => {
     <div
       className={buildClassName(keyColor, active)}
       style={{ '--grid-column-start': position } as React.CSSProperties}
+      {...htmlAttributes}
     />
   );
 };

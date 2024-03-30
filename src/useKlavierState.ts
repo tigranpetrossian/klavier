@@ -3,6 +3,7 @@ import { useReducer } from 'react';
 type State = {
   activeNotes: Array<number>;
   touched: boolean;
+  mouseActive: boolean;
 };
 
 type Action =
@@ -13,12 +14,17 @@ type Action =
   | {
       type: 'NOTE_OFF';
       payload: number;
+    }
+  | {
+      type: 'SET_MOUSE_ACTIVE';
+      payload: boolean;
     };
 
 export function useKlavierState(initialActiveNotes: Array<number>) {
   const [state, dispatch] = useReducer(reducer, {
     activeNotes: initialActiveNotes,
     touched: false,
+    mouseActive: false,
   });
 
   const playNote = (midiNumber: number) => {
@@ -29,11 +35,16 @@ export function useKlavierState(initialActiveNotes: Array<number>) {
     dispatch({ type: 'NOTE_OFF', payload: midiNumber });
   };
 
+  const setMouseActive = (isActive: boolean) => {
+    dispatch({ type: 'SET_MOUSE_ACTIVE', payload: isActive });
+  };
+
   return {
     state,
     actions: {
       playNote,
       stopNote,
+      setMouseActive,
     },
   };
 }
@@ -60,6 +71,13 @@ function reducer(state: State, action: Action) {
         ...state,
         activeNotes: state.activeNotes.filter((note) => note !== action.payload),
       };
+
+    case 'SET_MOUSE_ACTIVE':
+      return {
+        ...state,
+        mouseActive: action.payload,
+      };
+
     default:
       return state;
   }

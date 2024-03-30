@@ -12,8 +12,41 @@ export interface KlavierProps {
 export const Klavier = (props: KlavierProps) => {
   const { initialActiveNotes = [], noteRange = [21, 108] } = props;
   const [first, last] = noteRange;
-  const { state } = useKlavierState(initialActiveNotes);
+  const {
+    state,
+    actions: { playNote, stopNote, setMouseActive },
+  } = useKlavierState(initialActiveNotes);
   validateRange(noteRange);
+
+  const handleGlobalMouseUp = () => {
+    setMouseActive(false);
+    window.removeEventListener('mouseup', handleGlobalMouseUp);
+  };
+
+  const handleMouseEvents = (event: React.MouseEvent) => {
+    const dataNumber = event.currentTarget.getAttribute('data-number');
+    if (!dataNumber) {
+      return;
+    }
+    const midiNumber = parseInt(dataNumber);
+
+    switch (event.type) {
+      case 'mousedown':
+        window.addEventListener('mouseup', handleGlobalMouseUp);
+        setMouseActive(true);
+        playNote(midiNumber);
+        break;
+      case 'mouseup':
+      case 'mouseleave':
+        stopNote(midiNumber);
+        break;
+      case 'mouseenter':
+        if (state.mouseActive) {
+          playNote(midiNumber);
+        }
+        break;
+    }
+  };
 
   return (
     <div className={classNames.klavier}>
@@ -23,6 +56,11 @@ export const Klavier = (props: KlavierProps) => {
           midiNumber={midiNumber}
           firstNoteMidiNumber={first}
           active={state.activeNotes.includes(midiNumber)}
+          data-number={midiNumber}
+          onMouseDown={handleMouseEvents}
+          onMouseUp={handleMouseEvents}
+          onMouseLeave={handleMouseEvents}
+          onMouseEnter={handleMouseEvents}
         />
       ))}
     </div>

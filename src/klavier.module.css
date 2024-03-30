@@ -11,6 +11,7 @@
   grid-row: 1 / span 1;
   border: 1px solid #000;
   border-radius: 0 0 2px 2px;
+  user-select: none;
 
   &:global(.active) {
     background-color: red;
@@ -24,6 +25,7 @@
   grid-column: var(--grid-column-start) / span 8;
   grid-row: 1 / span 1;
   border-radius: 0 0 2px 2px;
+  user-select: none;
 
   &:global(.active) {
     background-color: red;
