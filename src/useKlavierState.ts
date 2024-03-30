@@ -21,11 +21,7 @@ type Action =
     };
 
 export function useKlavierState(initialActiveNotes: Array<number>) {
-  const [state, dispatch] = useReducer(reducer, {
-    activeNotes: initialActiveNotes,
-    touched: false,
-    mouseActive: false,
-  });
+  const [state, dispatch] = useReducer(reducer, initialActiveNotes, initialize);
 
   const playNote = (midiNumber: number) => {
     dispatch({ type: 'NOTE_ON', payload: midiNumber });
@@ -46,6 +42,14 @@ export function useKlavierState(initialActiveNotes: Array<number>) {
       stopNote,
       setMouseActive,
     },
+  };
+}
+
+function initialize(initialActiveNotes: Array<number>) {
+  return {
+    activeNotes: initialActiveNotes,
+    touched: false,
+    mouseActive: false,
   };
 }
 
