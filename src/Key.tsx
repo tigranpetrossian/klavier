@@ -1,7 +1,7 @@
-import styles from 'klavier.module.css';
 import React from 'react';
+import styles from 'klavier.module.css';
 import { midiToNote } from 'midi/midi.utils.ts';
-import { KeyColor } from 'types.ts';
+import type { KeyColor } from 'types.ts';
 
 type Props = {
   midiNumber: number;

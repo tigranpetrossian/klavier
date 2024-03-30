@@ -1,4 +1,4 @@
-import { Note } from 'types.ts';
+import type { Note } from 'types.ts';
 import {
   BLACK_KEY_MIDI_NUMBERS,
   MAX_MIDI_NUMBER,
