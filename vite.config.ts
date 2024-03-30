@@ -22,4 +22,8 @@ export default defineConfig({
       plugins: [postCssNesting()],
     },
   },
+  test: {
+    environment: 'happy-dom',
+    setupFiles: './vitest/setup.js',
+  },
 });
