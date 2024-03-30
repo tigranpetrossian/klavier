@@ -4,7 +4,7 @@ import { range } from 'utils.ts';
 
 export interface KlavierProps {
   activeNotes?: Array<number>;
-  noteRange: [number, number];
+  noteRange?: [number, number];
 }
 
 export const Klavier = (props: KlavierProps) => {
