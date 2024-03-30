@@ -2,15 +2,17 @@ import classNames from 'klavier.module.css';
 import { Key } from 'Key.tsx';
 import { range } from 'utils.ts';
 import { isMidiNumber } from 'midi/midi.utils.ts';
+import { useKlavierState } from 'useKlavierState.ts';
 
 export interface KlavierProps {
-  activeNotes?: Array<number>;
+  initialActiveNotes?: Array<number>;
   noteRange?: [number, number];
 }
 
 export const Klavier = (props: KlavierProps) => {
-  const { activeNotes = [], noteRange = [21, 108] } = props;
+  const { initialActiveNotes = [], noteRange = [21, 108] } = props;
   const [first, last] = noteRange;
+  const { state } = useKlavierState(initialActiveNotes);
   validateRange(noteRange);
 
   return (
@@ -20,7 +22,7 @@ export const Klavier = (props: KlavierProps) => {
           key={midiNumber}
           midiNumber={midiNumber}
           firstNoteMidiNumber={first}
-          active={activeNotes.includes(midiNumber)}
+          active={state.activeNotes.includes(midiNumber)}
         />
       ))}
     </div>
@@ -32,7 +34,7 @@ const ERRORS = {
   INVALID_RANGE_ORDER: 'The last note must be greater than the first.',
 };
 
-function validateRange([first, last]: KlavierProps['noteRange']) {
+function validateRange([first, last]: [number, number]) {
   const receivedRangeDisplay = `Received range: [${first}, ${last}]`;
 
   if (!isMidiNumber(first) || !isMidiNumber(last)) {
