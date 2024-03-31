@@ -2,6 +2,13 @@
   display: grid;
   gap: 1px;
   position: relative;
+
+  &,
+  & *,
+  & *::before,
+  & *::after {
+    box-sizing: border-box;
+  }
 }
 
 .whiteKey {
