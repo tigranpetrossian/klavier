@@ -38,7 +38,9 @@ export const Klavier = (props: KlavierProps) => {
         break;
       case 'mouseup':
       case 'mouseleave':
-        stopNote(midiNumber);
+        if (state.mouseActive) {
+          stopNote(midiNumber);
+        }
         break;
       case 'mouseenter':
         if (state.mouseActive) {
