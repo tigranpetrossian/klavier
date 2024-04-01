@@ -14,14 +14,7 @@ export interface KlavierProps {
 }
 
 export const Klavier = (props: KlavierProps) => {
-  const {
-    defaultActiveNotes,
-    activeNotes,
-    onPlayNote,
-    onStopNote,
-    onChange,
-    noteRange = [21, 108],
-  } = props;
+  const { defaultActiveNotes, activeNotes, onPlayNote, onStopNote, onChange, noteRange = [21, 108] } = props;
   const [first, last] = noteRange;
   const {
     state,

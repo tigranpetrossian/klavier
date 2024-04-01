@@ -9,9 +9,7 @@ import {
 
 export function midiToNote(midiNumber: number): Note {
   if (!isMidiNumber(midiNumber)) {
-    throw new Error(
-      `getMidiNoteAttributes expects a valid midi number: 0-127, received ${midiNumber}`
-    );
+    throw new Error(`getMidiNoteAttributes expects a valid midi number: 0-127, received ${midiNumber}`);
   }
 
   return {
@@ -22,12 +20,7 @@ export function midiToNote(midiNumber: number): Note {
 }
 
 export function isMidiNumber(input: unknown): input is number {
-  return (
-    typeof input === 'number' &&
-    Number.isInteger(input) &&
-    input >= MIN_MIDI_NUMBER &&
-    input <= MAX_MIDI_NUMBER
-  );
+  return typeof input === 'number' && Number.isInteger(input) && input >= MIN_MIDI_NUMBER && input <= MAX_MIDI_NUMBER;
 }
 
 export function isBlackKey(midiNumber: number) {
