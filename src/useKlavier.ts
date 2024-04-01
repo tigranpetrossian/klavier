@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 
 type InternalState = {
   touched: boolean;
@@ -20,11 +20,12 @@ type Action =
       payload: boolean;
     };
 
-type UseKlavierProps = {
+type UseKlavierParams = {
   defaultActiveNotes?: Array<number>;
   activeNotes?: Array<number>;
   onPlayNote?: (midiNumber: number) => void;
   onStopNote?: (midiNumber: number) => void;
+  onChange?: (activeNotes: Array<number>) => void;
 };
 
 type UseKlavierResult = {
@@ -39,22 +40,37 @@ type UseKlavierResult = {
   };
 };
 
-export function useKlavier(props: UseKlavierProps): UseKlavierResult {
-  const { defaultActiveNotes = [], activeNotes, onPlayNote, onStopNote } = props;
-
+export function useKlavier(props: UseKlavierParams): UseKlavierResult {
+  const { defaultActiveNotes = [], activeNotes, onPlayNote, onStopNote, onChange } = props;
+  const lastActionRef = useRef<Action | null>(null);
   const [state, dispatch] = useReducer(reducer, {
     touched: false,
     mouseActive: false,
     activeNotes: activeNotes ?? defaultActiveNotes,
   });
 
+  useActiveNotesChangeDetection({
+    activeNotes: state.activeNotes,
+    lastActionRef,
+    onChange,
+  });
+
+  const toggleNote = (midiNumber: number, state: 'ON' | 'OFF') => {
+    const action: Action = {
+      type: `NOTE_${state}`,
+      payload: midiNumber,
+    };
+    lastActionRef.current = action;
+    dispatch(action);
+  };
+
   const playNote = (midiNumber: number) => {
-    dispatch({ type: 'NOTE_ON', payload: midiNumber });
+    toggleNote(midiNumber, 'ON');
     onPlayNote?.(midiNumber);
   };
 
   const stopNote = (midiNumber: number) => {
-    dispatch({ type: 'NOTE_OFF', payload: midiNumber });
+    toggleNote(midiNumber, 'OFF');
     onStopNote?.(midiNumber);
   };
 
@@ -104,6 +120,24 @@ function reducer(state: InternalState, action: Action) {
     default:
       return state;
   }
+}
+
+type UseStateChangeDetectionParams = {
+  lastActionRef: React.MutableRefObject<Action | null>;
+  onChange?: (activeNotes: Array<number>) => void;
+  activeNotes: Array<number>;
+};
+
+function useActiveNotesChangeDetection(params: UseStateChangeDetectionParams) {
+  const { activeNotes, lastActionRef, onChange } = params;
+
+  useEffect(() => {
+    if (!lastActionRef.current) {
+      return;
+    }
+    onChange?.(activeNotes);
+    lastActionRef.current = null;
+  }, [activeNotes, lastActionRef, onChange]);
 }
 
 function getControlledState<State>(internalState: State, controlledProps: Partial<State>) {
