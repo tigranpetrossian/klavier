@@ -1,9 +1,9 @@
 import { useReducer } from 'react';
 
-type State = {
-  activeNotes: Array<number>;
+type InternalState = {
   touched: boolean;
   mouseActive: boolean;
+  activeNotes: Array<number>;
 };
 
 type Action =
@@ -20,15 +20,42 @@ type Action =
       payload: boolean;
     };
 
-export function useKlavierState(initialActiveNotes: Array<number>) {
-  const [state, dispatch] = useReducer(reducer, initialActiveNotes, initialize);
+type UseKlavierProps = {
+  defaultActiveNotes?: Array<number>;
+  activeNotes?: Array<number>;
+  onPlayNote?: (midiNumber: number) => void;
+  onStopNote?: (midiNumber: number) => void;
+};
+
+type UseKlavierResult = {
+  state: {
+    activeNotes: Array<number>;
+    mouseActive: boolean;
+  };
+  actions: {
+    playNote: (midiNumber: number) => void;
+    stopNote: (midiNumber: number) => void;
+    setMouseActive: (active: boolean) => void;
+  };
+};
+
+export function useKlavier(props: UseKlavierProps): UseKlavierResult {
+  const { defaultActiveNotes = [], activeNotes, onPlayNote, onStopNote } = props;
+
+  const [state, dispatch] = useReducer(reducer, {
+    touched: false,
+    mouseActive: false,
+    activeNotes: activeNotes ?? defaultActiveNotes,
+  });
 
   const playNote = (midiNumber: number) => {
     dispatch({ type: 'NOTE_ON', payload: midiNumber });
+    onPlayNote?.(midiNumber);
   };
 
   const stopNote = (midiNumber: number) => {
     dispatch({ type: 'NOTE_OFF', payload: midiNumber });
+    onStopNote?.(midiNumber);
   };
 
   const setMouseActive = (isActive: boolean) => {
@@ -36,7 +63,7 @@ export function useKlavierState(initialActiveNotes: Array<number>) {
   };
 
   return {
-    state,
+    state: getControlledState(state, { activeNotes }),
     actions: {
       playNote,
       stopNote,
@@ -45,15 +72,7 @@ export function useKlavierState(initialActiveNotes: Array<number>) {
   };
 }
 
-function initialize(initialActiveNotes: Array<number>) {
-  return {
-    activeNotes: initialActiveNotes,
-    touched: false,
-    mouseActive: false,
-  };
-}
-
-function reducer(state: State, action: Action) {
+function reducer(state: InternalState, action: Action) {
   switch (action.type) {
     case 'NOTE_ON':
       if (!state.touched) {
@@ -85,4 +104,15 @@ function reducer(state: State, action: Action) {
     default:
       return state;
   }
+}
+
+function getControlledState<State>(internalState: State, controlledProps: Partial<State>) {
+  const augmentedState = { ...internalState };
+  (Object.keys(controlledProps) as (keyof State)[]).forEach((key) => {
+    if (controlledProps[key] !== undefined) {
+      (augmentedState as Record<keyof State, unknown>)[key] = controlledProps[key];
+    }
+  });
+
+  return augmentedState;
 }

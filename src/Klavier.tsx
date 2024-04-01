@@ -2,20 +2,28 @@ import classNames from 'klavier.module.css';
 import { Key } from 'Key.tsx';
 import { range } from 'utils.ts';
 import { isMidiNumber } from 'midi/midi.utils.ts';
-import { useKlavierState } from 'useKlavierState.ts';
+import { useKlavier } from 'useKlavier.ts';
 
 export interface KlavierProps {
-  initialActiveNotes?: Array<number>;
   noteRange?: [number, number];
+  defaultActiveNotes?: Array<number>;
+  activeNotes?: Array<number>;
+  onPlayNote?: (midiNumber: number) => void;
+  onStopNote?: (midiNumber: number) => void;
 }
 
 export const Klavier = (props: KlavierProps) => {
-  const { initialActiveNotes = [], noteRange = [21, 108] } = props;
+  const { defaultActiveNotes, activeNotes, onPlayNote, onStopNote, noteRange = [21, 108] } = props;
   const [first, last] = noteRange;
   const {
     state,
     actions: { playNote, stopNote, setMouseActive },
-  } = useKlavierState(initialActiveNotes);
+  } = useKlavier({
+    defaultActiveNotes,
+    activeNotes,
+    onPlayNote,
+    onStopNote,
+  });
   validateRange(noteRange);
 
   const handleGlobalMouseUp = () => {

@@ -1,14 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { renderHook } from '@testing-library/react';
-import { useKlavierState } from 'useKlavierState.ts';
+import { useKlavier } from 'useKlavier.ts';
 
-describe('useKlavierState', () => {
-  const initialActiveNotes = [21, 23, 25];
+describe('Uncontrolled mode with default active notes', () => {
+  const props = {
+    defaultActiveNotes: [21, 23, 25],
+  };
 
   it('should correctly initialize with given active notes', () => {
-    const { result } = renderHook(() => useKlavierState(initialActiveNotes));
+    const { result } = renderHook(() => useKlavier(props));
     expect(result.current.state).toEqual({
-      activeNotes: initialActiveNotes,
+      activeNotes: props.defaultActiveNotes,
       mouseActive: false,
       touched: false,
     });
@@ -16,7 +18,7 @@ describe('useKlavierState', () => {
 
   it('should clear initial active notes upon first play', () => {
     const midiNumber = 10;
-    const { result, rerender } = renderHook(() => useKlavierState(initialActiveNotes));
+    const { result, rerender } = renderHook(() => useKlavier(props));
     result.current.actions.playNote(midiNumber);
     rerender();
     expect(result.current.state.activeNotes).toEqual([midiNumber]);
@@ -24,7 +26,7 @@ describe('useKlavierState', () => {
 
   it('should add played note to active notes list', () => {
     const midiNumber = 10;
-    const { result, rerender } = renderHook(() => useKlavierState(initialActiveNotes));
+    const { result, rerender } = renderHook(() => useKlavier(props));
     result.current.actions.playNote(midiNumber);
     rerender();
     expect(result.current.state.activeNotes).toContain(midiNumber);
@@ -32,7 +34,7 @@ describe('useKlavierState', () => {
 
   it('should remove stopped note from active notes list', () => {
     const midiNumber = 10;
-    const { result, rerender } = renderHook(() => useKlavierState(initialActiveNotes));
+    const { result, rerender } = renderHook(() => useKlavier(props));
     result.current.actions.playNote(midiNumber);
     rerender();
     result.current.actions.stopNote(midiNumber);
