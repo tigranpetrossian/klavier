@@ -3,6 +3,7 @@ import { Key } from 'Key.tsx';
 import { range } from 'utils.ts';
 import { isMidiNumber } from 'midi/midi.utils.ts';
 import { useKlavier } from 'useKlavier.ts';
+import { useMouse } from 'useMouse.ts';
 
 export interface KlavierProps {
   noteRange?: [number, number];
@@ -26,39 +27,14 @@ export const Klavier = (props: KlavierProps) => {
     onStopNote,
     onChange,
   });
+
   validateRange(noteRange);
-
-  const handleGlobalMouseUp = () => {
-    setMouseActive(false);
-    window.removeEventListener('mouseup', handleGlobalMouseUp);
-  };
-
-  const handleMouseEvents = (event: React.MouseEvent) => {
-    const dataNumber = event.currentTarget.getAttribute('data-number');
-    if (!dataNumber) {
-      return;
-    }
-    const midiNumber = parseInt(dataNumber);
-
-    switch (event.type) {
-      case 'mousedown':
-        window.addEventListener('mouseup', handleGlobalMouseUp);
-        setMouseActive(true);
-        playNote(midiNumber);
-        break;
-      case 'mouseup':
-      case 'mouseleave':
-        if (state.mouseActive) {
-          stopNote(midiNumber);
-        }
-        break;
-      case 'mouseenter':
-        if (state.mouseActive) {
-          playNote(midiNumber);
-        }
-        break;
-    }
-  };
+  const { handleMouseEvents } = useMouse({
+    mouseActive: state.mouseActive,
+    setMouseActive,
+    playNote,
+    stopNote,
+  });
 
   return (
     <div className={classNames.klavier}>
