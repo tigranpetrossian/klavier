@@ -5,10 +5,12 @@ type UseMouseParams = {
   mouseActive: boolean;
   playNote: (midiNumber: number) => void;
   stopNote: (midiNumber: number) => void;
+  interactive: boolean;
 };
 
 export function useMouse(params: UseMouseParams) {
-  const { mouseActive, setMouseActive, playNote, stopNote } = params;
+  const { mouseActive, setMouseActive, playNote, stopNote, interactive } = params;
+
   const handleGlobalMouseUp = useCallback(() => {
     setMouseActive(false);
     window.removeEventListener('mouseup', handleGlobalMouseUp);
@@ -44,7 +46,9 @@ export function useMouse(params: UseMouseParams) {
     [handleGlobalMouseUp, playNote, stopNote, setMouseActive, mouseActive]
   );
 
-  return {
-    handleMouseEvents,
-  };
+  if (!interactive) {
+    return;
+  }
+
+  return handleMouseEvents;
 }

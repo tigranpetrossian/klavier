@@ -12,10 +12,19 @@ export interface KlavierProps {
   onPlayNote?: (midiNumber: number) => void;
   onStopNote?: (midiNumber: number) => void;
   onChange?: (activeNotes: Array<number>) => void;
+  interactive?: boolean;
 }
 
 export const Klavier = (props: KlavierProps) => {
-  const { defaultActiveNotes, activeNotes, onPlayNote, onStopNote, onChange, noteRange = [21, 108] } = props;
+  const {
+    defaultActiveNotes,
+    activeNotes,
+    onPlayNote,
+    onStopNote,
+    onChange,
+    noteRange = [21, 108],
+    interactive = true,
+  } = props;
   const [first, last] = noteRange;
   const {
     state,
@@ -29,7 +38,9 @@ export const Klavier = (props: KlavierProps) => {
   });
 
   validateRange(noteRange);
-  const { handleMouseEvents } = useMouse({
+
+  const handleMouseEvents = useMouse({
+    interactive,
     mouseActive: state.mouseActive,
     setMouseActive,
     playNote,
