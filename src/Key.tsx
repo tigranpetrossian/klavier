@@ -9,7 +9,7 @@ type Props = {
   active: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const Key = (props: Props) => {
+export const Key = React.memo((props: Props) => {
   const { active, midiNumber, firstNoteMidiNumber, ...htmlAttributes } = props;
   const { keyColor } = midiToNote(midiNumber);
   const position = getKeyPosition(midiNumber, firstNoteMidiNumber);
@@ -21,7 +21,7 @@ export const Key = (props: Props) => {
       {...htmlAttributes}
     />
   );
-};
+});
 
 const classNames = {
   black: styles.blackKey,

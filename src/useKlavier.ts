@@ -1,4 +1,5 @@
-import { useEffect, useReducer, useRef } from 'react';
+import type React from 'react';
+import { useEffect, useReducer, useRef, useCallback } from 'react';
 
 type InternalState = {
   touched: boolean;
@@ -55,28 +56,37 @@ export function useKlavier(props: UseKlavierProps): UseKlavierResult {
     onChange,
   });
 
-  const toggleNote = (midiNumber: number, state: 'ON' | 'OFF') => {
-    const action: Action = {
-      type: `NOTE_${state}`,
-      payload: midiNumber,
-    };
-    lastActionRef.current = action;
-    dispatch(action);
-  };
+  const toggleNote = useCallback(
+    (midiNumber: number, state: 'ON' | 'OFF') => {
+      const action: Action = {
+        type: `NOTE_${state}`,
+        payload: midiNumber,
+      };
+      lastActionRef.current = action;
+      dispatch(action);
+    },
+    [dispatch]
+  );
 
-  const playNote = (midiNumber: number) => {
-    toggleNote(midiNumber, 'ON');
-    onPlayNote?.(midiNumber);
-  };
+  const playNote = useCallback(
+    (midiNumber: number) => {
+      toggleNote(midiNumber, 'ON');
+      onPlayNote?.(midiNumber);
+    },
+    [toggleNote, onPlayNote]
+  );
 
-  const stopNote = (midiNumber: number) => {
-    toggleNote(midiNumber, 'OFF');
-    onStopNote?.(midiNumber);
-  };
+  const stopNote = useCallback(
+    (midiNumber: number) => {
+      toggleNote(midiNumber, 'OFF');
+      onStopNote?.(midiNumber);
+    },
+    [toggleNote, onStopNote]
+  );
 
-  const setMouseActive = (isActive: boolean) => {
+  const setMouseActive = useCallback((isActive: boolean) => {
     dispatch({ type: 'SET_MOUSE_ACTIVE', payload: isActive });
-  };
+  }, []);
 
   return {
     state: getControlledState(state, { activeNotes }),
