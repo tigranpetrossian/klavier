@@ -4,6 +4,9 @@ import { range } from 'utils.ts';
 import { isMidiNumber } from 'midi/midi.utils.ts';
 import { useKlavier } from 'useKlavier.ts';
 import { useMouse } from 'useMouse.ts';
+import { useComputerKeyboard } from 'useComputerKeyboard.ts';
+import type { Keymap } from 'types.ts';
+import { DEFAULT_KEYMAP } from 'keymap.ts';
 
 export interface KlavierProps {
   noteRange?: [number, number];
@@ -13,6 +16,7 @@ export interface KlavierProps {
   onStopNote?: (midiNumber: number) => void;
   onChange?: (activeNotes: Array<number>) => void;
   interactive?: boolean;
+  keyMap?: Keymap;
 }
 
 export const Klavier = (props: KlavierProps) => {
@@ -24,6 +28,7 @@ export const Klavier = (props: KlavierProps) => {
     onChange,
     noteRange = [21, 108],
     interactive = true,
+    keyMap = DEFAULT_KEYMAP,
   } = props;
   const [first, last] = noteRange;
   const {
@@ -39,6 +44,7 @@ export const Klavier = (props: KlavierProps) => {
 
   validateRange(noteRange);
 
+  useComputerKeyboard({ interactive, keyMap, noteRange, playNote, stopNote });
   const handleMouseEvents = useMouse({
     interactive,
     mouseActive: state.mouseActive,

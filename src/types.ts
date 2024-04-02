@@ -4,3 +4,5 @@ export type Note = {
   midiNumber: number;
   octave: number;
 };
+export type KeymapItem = { computerKey: string; midiNumber: number };
+export type Keymap = Array<KeymapItem>;
