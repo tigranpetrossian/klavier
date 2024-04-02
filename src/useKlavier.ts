@@ -3,7 +3,6 @@ import { useEffect, useReducer, useRef, useCallback } from 'react';
 
 type InternalState = {
   touched: boolean;
-  mouseActive: boolean;
   activeNotes: Array<number>;
 };
 
@@ -15,10 +14,6 @@ type Action =
   | {
       type: 'NOTE_OFF';
       payload: number;
-    }
-  | {
-      type: 'SET_MOUSE_ACTIVE';
-      payload: boolean;
     };
 
 export type UseKlavierProps = {
@@ -32,12 +27,10 @@ export type UseKlavierProps = {
 export type UseKlavierResult = {
   state: {
     activeNotes: Array<number>;
-    mouseActive: boolean;
   };
   actions: {
     playNote: (midiNumber: number) => void;
     stopNote: (midiNumber: number) => void;
-    setMouseActive: (active: boolean) => void;
   };
 };
 
@@ -46,7 +39,6 @@ export function useKlavier(props: UseKlavierProps): UseKlavierResult {
   const lastActionRef = useRef<Action | null>(null);
   const [state, dispatch] = useReducer(reducer, {
     touched: false,
-    mouseActive: false,
     activeNotes: activeNotes ?? defaultActiveNotes,
   });
 
@@ -84,16 +76,11 @@ export function useKlavier(props: UseKlavierProps): UseKlavierResult {
     [toggleNote, onStopNote]
   );
 
-  const setMouseActive = useCallback((isActive: boolean) => {
-    dispatch({ type: 'SET_MOUSE_ACTIVE', payload: isActive });
-  }, []);
-
   return {
     state: getControlledState(state, { activeNotes }),
     actions: {
       playNote,
       stopNote,
-      setMouseActive,
     },
   };
 }
@@ -119,12 +106,6 @@ function reducer(state: InternalState, action: Action) {
       return {
         ...state,
         activeNotes: state.activeNotes.filter((note) => note !== action.payload),
-      };
-
-    case 'SET_MOUSE_ACTIVE':
-      return {
-        ...state,
-        mouseActive: action.payload,
       };
 
     default:

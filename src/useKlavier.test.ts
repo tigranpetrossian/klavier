@@ -48,7 +48,6 @@ describe('Given default active notes (uncontrolled mode)', () => {
   it('should correctly initialize with given default active notes', () => {
     expect(result.current.state).toEqual({
       activeNotes: props.defaultActiveNotes,
-      mouseActive: false,
       touched: false,
     });
   });
@@ -119,7 +118,6 @@ describe('Given active notes and no callbacks (controlled mode)', () => {
   it('should correctly initialize with given default active notes', () => {
     expect(result.current.state).toEqual({
       activeNotes: props.activeNotes,
-      mouseActive: false,
       touched: false,
     });
   });

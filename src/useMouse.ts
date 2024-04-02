@@ -1,20 +1,24 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 
 type UseMouseParams = {
-  setMouseActive: (active: boolean) => void;
-  mouseActive: boolean;
   playNote: (midiNumber: number) => void;
   stopNote: (midiNumber: number) => void;
   interactive: boolean;
 };
 
 export function useMouse(params: UseMouseParams) {
-  const { mouseActive, setMouseActive, playNote, stopNote, interactive } = params;
+  const { playNote, stopNote, interactive } = params;
+  // keep handleMouseEvents stable to prevent re-rendering of up to 88 keys
+  // on each mouse interaction by using ref instead of state
+  const isMouseDown = useRef(false);
+  const setMouseDown = useCallback((active: boolean) => {
+    isMouseDown.current = active;
+  }, []);
 
   const handleGlobalMouseUp = useCallback(() => {
-    setMouseActive(false);
+    setMouseDown(false);
     window.removeEventListener('mouseup', handleGlobalMouseUp);
-  }, [setMouseActive]);
+  }, [setMouseDown]);
 
   const handleMouseEvents = useCallback(
     (event: React.MouseEvent) => {
@@ -27,23 +31,23 @@ export function useMouse(params: UseMouseParams) {
       switch (event.type) {
         case 'mousedown':
           window.addEventListener('mouseup', handleGlobalMouseUp);
-          setMouseActive(true);
+          setMouseDown(true);
           playNote(midiNumber);
           break;
         case 'mouseup':
         case 'mouseleave':
-          if (mouseActive) {
+          if (isMouseDown.current) {
             stopNote(midiNumber);
           }
           break;
         case 'mouseenter':
-          if (mouseActive) {
+          if (isMouseDown.current) {
             playNote(midiNumber);
           }
           break;
       }
     },
-    [handleGlobalMouseUp, playNote, stopNote, setMouseActive, mouseActive]
+    [handleGlobalMouseUp, playNote, stopNote, setMouseDown]
   );
 
   if (!interactive) {

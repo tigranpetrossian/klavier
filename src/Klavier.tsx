@@ -33,7 +33,7 @@ export const Klavier = (props: KlavierProps) => {
   const [first, last] = noteRange;
   const {
     state,
-    actions: { playNote, stopNote, setMouseActive },
+    actions: { playNote, stopNote },
   } = useKlavier({
     defaultActiveNotes,
     activeNotes,
@@ -47,8 +47,6 @@ export const Klavier = (props: KlavierProps) => {
   useComputerKeyboard({ interactive, keyMap, noteRange, playNote, stopNote });
   const handleMouseEvents = useMouse({
     interactive,
-    mouseActive: state.mouseActive,
-    setMouseActive,
     playNote,
     stopNote,
   });
