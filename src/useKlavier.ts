@@ -20,7 +20,7 @@ type Action =
       payload: boolean;
     };
 
-type UseKlavierParams = {
+export type UseKlavierProps = {
   defaultActiveNotes?: Array<number>;
   activeNotes?: Array<number>;
   onPlayNote?: (midiNumber: number) => void;
@@ -28,7 +28,7 @@ type UseKlavierParams = {
   onChange?: (activeNotes: Array<number>) => void;
 };
 
-type UseKlavierResult = {
+export type UseKlavierResult = {
   state: {
     activeNotes: Array<number>;
     mouseActive: boolean;
@@ -40,7 +40,7 @@ type UseKlavierResult = {
   };
 };
 
-export function useKlavier(props: UseKlavierParams): UseKlavierResult {
+export function useKlavier(props: UseKlavierProps): UseKlavierResult {
   const { defaultActiveNotes = [], activeNotes, onPlayNote, onStopNote, onChange } = props;
   const lastActionRef = useRef<Action | null>(null);
   const [state, dispatch] = useReducer(reducer, {
