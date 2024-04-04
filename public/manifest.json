@@ -1,0 +1,15 @@
+{
+  "name": "Klavier",
+  "short_name": "Klavier",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Klavier Demo",
+  "icons": [
+    {
+      "src": "images/touch/homescreen48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ]
+}
