@@ -2,6 +2,9 @@
   display: grid;
   gap: 1px;
   position: relative;
+  /* iOS Safari specifically expects -webkit-user-select to disable selection on touch and hold */
+  -webkit-user-select: none;
+  user-select: none;
 
   &,
   & *,
