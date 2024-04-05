@@ -17,7 +17,7 @@ export function useTouch(props: UseTouchProps) {
       event.preventDefault();
       Array.from(event.changedTouches).forEach((addedTouch) => {
         const targetEvaluation = evaluateTarget(addedTouch.clientX, addedTouch.clientY);
-        if (!targetEvaluation.valid) return;
+        if (!targetEvaluation.isValidTarget) return;
         upsertTouchPoint(addedTouch.identifier, targetEvaluation.midiNumber);
         playNote(targetEvaluation.midiNumber);
       });
@@ -29,7 +29,7 @@ export function useTouch(props: UseTouchProps) {
     (event: TouchEvent) => {
       Array.from(event.changedTouches).forEach((removedTouch) => {
         const targetEvaluation = evaluateTarget(removedTouch.clientX, removedTouch.clientY);
-        if (!targetEvaluation.valid) return;
+        if (!targetEvaluation.isValidTarget) return;
 
         removeTouchPoint(removedTouch.identifier);
         if (wasLastTouchOnKey(targetEvaluation.midiNumber, removedTouch.identifier, event.touches)) {
@@ -44,18 +44,18 @@ export function useTouch(props: UseTouchProps) {
     (event: TouchEvent) => {
       Array.from(event.changedTouches).forEach((movedTouch) => {
         const previousMidiNumber = activeTouchPoints[movedTouch.identifier];
-        const newLocation = getMoveLocation(movedTouch, previousMidiNumber);
+        const outcome = getTouchMoveOutcome(movedTouch, previousMidiNumber);
 
-        if (newLocation.type === 'SAME_KEY') {
+        if (outcome.type === 'SAME_KEY') {
           return;
         }
 
-        if (newLocation.type === 'NEW_KEY') {
-          upsertTouchPoint(movedTouch.identifier, newLocation.midiNumber);
-          playNote(newLocation.midiNumber);
+        if (outcome.type === 'NEW_KEY') {
+          upsertTouchPoint(movedTouch.identifier, outcome.midiNumber);
+          playNote(outcome.midiNumber);
         }
 
-        if (newLocation.type === 'OUTSIDE_KEY') {
+        if (outcome.type === 'OUTSIDE_KEY') {
           removeTouchPoint(movedTouch.identifier);
         }
 
@@ -104,19 +104,19 @@ export function useTouch(props: UseTouchProps) {
 
 type TargetEvaluationResult =
   | {
-      valid: true;
+      isValidTarget: true;
       midiNumber: number;
     }
   | {
-      valid: false;
+      isValidTarget: false;
     };
 
 function evaluateTarget(x: number, y: number): TargetEvaluationResult {
   const target = document.elementsFromPoint(x, y).find((element) => element.hasAttribute('data-midi-number'));
 
   return target instanceof HTMLElement && !isNaN(Number(target.dataset.midiNumber))
-    ? { valid: true, midiNumber: Number(target.dataset.midiNumber) }
-    : { valid: false };
+    ? { isValidTarget: true, midiNumber: Number(target.dataset.midiNumber) }
+    : { isValidTarget: false };
 }
 
 function wasLastTouchOnKey(keyMidiNumber: number, identifier: number, touches: TouchList) {
@@ -124,7 +124,7 @@ function wasLastTouchOnKey(keyMidiNumber: number, identifier: number, touches: T
     if (touch.identifier === identifier) return false;
     const evaluation = evaluateTarget(touch.clientX, touch.clientY);
 
-    return evaluation.valid && evaluation.midiNumber === keyMidiNumber;
+    return evaluation.isValidTarget && evaluation.midiNumber === keyMidiNumber;
   });
 
   return remainingTouchesOnKey.length === 0;
@@ -142,10 +142,10 @@ type MoveLocationResult =
       type: 'OUTSIDE_KEY';
     };
 
-function getMoveLocation(touch: Touch, previousMidiNumber: number): MoveLocationResult {
+function getTouchMoveOutcome(touch: Touch, previousMidiNumber: number): MoveLocationResult {
   const targetEvaluation = evaluateTarget(touch.clientX, touch.clientY);
 
-  if (!targetEvaluation.valid) {
+  if (!targetEvaluation.isValidTarget) {
     return {
       type: 'OUTSIDE_KEY',
     };
