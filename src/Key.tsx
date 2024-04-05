@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from 'klavier.module.css';
-import { midiToNote } from 'midi/midi.utils';
+import { midiToNote } from 'utils/midi';
 import type { KeyColor } from 'types';
 
 type Props = {
