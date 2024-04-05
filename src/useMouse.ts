@@ -22,7 +22,7 @@ export function useMouse(params: UseMouseParams) {
 
   const handleMouseEvents = useCallback(
     (event: React.MouseEvent) => {
-      const dataNumber = event.currentTarget.getAttribute('data-number');
+      const dataNumber = event.currentTarget.getAttribute('data-midi-number');
       if (!dataNumber) {
         return;
       }

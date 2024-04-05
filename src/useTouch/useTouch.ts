@@ -112,10 +112,10 @@ type TargetEvaluationResult =
     };
 
 function evaluateTarget(x: number, y: number): TargetEvaluationResult {
-  const target = document.elementsFromPoint(x, y).find((element) => element.hasAttribute('data-number'));
+  const target = document.elementsFromPoint(x, y).find((element) => element.hasAttribute('data-midi-number'));
 
-  return target instanceof HTMLElement && !isNaN(Number(target.dataset.number))
-    ? { valid: true, midiNumber: Number(target.dataset.number) }
+  return target instanceof HTMLElement && !isNaN(Number(target.dataset.midiNumber))
+    ? { valid: true, midiNumber: Number(target.dataset.midiNumber) }
     : { valid: false };
 }
 
