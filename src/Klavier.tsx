@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import classNames from 'klavier.module.css';
 import { Key } from 'Key.tsx';
 import { range } from 'utils.ts';
@@ -7,6 +8,7 @@ import { useMouse } from 'useMouse.ts';
 import { useComputerKeyboard } from 'useComputerKeyboard.ts';
 import type { Keymap } from 'types.ts';
 import { DEFAULT_KEYMAP } from 'keymap.ts';
+import { useTouch } from 'useTouch';
 
 export interface KlavierProps {
   noteRange?: [number, number];
@@ -41,6 +43,7 @@ export const Klavier = (props: KlavierProps) => {
     onStopNote,
     onChange,
   });
+  const klavierRootRef = useRef<HTMLDivElement>(null);
 
   validateRange(noteRange);
 
@@ -50,9 +53,10 @@ export const Klavier = (props: KlavierProps) => {
     playNote,
     stopNote,
   });
+  useTouch({ interactive, klavierRootRef, playNote, stopNote });
 
   return (
-    <div className={classNames.klavier}>
+    <div className={classNames.klavier} ref={klavierRootRef}>
       {range(first, last + 1).map((midiNumber) => (
         <Key
           key={midiNumber}
