@@ -9,7 +9,7 @@ type UseTouchProps = {
 };
 
 export function useTouch(props: UseTouchProps) {
-  const { klavierRootRef, playNote, stopNote } = props;
+  const { klavierRootRef, interactive, playNote, stopNote } = props;
   const { activeTouchPoints, upsertTouchPoint, removeTouchPoint } = useActiveTouchPoints();
 
   const handleTouchStart = useCallback(
@@ -84,6 +84,10 @@ export function useTouch(props: UseTouchProps) {
       return;
     }
 
+    if (!interactive) {
+      return;
+    }
+
     klavierRootElement.addEventListener('touchstart', handleTouchStart);
     klavierRootElement.addEventListener('touchmove', handleTouchMove);
     klavierRootElement.addEventListener('touchend', handleTouchEnd);
@@ -95,7 +99,7 @@ export function useTouch(props: UseTouchProps) {
       klavierRootElement.removeEventListener('touchend', handleTouchEnd);
       klavierRootElement.removeEventListener('touchcancel', handleTouchCancel);
     };
-  }, [klavierRootRef, handleTouchStart, handleTouchEnd, handleTouchMove, handleTouchCancel]);
+  }, [klavierRootRef, interactive, handleTouchStart, handleTouchEnd, handleTouchMove, handleTouchCancel]);
 }
 
 type TargetEvaluationResult =
