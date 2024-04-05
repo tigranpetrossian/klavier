@@ -31,7 +31,6 @@ type Action =
 export function useActiveTouchPoints() {
   const [state, dispatch] = useReducer(reducer, {});
 
-  // TODO: Add useCallback
   const upsertTouchPoint = useCallback(
     (id: Touch['identifier'], midiNumber: number) => {
       dispatch({ type: 'ADD_TOUCH_POINT', payload: { id, midiNumber } });
