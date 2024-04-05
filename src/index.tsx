@@ -1,1 +1,1 @@
-export { Klavier } from 'Klavier.tsx';
+export { Klavier } from 'Klavier';

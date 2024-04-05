@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { renderHook } from '@testing-library/react';
 import type { RenderHookResult } from '@testing-library/react';
-import type { UseKlavierProps, UseKlavierResult } from 'useKlavier.ts';
-import { useKlavier } from 'useKlavier.ts';
+import type { UseKlavierProps, UseKlavierResult } from 'useKlavier';
+import { useKlavier } from 'useKlavier';
 
 describe('Given no parameters (uncontrolled mode)', () => {
   const props = {};

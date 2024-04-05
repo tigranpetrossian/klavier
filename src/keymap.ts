@@ -1,4 +1,4 @@
-import type { Keymap } from 'types.ts';
+import type { Keymap } from 'types';
 
 export const TOP_ROW: Keymap = [
   { computerKey: 'q', midiNumber: 60 },

@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import type { Keymap } from 'types.ts';
+import type { Keymap } from 'types';
 
 type UseComputerKeyboardProps = {
   interactive: boolean;

@@ -1,13 +1,13 @@
 import { useRef } from 'react';
-import { DEFAULT_KEYMAP } from 'keymap.ts';
+import { DEFAULT_KEYMAP } from 'keymap';
 import classNames from 'klavier.module.css';
-import type { Keymap } from 'types.ts';
-import { Key } from 'Key.tsx';
-import { range } from 'utils.ts';
-import { isMidiNumber } from 'midi/midi.utils.ts';
-import { useKlavier } from 'useKlavier.ts';
-import { useMouse } from 'interactivity/useMouse.ts';
-import { useComputerKeyboard } from 'interactivity/useComputerKeyboard.ts';
+import type { Keymap } from 'types';
+import { Key } from 'Key';
+import { range } from 'utils';
+import { isMidiNumber } from 'midi/midi.utils';
+import { useKlavier } from 'useKlavier';
+import { useMouse } from 'interactivity/useMouse';
+import { useComputerKeyboard } from 'interactivity/useComputerKeyboard';
 import { useTouch } from 'interactivity/useTouch';
 
 export interface KlavierProps {

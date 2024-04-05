@@ -1,11 +1,11 @@
-import type { Note } from 'types.ts';
+import type { Note } from 'types';
 import {
   BLACK_KEY_MIDI_NUMBERS,
   MAX_MIDI_NUMBER,
   MIDI_NUMBER_C0,
   MIN_MIDI_NUMBER,
   OCTAVE_LENGTH,
-} from './midi.constants.ts';
+} from './midi.constants';
 
 export function midiToNote(midiNumber: number): Note {
   if (!isMidiNumber(midiNumber)) {

@@ -1,1 +1,1 @@
-export * from './useTouch.ts';
+export * from './useTouch';

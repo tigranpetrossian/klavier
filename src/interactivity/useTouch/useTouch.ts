@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useActiveTouchPoints } from './useActiveTouchPoints.ts';
+import { useActiveTouchPoints } from './useActiveTouchPoints';
 
 type UseTouchProps = {
   klavierRootRef: React.RefObject<HTMLDivElement>;
