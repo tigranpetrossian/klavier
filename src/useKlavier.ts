@@ -113,14 +113,14 @@ function reducer(state: InternalState, action: Action) {
   }
 }
 
-type UseStateChangeDetectionParams = {
+type UseStateChangeDetectionProps = {
   lastActionRef: React.MutableRefObject<Action | null>;
   onChange?: (activeNotes: Array<number>) => void;
   activeNotes: Array<number>;
 };
 
-function useActiveNotesChangeDetection(params: UseStateChangeDetectionParams) {
-  const { activeNotes, lastActionRef, onChange } = params;
+function useActiveNotesChangeDetection(props: UseStateChangeDetectionProps) {
+  const { activeNotes, lastActionRef, onChange } = props;
 
   useEffect(() => {
     if (!lastActionRef.current) {

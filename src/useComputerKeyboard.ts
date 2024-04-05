@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import type { Keymap } from 'types.ts';
 
-type UseComputerKeyboardParams = {
+type UseComputerKeyboardProps = {
   interactive: boolean;
   playNote: (midiNumber: number) => void;
   stopNote: (midiNumber: number) => void;
@@ -9,8 +9,8 @@ type UseComputerKeyboardParams = {
   keyMap: Keymap;
 };
 
-export function useComputerKeyboard(params: UseComputerKeyboardParams) {
-  const { interactive, playNote, stopNote, keyMap, noteRange } = params;
+export function useComputerKeyboard(props: UseComputerKeyboardProps) {
+  const { interactive, playNote, stopNote, keyMap, noteRange } = props;
 
   const handleKeyboardEvents = useCallback(
     (event: KeyboardEvent) => {
