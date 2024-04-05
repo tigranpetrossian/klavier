@@ -33,7 +33,6 @@ export function useTouch(props: UseTouchProps) {
 
         removeTouchPoint(removedTouch.identifier);
         if (wasLastTouchOnKey(targetEvaluation.midiNumber, removedTouch.identifier, event.touches)) {
-          console.log('last touch');
           stopNote(targetEvaluation.midiNumber);
         }
       });
@@ -117,7 +116,6 @@ function evaluateTarget(x: number, y: number): TargetEvaluationResult {
 }
 
 function wasLastTouchOnKey(keyMidiNumber: number, identifier: number, touches: TouchList) {
-  console.log(touches);
   const remainingTouchesOnKey = Array.from(touches).filter((touch) => {
     if (touch.identifier === identifier) return false;
     const evaluation = evaluateTarget(touch.clientX, touch.clientY);
