@@ -63,7 +63,6 @@ export const Klavier = (props: KlavierProps) => {
           midiNumber={midiNumber}
           firstNoteMidiNumber={first}
           active={state.activeNotes.includes(midiNumber)}
-          data-midi-number={midiNumber}
           onMouseDown={handleMouseEvents}
           onMouseUp={handleMouseEvents}
           onMouseLeave={handleMouseEvents}

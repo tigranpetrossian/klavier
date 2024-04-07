@@ -18,6 +18,7 @@ export const Key = React.memo((props: Props) => {
     <div
       className={buildClassName(keyColor, active)}
       style={{ '--grid-column-start': position } as React.CSSProperties}
+      data-midi-number={midiNumber}
       {...htmlAttributes}
     />
   );
