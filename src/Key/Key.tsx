@@ -1,22 +1,23 @@
 import React from 'react';
-import styles from 'klavier.module.css';
 import { midiToNote } from 'utils/midi';
-import type { KeyColor } from 'types';
+import { BlackKey } from './BlackKey';
+import { WhiteKey } from './WhiteKey';
 
-type Props = {
+export type KeyProps = {
   midiNumber: number;
   firstNoteMidiNumber: number;
   active: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const Key = React.memo((props: Props) => {
+export const Key = React.memo((props: KeyProps) => {
   const { active, midiNumber, firstNoteMidiNumber, ...htmlAttributes } = props;
   const { keyColor } = midiToNote(midiNumber);
   const position = getKeyPosition(midiNumber, firstNoteMidiNumber);
+  const Component = components[keyColor];
 
   return (
-    <div
-      className={buildClassName(keyColor, active)}
+    <Component
+      active={active}
       style={{ '--grid-column-start': position } as React.CSSProperties}
       data-midi-number={midiNumber}
       {...htmlAttributes}
@@ -24,15 +25,10 @@ export const Key = React.memo((props: Props) => {
   );
 });
 
-const classNames = {
-  black: styles.blackKey,
-  white: styles.whiteKey,
+const components = {
+  black: BlackKey,
+  white: WhiteKey,
 };
-
-function buildClassName(color: KeyColor, active: boolean) {
-  const baseClass = classNames[color];
-  return active ? `${baseClass} active` : baseClass;
-}
 
 // The keyboard is laid out on a horizontal CSS grid.
 // Position represents a starting column: `grid-column-start` in CSS terms.
