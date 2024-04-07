@@ -1,1 +1,1 @@
-export { Klavier } from 'Klavier';
+export { Klavier } from 'components/Klavier';

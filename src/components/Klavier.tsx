@@ -4,7 +4,7 @@ import type { CSSProperties, Keymap, KlavierKeyProps } from 'types';
 import { Key } from 'components/Key';
 import { range } from 'utils/range';
 import { isMidiNumber } from 'utils/midi';
-import { useKlavier } from 'useKlavier';
+import { useKlavier } from 'state/useKlavier';
 import { useMouse } from 'interactivity/useMouse';
 import { useKeyboard } from 'interactivity/useKeyboard';
 import { useTouch } from 'interactivity/useTouch';
