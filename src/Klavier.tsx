@@ -1,7 +1,6 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { DEFAULT_KEYMAP } from 'keymap';
-import classNames from 'klavier.module.css';
-import type { Keymap } from 'types';
+import type { CSSProperties, Keymap, KlavierKeyProps } from 'types';
 import { Key } from 'Key';
 import { range } from 'utils/range';
 import { isMidiNumber } from 'utils/midi';
@@ -9,6 +8,7 @@ import { useKlavier } from 'useKlavier';
 import { useMouse } from 'interactivity/useMouse';
 import { useComputerKeyboard } from 'interactivity/useComputerKeyboard';
 import { useTouch } from 'interactivity/useTouch';
+import { flat } from 'presets';
 
 export interface KlavierProps {
   noteRange?: [number, number];
@@ -19,9 +19,14 @@ export interface KlavierProps {
   onChange?: (activeNotes: Array<number>) => void;
   interactive?: boolean;
   keyMap?: Keymap;
+  components?: {
+    blackKey: React.ComponentType<KlavierKeyProps>;
+    whiteKey: React.ComponentType<KlavierKeyProps>;
+  };
 }
 
 export const Klavier = (props: KlavierProps) => {
+  const klavierRootRef = useRef<HTMLDivElement>(null);
   const {
     defaultActiveNotes,
     activeNotes,
@@ -31,6 +36,7 @@ export const Klavier = (props: KlavierProps) => {
     noteRange = [21, 108],
     interactive = true,
     keyMap = DEFAULT_KEYMAP,
+    components = flat,
   } = props;
   const [first, last] = noteRange;
   const {
@@ -43,7 +49,6 @@ export const Klavier = (props: KlavierProps) => {
     onStopNote,
     onChange,
   });
-  const klavierRootRef = useRef<HTMLDivElement>(null);
 
   validateRange(noteRange);
 
@@ -56,7 +61,7 @@ export const Klavier = (props: KlavierProps) => {
   useTouch({ interactive, klavierRootRef, playNote, stopNote });
 
   return (
-    <div className={classNames.klavier} ref={klavierRootRef}>
+    <div style={style} ref={klavierRootRef}>
       {range(first, last + 1).map((midiNumber) => (
         <Key
           key={midiNumber}
@@ -67,10 +72,19 @@ export const Klavier = (props: KlavierProps) => {
           onMouseUp={handleMouseEvents}
           onMouseLeave={handleMouseEvents}
           onMouseEnter={handleMouseEvents}
+          components={components}
         />
       ))}
     </div>
   );
+};
+
+const style: CSSProperties = {
+  display: 'grid',
+  gap: '1px',
+  position: 'relative',
+  WebkitUserSelect: 'none',
+  userSelect: 'none',
 };
 
 const ERRORS = {

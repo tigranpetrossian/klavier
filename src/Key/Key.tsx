@@ -1,34 +1,57 @@
 import React from 'react';
 import { midiToNote } from 'utils/midi';
-import { BlackKey } from './BlackKey';
-import { WhiteKey } from './WhiteKey';
+import type { CSSProperties, KeyColor, KlavierKeyProps } from 'types';
 
 export type KeyProps = {
   midiNumber: number;
   firstNoteMidiNumber: number;
+  components: {
+    blackKey: React.ComponentType<KlavierKeyProps>;
+    whiteKey: React.ComponentType<KlavierKeyProps>;
+  };
   active: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export const Key = React.memo((props: KeyProps) => {
-  const { active, midiNumber, firstNoteMidiNumber, ...htmlAttributes } = props;
+  const { active, midiNumber, firstNoteMidiNumber, components, ...htmlAttributes } = props;
   const { keyColor } = midiToNote(midiNumber);
   const position = getKeyPosition(midiNumber, firstNoteMidiNumber);
-  const Component = components[keyColor];
+  const Component = getKeyComponent(components, keyColor);
 
   return (
     <Component
       active={active}
-      style={{ '--grid-column-start': position } as React.CSSProperties}
+      style={
+        {
+          ...layoutStyles[keyColor],
+          '--grid-column-start': position,
+        } as CSSProperties
+      }
       data-midi-number={midiNumber}
       {...htmlAttributes}
     />
   );
 });
 
-const components = {
-  black: BlackKey,
-  white: WhiteKey,
+const layoutStyles = {
+  black: {
+    boxSizing: 'borderBox',
+    position: 'relative',
+    aspectRatio: '15 / 100',
+    gridColumn: 'var(--grid-column-start) / span 8',
+    gridRow: '1 / span 1',
+  },
+  white: {
+    boxSizing: 'borderBox',
+    aspectRatio: '23 / 150',
+    gridColumn: 'var(--grid-column-start) / span 12',
+    gridRow: '1 / span 1',
+  },
 };
+
+function getKeyComponent(components: KeyProps['components'], color: KeyColor) {
+  return components[`${color}Key`];
+}
 
 // The keyboard is laid out on a horizontal CSS grid.
 // Position represents a starting column: `grid-column-start` in CSS terms.
