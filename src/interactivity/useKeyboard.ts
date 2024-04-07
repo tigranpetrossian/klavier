@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import type { Keymap } from 'types';
 
-type UseComputerKeyboardProps = {
+type UseKeyboardProps = {
   interactive: boolean;
   playNote: (midiNumber: number) => void;
   stopNote: (midiNumber: number) => void;
@@ -9,7 +9,7 @@ type UseComputerKeyboardProps = {
   keyMap: Keymap;
 };
 
-export function useComputerKeyboard(props: UseComputerKeyboardProps) {
+export function useKeyboard(props: UseKeyboardProps) {
   const { interactive, playNote, stopNote, keyMap, noteRange } = props;
 
   const handleKeyboardEvents = useCallback(
@@ -19,7 +19,7 @@ export function useComputerKeyboard(props: UseComputerKeyboardProps) {
         keyup: stopNote,
       };
       if (!isValidEvent(event)) return;
-      const midiNumber = getMidiNumber(event.key, keyMap);
+      const midiNumber = getMidiNumberForKey(event.key, keyMap);
       if (!isValidMidiNumber(midiNumber, noteRange)) return;
       actionMap[event.type](midiNumber);
     },
@@ -43,8 +43,8 @@ function isValidEvent(event: KeyboardEvent): event is KeyboardEvent & { type: 'k
   return !(event.metaKey || event.altKey || event.shiftKey) && ['keyup', 'keydown'].includes(event.type);
 }
 
-function getMidiNumber(key: string, map: Keymap) {
-  return map.find((item) => item.computerKey === key)?.midiNumber;
+function getMidiNumberForKey(key: string, map: Keymap) {
+  return map.find((item) => item.key === key)?.midiNumber;
 }
 
 function isValidMidiNumber(midiNumber: number | undefined, range: [number, number]): midiNumber is number {

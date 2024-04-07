@@ -6,7 +6,7 @@ import { range } from 'utils/range';
 import { isMidiNumber } from 'utils/midi';
 import { useKlavier } from 'useKlavier';
 import { useMouse } from 'interactivity/useMouse';
-import { useComputerKeyboard } from 'interactivity/useComputerKeyboard';
+import { useKeyboard } from 'interactivity/useKeyboard';
 import { useTouch } from 'interactivity/useTouch';
 import { flat } from 'presets';
 
@@ -52,7 +52,7 @@ export const Klavier = (props: KlavierProps) => {
 
   validateRange(noteRange);
 
-  useComputerKeyboard({ interactive, keyMap, noteRange, playNote, stopNote });
+  useKeyboard({ interactive, keyMap, noteRange, playNote, stopNote });
   const handleMouseEvents = useMouse({
     interactive,
     playNote,
