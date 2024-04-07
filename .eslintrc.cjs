@@ -30,11 +30,14 @@ module.exports = {
     // https://typescript-eslint.io/docs/linting/troubleshooting#eslint-plugin-import
 
     //'import/no-cycle': 'error', // Extremely useful, yet extremely slow to keep enabled. Worth occasionally enabling locally for finding & removing circular imports.
+    'import/no-default-export': 'error',
     'import/no-unresolved': 'error',
     'import/no-self-import': 'error',
     'import/no-relative-packages': 'error',
     'import/no-duplicates': 'error',
     'import/no-mutable-exports': 'error',
+    'import/exports-last': 'error',
+
     'import/order': [
       'error',
       {

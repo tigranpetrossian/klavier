@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { DEFAULT_KEYMAP } from 'keymap';
 import type { CSSProperties, Keymap, KlavierKeyProps } from 'types';
-import { Key } from 'Key';
+import { Key } from 'components/Key';
 import { range } from 'utils/range';
 import { isMidiNumber } from 'utils/midi';
 import { useKlavier } from 'useKlavier';
@@ -10,7 +10,7 @@ import { useKeyboard } from 'interactivity/useKeyboard';
 import { useTouch } from 'interactivity/useTouch';
 import { flat } from 'presets';
 
-export interface KlavierProps {
+interface KlavierProps {
   noteRange?: [number, number];
   defaultActiveNotes?: Array<number>;
   activeNotes?: Array<number>;
@@ -25,7 +25,7 @@ export interface KlavierProps {
   };
 }
 
-export const Klavier = (props: KlavierProps) => {
+const Klavier = (props: KlavierProps) => {
   const klavierRootRef = useRef<HTMLDivElement>(null);
   const {
     defaultActiveNotes,
@@ -103,3 +103,6 @@ function validateRange([first, last]: [number, number]) {
     throw new Error(`${ERRORS.INVALID_RANGE_ORDER} ${receivedRangeDisplay}`);
   }
 }
+
+export type { KlavierProps };
+export { Klavier };

@@ -8,7 +8,7 @@ type UseTouchProps = {
   stopNote: (midiNumber: number) => void;
 };
 
-export function useTouch(props: UseTouchProps) {
+function useTouch(props: UseTouchProps) {
   const { klavierRootRef, interactive, playNote, stopNote } = props;
   const { activeTouchPoints, upsertTouchPoint, removeTouchPoint } = useActiveTouchPoints();
 
@@ -162,3 +162,5 @@ function getTouchMoveOutcome(touch: Touch, previousMidiNumber: number): MoveLoca
     midiNumber: targetEvaluation.midiNumber,
   };
 }
+
+export { useTouch };

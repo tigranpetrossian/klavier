@@ -6,6 +6,7 @@ import postCssNesting from 'postcss-nesting';
 import mkcert from 'vite-plugin-mkcert';
 import { resolve } from 'path';
 
+// eslint-disable-next-line import/no-default-export
 export default defineConfig({
   plugins: [mkcert(), tsconfigPaths(), react()],
 

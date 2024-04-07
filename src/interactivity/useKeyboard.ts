@@ -9,7 +9,7 @@ type UseKeyboardProps = {
   keyMap: Keymap;
 };
 
-export function useKeyboard(props: UseKeyboardProps) {
+function useKeyboard(props: UseKeyboardProps) {
   const { interactive, playNote, stopNote, keyMap, noteRange } = props;
 
   const handleKeyboardEvents = useCallback(
@@ -50,3 +50,5 @@ function getMidiNumberForKey(key: string, map: Keymap) {
 function isValidMidiNumber(midiNumber: number | undefined, range: [number, number]): midiNumber is number {
   return typeof midiNumber === 'number' && midiNumber >= range[0] && midiNumber <= range[1];
 }
+
+export { useKeyboard };

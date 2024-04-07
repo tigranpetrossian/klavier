@@ -28,7 +28,7 @@ type Action =
       };
     };
 
-export function useActiveTouchPoints() {
+function useActiveTouchPoints() {
   const [state, dispatch] = useReducer(reducer, {});
 
   const upsertTouchPoint = useCallback(
@@ -75,3 +75,5 @@ function reducer(state: State, action: Action): State {
       return state;
   }
 }
+
+export { useActiveTouchPoints };

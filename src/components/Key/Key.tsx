@@ -2,7 +2,7 @@ import React from 'react';
 import { midiToNote } from 'utils/midi';
 import type { CSSProperties, KeyColor, KlavierKeyProps } from 'types';
 
-export type KeyProps = {
+type KeyProps = {
   midiNumber: number;
   firstNoteMidiNumber: number;
   components: {
@@ -12,7 +12,7 @@ export type KeyProps = {
   active: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const Key = React.memo((props: KeyProps) => {
+const Key = React.memo((props: KeyProps) => {
   const { active, midiNumber, firstNoteMidiNumber, components, ...htmlAttributes } = props;
   const { keyColor } = midiToNote(midiNumber);
   const position = getKeyPosition(midiNumber, firstNoteMidiNumber);
@@ -68,3 +68,6 @@ function getAbsoluteKeyPosition(midiNumber: number) {
 function getKeyPosition(midiNumber: number, firstNoteMidiNumber: number) {
   return getAbsoluteKeyPosition(midiNumber) - getAbsoluteKeyPosition(firstNoteMidiNumber) + 1;
 }
+
+export type { KeyProps };
+export { Key };
