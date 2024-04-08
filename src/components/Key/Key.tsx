@@ -35,13 +35,15 @@ const Key = React.memo((props: KeyProps) => {
 
 const layoutStyles = {
   black: {
-    boxSizing: 'borderBox',
     position: 'relative',
+    zIndex: 1,
+    boxSizing: 'borderBox',
     aspectRatio: '15 / 100',
     gridColumn: 'var(--grid-column-start) / span 8',
     gridRow: '1 / span 1',
   },
   white: {
+    position: 'relative',
     boxSizing: 'borderBox',
     aspectRatio: '23 / 150',
     gridColumn: 'var(--grid-column-start) / span 12',

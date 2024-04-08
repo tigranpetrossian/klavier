@@ -1,0 +1,24 @@
+.klavier-realistic-key-white.active:first-child > .klavier-realistic-key-svg g,
+.klavier-realistic-key-white:not(.active) + .klavier-realistic-key-white.active > .klavier-realistic-key-svg g,
+.klavier-realistic-key-white:not(.active)
+  + .klavier-realistic-key-black
+  + .klavier-realistic-key-white.active
+  > .klavier-realistic-key-svg
+  g {
+  filter: url('#white-key-active-shadow');
+}
+
+.klavier-realistic-key-white > .klavier-realistic-key-svg,
+.klavier-realistic-key-black > .klavier-realistic-key-svg {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/*
+1. Unmounting/mounting children elements often causes "mouseleave" not to fire:
+   https://github.com/facebook/react/issues/20483#issuecomment-1670926431
+*/
