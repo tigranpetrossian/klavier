@@ -2,7 +2,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import postCssNesting from 'postcss-nesting';
 import mkcert from 'vite-plugin-mkcert';
 import { resolve } from 'path';
 
@@ -24,11 +23,6 @@ export default defineConfig({
           'react-dom': 'ReactDOM',
         },
       },
-    },
-  },
-  css: {
-    postcss: {
-      plugins: [postCssNesting()],
     },
   },
   test: {
