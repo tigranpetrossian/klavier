@@ -1,5 +1,6 @@
 {
   "name": "klavier",
+  "description": "A lightweight, customizable, interactive piano library built with React.",
   "version": "0.1.0",
   "license": "MIT",
   "repository": {
@@ -7,11 +8,10 @@
     "url": "https://github.com/tigranpetrossian/klavier"
   },
   "type": "module",
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/klavier.umd.cjs",
-  "module": "./dist/klavier.js",
+  "files": ["dist"],
+  "main": "dist/klavier.umd.cjs",
+  "module": "dist/klavier.js",
+  "typings": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/klavier.umd.cjs",
