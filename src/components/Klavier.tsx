@@ -11,18 +11,83 @@ import { useTouch } from 'interactivity/useTouch';
 import { flat } from 'presets';
 
 interface KlavierProps {
+  /**
+   * The lowest and the highest notes of the piano in MIDI numbers (0-127).
+   * @defaultValue [21, 108]
+   */
   noteRange?: [number, number];
+
+  /**
+   * Notes that are pressed by default. Subsequent updates are ignored. Cleared when the user begins playing.
+   */
   defaultActiveNotes?: Array<number>;
+
+  /**
+   * Currently pressed notes. Puts component into controlled mode; active notes must be managed externally via callbacks.
+   */
   activeNotes?: Array<number>;
+
+  /**
+   * Fired when a note is played.
+   */
   onPlayNote?: (midiNumber: number) => void;
+
+  /**
+   * Fired when a note is stopped.
+   */
   onStopNote?: (midiNumber: number) => void;
+
+  /**
+   * Fired when active notes are changed via user input.
+   */
   onChange?: (activeNotes: Array<number>) => void;
+
+  /**
+   * Enable interaction with the piano via keyboard, mouse, or touch.
+   * @defaultValue true
+   */
   interactive?: boolean;
+
+  /*
+   * Mapping of computer keys to MIDI note numbers.
+   * @example [{ key: 'q', midiNumber: 60 }, ..., { key: 'i', midiNumber: 72 }]
+   */
   keyMap?: Keymap;
+
+  /**
+   * Width of the piano. Accepts any valid CSS value. When unspecified, the piano fills it's container and is responsive.
+   * @defaultValue 'auto'
+   *
+   */
   width?: React.CSSProperties['width'];
+
+  /**
+   * Height of the piano. Accepts any valid CSS value.
+   * @defaultValue 'auto'
+   */
   height?: React.CSSProperties['height'];
+
+  /**
+   * Aspect ratio of the white key in CSS format. Ignored when `height` is specified.
+   * @defaultValue '23 / 150'
+   */
   whiteKeyAspectRatio?: React.CSSProperties['aspectRatio'];
+
+  /**
+   * Height of the black key. Allows tweaking the appearance of black keys in relation to white keys.
+   * @defaultValue '67.5%'
+   */
   blackKeyHeight?: React.CSSProperties['height'];
+
+  /**
+   * Allows replacing default components for black and white keys. Provided with `props` which needs to be spread onto
+   * custom components root.
+   * Important: avoid defining components directly in the prop object, as it can cause performance issues.
+   * @example:
+   * const CustomBlackKey = ({ ...props }) => { return <div {...props} /> }
+   * const CustomWhiteKey = ({ ...props }) => { return <div {...props} /> }
+   * <Klavier components={{ blackKey: CustomBlackKey, whiteKey: CustomWhiteKey }} />
+   */
   components?: {
     blackKey: React.ComponentType<KlavierKeyProps>;
     whiteKey: React.ComponentType<KlavierKeyProps>;
