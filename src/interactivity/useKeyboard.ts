@@ -1,12 +1,12 @@
 import { useCallback, useEffect } from 'react';
-import type { Keymap } from 'types';
+import type { KlavierKeymap } from 'types';
 
 type UseKeyboardProps = {
   interactive: boolean;
   playNote: (midiNumber: number) => void;
   stopNote: (midiNumber: number) => void;
   noteRange: [number, number];
-  keyMap: Keymap;
+  keyMap: KlavierKeymap;
 };
 
 function useKeyboard(props: UseKeyboardProps) {
@@ -43,7 +43,7 @@ function isValidEvent(event: KeyboardEvent): event is KeyboardEvent & { type: 'k
   return !(event.metaKey || event.altKey || event.shiftKey) && ['keyup', 'keydown'].includes(event.type);
 }
 
-function getMidiNumberForKey(key: string, map: Keymap) {
+function getMidiNumberForKey(key: string, map: KlavierKeymap) {
   return map.find((item) => item.key === key)?.midiNumber;
 }
 

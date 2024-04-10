@@ -1,6 +1,6 @@
-import type { KeyColor, KlavierKeyProps } from 'types';
+import type { KeyColor, KlavierKeyInnerProps } from 'types';
 
-const WhiteKey = (props: KlavierKeyProps) => {
+const WhiteKey = (props: KlavierKeyInnerProps) => {
   const { style, active, ...other } = props;
   const className = buildClassName('white', active);
   const state = active ? 'active' : 'default';
@@ -21,7 +21,7 @@ const WhiteKey = (props: KlavierKeyProps) => {
   );
 };
 
-const BlackKey = (props: KlavierKeyProps) => {
+const BlackKey = (props: KlavierKeyInnerProps) => {
   const { style, active, ...other } = props;
   const className = buildClassName('black', active);
   const state = active ? 'active' : 'default';

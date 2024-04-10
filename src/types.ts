@@ -6,9 +6,9 @@ export type Note = {
   midiNumber: number;
   octave: number;
 };
-export type KeymapItem = { key: string; midiNumber: number };
-export type Keymap = Array<KeymapItem>;
-export type KlavierKeyProps = {
+export type KlavierKeymapItem = { key: string; midiNumber: number };
+export type KlavierKeymap = Array<KlavierKeymapItem>;
+export type KlavierKeyInnerProps = {
   active: boolean;
 } & React.HTMLAttributes<HTMLElement>;
 export interface CSSProperties extends React.CSSProperties {

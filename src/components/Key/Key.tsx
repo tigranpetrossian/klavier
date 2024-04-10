@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import { midiToNote } from 'utils/midi';
-import type { CSSProperties, KeyColor, KlavierKeyProps } from 'types';
+import type { CSSProperties, KeyColor, KlavierKeyInnerProps } from 'types';
 
 type KeyProps = {
   midiNumber: number;
   firstNoteMidiNumber: number;
   components: {
-    blackKey: React.ComponentType<KlavierKeyProps>;
-    whiteKey: React.ComponentType<KlavierKeyProps>;
+    blackKey: React.ComponentType<KlavierKeyInnerProps>;
+    whiteKey: React.ComponentType<KlavierKeyInnerProps>;
   };
   whiteKeyAspectRatio?: React.CSSProperties['aspectRatio'];
   blackKeyHeight?: React.CSSProperties['height'];
