@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { DEFAULT_KEYMAP } from 'keymap';
 import type { CSSProperties, Keymap, KlavierKeyProps } from 'types';
 import { Key } from 'components/Key';
@@ -19,6 +19,10 @@ interface KlavierProps {
   onChange?: (activeNotes: Array<number>) => void;
   interactive?: boolean;
   keyMap?: Keymap;
+  width?: React.CSSProperties['width'];
+  height?: React.CSSProperties['height'];
+  whiteKeyAspectRatio?: React.CSSProperties['aspectRatio'];
+  blackKeyHeight?: React.CSSProperties['height'];
   components?: {
     blackKey: React.ComponentType<KlavierKeyProps>;
     whiteKey: React.ComponentType<KlavierKeyProps>;
@@ -36,6 +40,10 @@ const Klavier = (props: KlavierProps) => {
     noteRange = [21, 108],
     interactive = true,
     keyMap = DEFAULT_KEYMAP,
+    width,
+    height,
+    whiteKeyAspectRatio,
+    blackKeyHeight,
     components = flat,
   } = props;
   const [first, last] = noteRange;
@@ -49,6 +57,7 @@ const Klavier = (props: KlavierProps) => {
     onStopNote,
     onChange,
   });
+  const rootStyles = useMemo(() => getRootStyles(width, height), [width, height]);
 
   validateRange(noteRange);
 
@@ -57,7 +66,7 @@ const Klavier = (props: KlavierProps) => {
   useTouch({ interactive, klavierRootRef, playNote, stopNote });
 
   return (
-    <div style={style} ref={klavierRootRef}>
+    <div style={rootStyles} ref={klavierRootRef}>
       {range(first, last + 1).map((midiNumber) => (
         <Key
           key={midiNumber}
@@ -68,6 +77,9 @@ const Klavier = (props: KlavierProps) => {
           onMouseUp={handleMouseEvents}
           onMouseLeave={handleMouseEvents}
           onMouseEnter={handleMouseEvents}
+          isFixedHeight={height !== undefined}
+          whiteKeyAspectRatio={whiteKeyAspectRatio}
+          blackKeyHeight={blackKeyHeight}
           components={components}
         />
       ))}
@@ -75,13 +87,15 @@ const Klavier = (props: KlavierProps) => {
   );
 };
 
-const style: CSSProperties = {
+const getRootStyles = (width: React.CSSProperties['width'], height: React.CSSProperties['height']): CSSProperties => ({
   display: 'grid',
   gap: '1px',
   position: 'relative',
   WebkitUserSelect: 'none',
   userSelect: 'none',
-};
+  width,
+  height,
+});
 
 const ERRORS = {
   INVALID_MIDI_VALUES: 'Note range must be within valid MIDI numbers (0-127).',

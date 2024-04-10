@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { midiToNote } from 'utils/midi';
 import type { CSSProperties, KeyColor, KlavierKeyProps } from 'types';
 
@@ -9,47 +9,67 @@ type KeyProps = {
     blackKey: React.ComponentType<KlavierKeyProps>;
     whiteKey: React.ComponentType<KlavierKeyProps>;
   };
+  whiteKeyAspectRatio?: React.CSSProperties['aspectRatio'];
+  blackKeyHeight?: React.CSSProperties['height'];
+  isFixedHeight: boolean;
   active: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const Key = React.memo((props: KeyProps) => {
-  const { active, midiNumber, firstNoteMidiNumber, components, ...htmlAttributes } = props;
+  const {
+    active,
+    midiNumber,
+    firstNoteMidiNumber,
+    whiteKeyAspectRatio,
+    blackKeyHeight,
+    isFixedHeight,
+    components,
+    ...htmlAttributes
+  } = props;
   const { keyColor } = midiToNote(midiNumber);
-  const position = getKeyPosition(midiNumber, firstNoteMidiNumber);
   const Component = getKeyComponent(components, keyColor);
-
-  return (
-    <Component
-      active={active}
-      style={
-        {
-          ...layoutStyles[keyColor],
-          '--grid-column-start': position,
-        } as CSSProperties
-      }
-      data-midi-number={midiNumber}
-      {...htmlAttributes}
-    />
+  const styles = useMemo(
+    () => getKeyStyles(midiNumber, firstNoteMidiNumber, isFixedHeight, whiteKeyAspectRatio, blackKeyHeight),
+    [midiNumber, firstNoteMidiNumber, isFixedHeight, whiteKeyAspectRatio, blackKeyHeight]
   );
+
+  return <Component active={active} style={styles} data-midi-number={midiNumber} {...htmlAttributes} />;
 });
 
-const layoutStyles = {
-  black: {
-    position: 'relative',
-    zIndex: 1,
-    boxSizing: 'borderBox',
-    aspectRatio: '15 / 100',
-    gridColumn: 'var(--grid-column-start) / span 8',
-    gridRow: '1 / span 1',
-  },
-  white: {
-    position: 'relative',
-    boxSizing: 'borderBox',
-    aspectRatio: '23 / 150',
-    gridColumn: 'var(--grid-column-start) / span 12',
-    gridRow: '1 / span 1',
-  },
-};
+const DEFAULT_WHITE_KEY_ASPECT_RATIO = '23 / 150';
+const DEFAULT_BLACK_KEY_HEIGHT = '67.5%';
+const WHITE_KEY_COLUMN_SPAN = 12;
+const BLACK_KEY_COLUMN_SPAN = 8;
+
+function getKeyStyles(
+  midiNumber: number,
+  firstNoteMidiNumber: number,
+  isFixedHeight: boolean,
+  whiteKeyAspectRatio: React.CSSProperties['aspectRatio'] = DEFAULT_WHITE_KEY_ASPECT_RATIO,
+  blackKeyHeight: React.CSSProperties['height'] = DEFAULT_BLACK_KEY_HEIGHT
+): CSSProperties {
+  const position = getKeyPosition(midiNumber, firstNoteMidiNumber);
+  const { keyColor } = midiToNote(midiNumber);
+  switch (keyColor) {
+    case 'white':
+      return {
+        position: 'relative',
+        boxSizing: 'border-box',
+        gridRow: '1 / span 1',
+        aspectRatio: isFixedHeight ? undefined : whiteKeyAspectRatio,
+        gridColumn: `${position} / span ${WHITE_KEY_COLUMN_SPAN}`,
+      };
+    case 'black':
+      return {
+        position: 'relative',
+        zIndex: 1,
+        boxSizing: 'border-box',
+        gridRow: '1 / span 1',
+        height: blackKeyHeight,
+        gridColumn: `${position} / span ${BLACK_KEY_COLUMN_SPAN}`,
+      };
+  }
+}
 
 function getKeyComponent(components: KeyProps['components'], color: KeyColor) {
   return components[`${color}Key`];
