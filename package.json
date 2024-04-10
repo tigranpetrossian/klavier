@@ -7,6 +7,12 @@
     "type": "git",
     "url": "https://github.com/tigranpetrossian/klavier"
   },
+  "keywords": [
+    "piano",
+    "midi",
+    "react",
+    "interactive"
+  ],
   "type": "module",
   "files": [
     "dist"
