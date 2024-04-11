@@ -19,8 +19,8 @@ type Action =
 type UseKlavierProps = {
   defaultActiveNotes?: Array<number>;
   activeNotes?: Array<number>;
-  onPlayNote?: (midiNumber: number) => void;
-  onStopNote?: (midiNumber: number) => void;
+  onNotePlay?: (midiNumber: number) => void;
+  onNoteStop?: (midiNumber: number) => void;
   onChange?: (activeNotes: Array<number>) => void;
 };
 
@@ -35,7 +35,7 @@ type UseKlavierResult = {
 };
 
 function useKlavier(props: UseKlavierProps): UseKlavierResult {
-  const { defaultActiveNotes = [], activeNotes, onPlayNote, onStopNote, onChange } = props;
+  const { defaultActiveNotes = [], activeNotes, onNotePlay, onNoteStop, onChange } = props;
   const lastActionRef = useRef<Action | null>(null);
   const [state, dispatch] = useReducer(reducer, {
     touched: false,
@@ -63,17 +63,17 @@ function useKlavier(props: UseKlavierProps): UseKlavierResult {
   const playNote = useCallback(
     (midiNumber: number) => {
       toggleNote(midiNumber, 'ON');
-      onPlayNote?.(midiNumber);
+      onNotePlay?.(midiNumber);
     },
-    [toggleNote, onPlayNote]
+    [toggleNote, onNotePlay]
   );
 
   const stopNote = useCallback(
     (midiNumber: number) => {
       toggleNote(midiNumber, 'OFF');
-      onStopNote?.(midiNumber);
+      onNoteStop?.(midiNumber);
     },
-    [toggleNote, onStopNote]
+    [toggleNote, onNoteStop]
   );
 
   return {

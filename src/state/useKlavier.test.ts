@@ -61,12 +61,12 @@ describe('Given default active notes (uncontrolled mode)', () => {
 
 describe('Given callback props', () => {
   const onChange = vi.fn().mockImplementation(() => undefined);
-  const onPlayNote = vi.fn().mockImplementation(() => undefined);
-  const onStopNote = vi.fn().mockImplementation(() => undefined);
+  const onNotePlay = vi.fn().mockImplementation(() => undefined);
+  const onNoteStop = vi.fn().mockImplementation(() => undefined);
   const props: UseKlavierProps = {
     onChange,
-    onPlayNote,
-    onStopNote,
+    onNotePlay,
+    onNoteStop,
   };
   const midiNumber = 10;
   let rerender: RenderHookResult<UseKlavierResult, UseKlavierProps>['rerender'];
@@ -88,16 +88,16 @@ describe('Given callback props', () => {
     expect(onChange).toHaveBeenCalledWith([midiNumber]);
   });
 
-  it('should execute onPlayNote with the correct parameter', () => {
+  it('should execute onNotePlay with the correct parameter', () => {
     result.current.actions.playNote(midiNumber);
-    expect(onPlayNote).toHaveBeenCalledWith(midiNumber);
+    expect(onNotePlay).toHaveBeenCalledWith(midiNumber);
   });
 
-  it('should execute onStopNote with the correct parameter', () => {
+  it('should execute onNoteStop with the correct parameter', () => {
     result.current.actions.playNote(midiNumber);
     rerender();
     result.current.actions.stopNote(midiNumber);
-    expect(onStopNote).toHaveBeenCalledWith(midiNumber);
+    expect(onNoteStop).toHaveBeenCalledWith(midiNumber);
   });
 });
 

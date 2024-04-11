@@ -30,12 +30,12 @@ interface KlavierProps {
   /**
    * Fired when a note is played.
    */
-  onPlayNote?: (midiNumber: number) => void;
+  onNotePlay?: (midiNumber: number) => void;
 
   /**
    * Fired when a note is stopped.
    */
-  onStopNote?: (midiNumber: number) => void;
+  onNoteStop?: (midiNumber: number) => void;
 
   /**
    * Fired when active notes are changed via user input.
@@ -99,8 +99,8 @@ const Klavier = (props: KlavierProps) => {
   const {
     defaultActiveNotes,
     activeNotes,
-    onPlayNote,
-    onStopNote,
+    onNotePlay,
+    onNoteStop,
     onChange,
     noteRange = [21, 108],
     interactive = true,
@@ -118,8 +118,8 @@ const Klavier = (props: KlavierProps) => {
   } = useKlavier({
     defaultActiveNotes,
     activeNotes,
-    onPlayNote,
-    onStopNote,
+    onNotePlay,
+    onNoteStop,
     onChange,
   });
   const rootStyles = useMemo(() => getRootStyles(width, height), [width, height]);
