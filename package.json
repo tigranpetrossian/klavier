@@ -17,24 +17,17 @@
   "files": [
     "dist"
   ],
-  "main": "dist/klavier.umd.cjs",
+  "main": "dist/klavier.cjs",
   "module": "dist/klavier.js",
   "typings": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/klavier.umd.cjs",
-      "require": "./dist/klavier.js"
-    }
-  },
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite build --mode development --watch",
     "build": "vite build",
     "lint": "eslint . --ext ts,tsx --fix --cache --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "prepare": "husky",
-    "test": "vitest"
+    "test": "vitest",
+    "prepare": "husky"
   },
-  "dependencies": {
+  "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

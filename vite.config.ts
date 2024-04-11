@@ -1,18 +1,19 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import tsconfigPaths from 'vite-tsconfig-paths';
 import dts from 'vite-plugin-dts';
-import mkcert from 'vite-plugin-mkcert';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import { resolve } from 'path';
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
-  plugins: [mkcert(), tsconfigPaths(), react(), dts({ rollupTypes: true })],
+  plugins: [tsconfigPaths(), react(), dts({ rollupTypes: true })],
 
   build: {
+    emptyOutDir: false,
     lib: {
       entry: resolve(__dirname, 'src/index.tsx'),
+      formats: ['es', 'cjs'],
       name: 'Klavier',
       fileName: 'klavier',
     },
@@ -29,8 +30,5 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
     setupFiles: './vitest/setup.js',
-  },
-  server: {
-    open: true,
   },
 });
