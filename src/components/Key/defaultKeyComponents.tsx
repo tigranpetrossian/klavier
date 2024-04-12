@@ -31,7 +31,7 @@ const BlackKey = (props: KlavierKeyInnerProps) => {
   );
 };
 
-export const flat = {
+export const defaultKeyComponents = {
   blackKey: BlackKey,
   whiteKey: WhiteKey,
 };

@@ -2,13 +2,13 @@ import React, { useMemo, useRef } from 'react';
 import { DEFAULT_KEYMAP } from 'keymap';
 import type { CSSProperties, KlavierKeymap, KlavierKeyInnerProps } from 'types';
 import { Key } from 'components/Key';
+import { defaultKeyComponents } from 'components/Key/defaultKeyComponents';
 import { range } from 'utils/range';
 import { isMidiNumber } from 'utils/midi';
 import { useKlavier } from 'state/useKlavier';
 import { useMouse } from 'interactivity/useMouse';
 import { useKeyboard } from 'interactivity/useKeyboard';
 import { useTouch } from 'interactivity/useTouch';
-import { flat } from 'presets';
 
 interface KlavierProps {
   /**
@@ -109,7 +109,7 @@ const Klavier = (props: KlavierProps) => {
     height,
     whiteKeyAspectRatio,
     blackKeyHeight,
-    components = flat,
+    components = defaultKeyComponents,
   } = props;
   const [first, last] = noteRange;
   const {
