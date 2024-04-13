@@ -1,24 +1,69 @@
-.klavier-realistic-key-white.active:first-child > .klavier-realistic-key-svg g,
-.klavier-realistic-key-white:not(.active) + .klavier-realistic-key-white.active > .klavier-realistic-key-svg g,
-.klavier-realistic-key-white:not(.active)
-  + .klavier-realistic-key-black
-  + .klavier-realistic-key-white.active
-  > .klavier-realistic-key-svg
-  g {
-  filter: url('#white-key-active-shadow');
+.klavier-realistic-key-white {
+  --horizontal-gradient: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.32) 3.42%,
+    rgba(255, 255, 255, 0.19) 3.43%,
+    rgba(255, 255, 255, 0) 7.59%,
+    rgba(255, 255, 255, 0) 95.75%,
+    rgba(51, 51, 51, 0.3) 100%
+  );
+  --shadow-active: 41px 1px 2px -40px rgba(0, 0, 0, 0.3) inset, 42px 2px 3px -40px rgba(0, 0, 0, 0.2) inset,
+    46px 4px 6px -40px rgba(0, 0, 0, 0.2) inset, 50px 15px 17px -40px rgba(0, 0, 0, 0.28) inset;
+  --start-color: #f0f0f0;
+  --end-color: #ededed;
+  --start-color-active: #d9d9d9;
+  --end-color-active: #d6d6d6;
 }
 
-.klavier-realistic-key-white > .klavier-realistic-key-svg,
-.klavier-realistic-key-black > .klavier-realistic-key-svg {
+.klavier-realistic-key-white {
+  background-image: var(--horizontal-gradient), linear-gradient(180deg, var(--start-color) 0%, var(--end-color) 100%);
+  /* Offset the background from the edge of the key to make space for an extra square box that adds responsive corner radius.
+   Padding is 90% instead of 100 to prevent certain browsers showing a horizontal gap between the key and the pseudo-element */
+  padding-bottom: 90%;
+  background-clip: content-box;
+}
+
+.klavier-realistic-key-white::after {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 0 0 10% 10%;
+  background-image: var(--horizontal-gradient), linear-gradient(180deg, var(--end-color) 0%, var(--end-color) 100%);
+  content: '';
+}
+
+.klavier-realistic-key-white.active {
+  background-image: var(--horizontal-gradient),
+    linear-gradient(180deg, var(--start-color-active) 0%, var(--end-color-active) 100%);
+}
+
+.klavier-realistic-key-white.active::after {
+  background-image: var(--horizontal-gradient),
+    linear-gradient(180deg, var(--end-color-active) 0%, var(--end-color-active) 100%);
+}
+
+/* Maintain the illusion of being pressed by only displaying shadows when previous white key isn't active  */
+.klavier-realistic-key-white.active:first-child,
+.klavier-realistic-key-white:not(.active) + .klavier-realistic-key-white.active,
+.klavier-realistic-key-white:not(.active) + .klavier-realistic-key-black + .klavier-realistic-key-white.active {
+  box-shadow: var(--shadow-active);
+}
+
+.klavier-realistic-key-white.active:first-child::after,
+.klavier-realistic-key-white:not(.active) + .klavier-realistic-key-white.active::after,
+.klavier-realistic-key-white:not(.active) + .klavier-realistic-key-black + .klavier-realistic-key-white.active::after {
+  box-shadow: var(--shadow-active);
+}
+
+.klavier-realistic-key-svg {
   display: block;
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  /* Unmounting/mounting children elements often causes "mouseleave" not to fire:
+   https://github.com/facebook/react/issues/20483#issuecomment-1670926431 */
   pointer-events: none;
 }
-
-/*
-1. Unmounting/mounting children elements often causes "mouseleave" not to fire:
-   https://github.com/facebook/react/issues/20483#issuecomment-1670926431
-*/

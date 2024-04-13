@@ -154,6 +154,7 @@ const Klavier = (props: KlavierProps) => {
 
 const getRootStyles = (width: React.CSSProperties['width'], height: React.CSSProperties['height']): CSSProperties => ({
   display: 'grid',
+  alignItems: 'stretch',
   gap: '1px',
   position: 'relative',
   WebkitUserSelect: 'none',
