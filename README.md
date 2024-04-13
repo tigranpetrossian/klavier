@@ -63,5 +63,5 @@ const CustomWhiteKey = ({ ...props }) => { return <div {…props} /> }
 <Klavier components={{ blackKey: CustomBlackKey, whiteKey: CustomWhiteKey }} />
 ```
 
-Properties must be passed to these components to preserve the functionality. Provided `props` must be spread onto custom component's root element. <br/>
+Provided `props` must be spread onto custom component's root element to preserve the library's functionality. <br/>
 **Important:** avoid defining components directly in the prop object, as it can cause performance issues.
