@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from 'react';
-import { DEFAULT_KEYMAP } from 'keymap';
 import type { CSSProperties, KlavierKeymap, KlavierKeyInnerProps } from 'types';
+import { DEFAULT_KEYMAP } from 'keymap';
 import { Key } from 'components/Key';
 import { defaultKeyComponents } from 'components/Key/defaultKeyComponents';
 import { range } from 'utils/range';
