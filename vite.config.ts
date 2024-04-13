@@ -3,19 +3,25 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { resolve } from 'path';
+
+const extensions = {
+  cjs: 'cjs',
+  es: 'mjs',
+};
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
   plugins: [tsconfigPaths(), react(), dts({ rollupTypes: true })],
 
   build: {
-    emptyOutDir: false,
     lib: {
-      entry: resolve(__dirname, 'src/index.tsx'),
+      entry: ['src/index.ts', 'src/presets/realistic.tsx'],
       formats: ['es', 'cjs'],
       name: 'Klavier',
-      fileName: 'klavier',
+      fileName: (format, entryName) => {
+        // @ts-ignore
+        return `${entryName}.${extensions[format]}`;
+      },
     },
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],

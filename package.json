@@ -17,8 +17,20 @@
   "files": [
     "dist"
   ],
-  "main": "dist/klavier.cjs",
-  "module": "dist/klavier.js",
+  "exports": {
+    "./presets/realistic": {
+      "require": "./dist/realistic.cjs",
+      "import": "./dist/realistic.mjs",
+      "types": "./dist/realistic.d.ts"
+    },
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
   "scripts": {
     "dev": "vite build --mode development --watch",
