@@ -1,7 +1,7 @@
 {
   "name": "klavier",
   "description": "A lightweight, customizable, interactive piano library built with React.",
-  "version": "1.0.0",
+  "version": "0.0.0-semantic-release",
   "license": "MIT",
   "repository": {
     "type": "git",
