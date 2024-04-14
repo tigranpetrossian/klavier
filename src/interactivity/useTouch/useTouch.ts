@@ -2,14 +2,14 @@ import { useCallback, useEffect } from 'react';
 import { useActiveTouchPoints } from './useActiveTouchPoints';
 
 type UseTouchProps = {
+  enabled: boolean;
   klavierRootRef: React.RefObject<HTMLDivElement>;
-  interactive: boolean;
   playNote: (midiNumber: number) => void;
   stopNote: (midiNumber: number) => void;
 };
 
 function useTouch(props: UseTouchProps) {
-  const { klavierRootRef, interactive, playNote, stopNote } = props;
+  const { klavierRootRef, enabled, playNote, stopNote } = props;
   const { activeTouchPoints, upsertTouchPoint, removeTouchPoint } = useActiveTouchPoints();
 
   const handleTouchStart = useCallback(
@@ -84,7 +84,7 @@ function useTouch(props: UseTouchProps) {
       return;
     }
 
-    if (!interactive) {
+    if (!enabled) {
       return;
     }
 
@@ -99,7 +99,7 @@ function useTouch(props: UseTouchProps) {
       klavierRootElement.removeEventListener('touchend', handleTouchEnd);
       klavierRootElement.removeEventListener('touchcancel', handleTouchCancel);
     };
-  }, [klavierRootRef, interactive, handleTouchStart, handleTouchEnd, handleTouchMove, handleTouchCancel]);
+  }, [klavierRootRef, enabled, handleTouchStart, handleTouchEnd, handleTouchMove, handleTouchCancel]);
 }
 
 type TargetEvaluationResult =

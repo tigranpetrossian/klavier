@@ -46,7 +46,7 @@ interface KlavierProps {
    * Enable interaction with the piano via keyboard, mouse, or touch.
    * @defaultValue true
    */
-  interactive?: boolean;
+  interactive?: boolean | Partial<InteractivitySettings>;
 
   /*
    * Mapping of computer keys to MIDI note numbers.
@@ -123,12 +123,12 @@ const Klavier = (props: KlavierProps) => {
     onChange,
   });
   const rootStyles = useMemo(() => getRootStyles(width, height), [width, height]);
-
+  const interactivitySettings = determineInteractivitySettings(interactive);
   validateRange(noteRange);
 
-  const handleMouseEvents = useMouse({ interactive, playNote, stopNote });
-  useKeyboard({ interactive, keyMap, noteRange, playNote, stopNote });
-  useTouch({ interactive, klavierRootRef, playNote, stopNote });
+  const handleMouseEvents = useMouse({ enabled: interactivitySettings.mouse, playNote, stopNote });
+  useKeyboard({ enabled: interactivitySettings.keyboard, keyMap, noteRange, playNote, stopNote });
+  useTouch({ enabled: interactivitySettings.touch, klavierRootRef, playNote, stopNote });
 
   return (
     <div style={rootStyles} ref={klavierRootRef}>
@@ -163,6 +163,29 @@ const getRootStyles = (width: React.CSSProperties['width'], height: React.CSSPro
   width,
   height,
 });
+
+type InteractivitySettings = {
+  keyboard: boolean;
+  mouse: boolean;
+  touch: boolean;
+};
+
+function determineInteractivitySettings(prop: KlavierProps['interactive']): InteractivitySettings {
+  if (typeof prop === 'boolean') {
+    return {
+      mouse: prop,
+      keyboard: prop,
+      touch: prop,
+    };
+  }
+
+  return {
+    mouse: false,
+    keyboard: false,
+    touch: false,
+    ...prop,
+  };
+}
 
 const ERRORS = {
   INVALID_MIDI_VALUES: 'Note range must be within valid MIDI numbers (0-127).',

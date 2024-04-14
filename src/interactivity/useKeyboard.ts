@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 import type { KlavierKeymap } from 'types';
 
 type UseKeyboardProps = {
-  interactive: boolean;
+  enabled: boolean;
   playNote: (midiNumber: number) => void;
   stopNote: (midiNumber: number) => void;
   noteRange: [number, number];
@@ -10,7 +10,7 @@ type UseKeyboardProps = {
 };
 
 function useKeyboard(props: UseKeyboardProps) {
-  const { interactive, playNote, stopNote, keyMap, noteRange } = props;
+  const { enabled, playNote, stopNote, keyMap, noteRange } = props;
 
   const handleKeyboardEvents = useCallback(
     (event: KeyboardEvent) => {
@@ -27,7 +27,7 @@ function useKeyboard(props: UseKeyboardProps) {
   );
 
   useEffect(() => {
-    if (!interactive) return;
+    if (!enabled) return;
 
     window.addEventListener('keydown', handleKeyboardEvents);
     window.addEventListener('keyup', handleKeyboardEvents);
@@ -36,7 +36,7 @@ function useKeyboard(props: UseKeyboardProps) {
       window.removeEventListener('keydown', handleKeyboardEvents);
       window.removeEventListener('keyup', handleKeyboardEvents);
     };
-  }, [handleKeyboardEvents, interactive]);
+  }, [handleKeyboardEvents, enabled]);
 }
 
 function isValidEvent(event: KeyboardEvent): event is KeyboardEvent & { type: 'keyup' | 'keydown' } {
