@@ -1,21 +1,21 @@
-import type { KeyColor, KlavierKeyInnerProps } from 'types';
+import type { KeyColor, CustomKeyProps } from 'types';
 import 'presets/realistic.css';
 
-const WhiteKey = (props: KlavierKeyInnerProps) => {
-  const { style, active, ...other } = props;
+const WhiteKey = (props: CustomKeyProps) => {
+  const { innerProps, active } = props;
   const className = buildClassName('white', active);
 
-  return <div style={style} className={className} {...other}></div>;
+  return <div {...innerProps} className={className} />;
 };
 
-const BlackKey = (props: KlavierKeyInnerProps) => {
-  const { style, active, ...other } = props;
+const BlackKey = (props: CustomKeyProps) => {
+  const { innerProps, active } = props;
   const className = buildClassName('black', active);
   const state = active ? 'active' : 'default';
   const SVG = blackKeyVariants[state];
 
   return (
-    <div style={style} className={className} {...other}>
+    <div {...innerProps} className={className}>
       <svg
         viewBox="0 0 38 253"
         fill="none"

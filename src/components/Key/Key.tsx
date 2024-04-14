@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import { midiToNote } from 'utils/midi';
-import type { KeyColor, KlavierKeyInnerProps } from 'types';
+import type { KeyColor, CustomKeyComponent } from 'types';
 
 type KeyProps = {
   midiNumber: number;
   firstNoteMidiNumber: number;
   components: {
-    blackKey: React.ComponentType<KlavierKeyInnerProps>;
-    whiteKey: React.ComponentType<KlavierKeyInnerProps>;
+    blackKey: CustomKeyComponent;
+    whiteKey: CustomKeyComponent;
   };
   whiteKeyAspectRatio?: React.CSSProperties['aspectRatio'];
   blackKeyHeight?: React.CSSProperties['height'];
@@ -26,14 +26,16 @@ const Key = React.memo((props: KeyProps) => {
     components,
     ...htmlAttributes
   } = props;
-  const { keyColor } = midiToNote(midiNumber);
-  const Component = getKeyComponent(components, keyColor);
-  const styles = useMemo(
+  const note = midiToNote(midiNumber);
+  const Component = getKeyComponent(components, note.keyColor);
+  const style = useMemo(
     () => getKeyStyles(midiNumber, firstNoteMidiNumber, isFixedHeight, whiteKeyAspectRatio, blackKeyHeight),
     [midiNumber, firstNoteMidiNumber, isFixedHeight, whiteKeyAspectRatio, blackKeyHeight]
   );
 
-  return <Component active={active} style={styles} data-midi-number={midiNumber} {...htmlAttributes} />;
+  return (
+    <Component innerProps={{ style, 'data-midi-number': midiNumber, ...htmlAttributes }} active={active} note={note} />
+  );
 });
 
 const DEFAULT_WHITE_KEY_ASPECT_RATIO = '23 / 150';

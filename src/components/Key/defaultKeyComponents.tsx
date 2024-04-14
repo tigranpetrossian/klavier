@@ -1,13 +1,13 @@
-import type { KlavierKeyInnerProps } from 'types';
+import type { CustomKeyProps } from 'types';
 
-const WhiteKey = (props: KlavierKeyInnerProps) => {
-  const { style, active, ...other } = props;
+const WhiteKey = (props: CustomKeyProps) => {
+  const { innerProps, active } = props;
 
   return (
     <div
-      {...other}
+      {...innerProps}
       style={{
-        ...style,
+        ...innerProps.style,
         backgroundColor: active ? 'red' : 'white',
         border: '1px solid #000',
         borderRadius: '0 0 2px 2px',
@@ -16,14 +16,14 @@ const WhiteKey = (props: KlavierKeyInnerProps) => {
   );
 };
 
-const BlackKey = (props: KlavierKeyInnerProps) => {
-  const { style, active, ...other } = props;
+const BlackKey = (props: CustomKeyProps) => {
+  const { innerProps, active } = props;
 
   return (
     <div
-      {...other}
+      {...innerProps}
       style={{
-        ...style,
+        ...innerProps.style,
         backgroundColor: active ? 'red' : 'black',
         borderRadius: '0 0 2px 2px',
       }}
