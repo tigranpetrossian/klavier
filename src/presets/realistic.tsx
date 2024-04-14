@@ -1,4 +1,5 @@
 import type { KeyColor, KlavierKeyInnerProps } from 'types';
+import 'presets/realistic.css';
 
 const WhiteKey = (props: KlavierKeyInnerProps) => {
   const { style, active, ...other } = props;
