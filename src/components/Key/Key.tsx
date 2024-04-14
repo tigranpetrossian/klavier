@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { midiToNote } from 'utils/midi';
-import type { CSSProperties, KeyColor, KlavierKeyInnerProps } from 'types';
+import type { KeyColor, KlavierKeyInnerProps } from 'types';
 
 type KeyProps = {
   midiNumber: number;
@@ -47,7 +47,7 @@ function getKeyStyles(
   isFixedHeight: boolean,
   whiteKeyAspectRatio: React.CSSProperties['aspectRatio'] = DEFAULT_WHITE_KEY_ASPECT_RATIO,
   blackKeyHeight: React.CSSProperties['height'] = DEFAULT_BLACK_KEY_HEIGHT
-): CSSProperties {
+): React.CSSProperties {
   const position = getKeyPosition(midiNumber, firstNoteMidiNumber);
   const { keyColor } = midiToNote(midiNumber);
   switch (keyColor) {
