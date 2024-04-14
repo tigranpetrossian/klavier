@@ -8,10 +8,18 @@ export type Note = {
   octave: number;
 };
 
-export type KlavierKeymapItem = { key: string; midiNumber: number };
+export type KeymapItem = { key: string; midiNumber: number };
 
-export type KlavierKeymap = Array<KlavierKeymapItem>;
+export type Keymap = Array<KeymapItem>;
 
-export type KlavierKeyInnerProps = {
-  active: boolean;
+export type CustomKeyInnerProps = {
+  'data-midi-number': number;
 } & React.HTMLAttributes<HTMLElement>;
+
+export type CustomKeyProps = {
+  innerProps: CustomKeyInnerProps;
+  active: boolean;
+  note: Note;
+};
+
+export type CustomKeyComponent = React.ComponentType<CustomKeyProps>;

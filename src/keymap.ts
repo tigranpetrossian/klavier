@@ -1,6 +1,6 @@
-import type { KlavierKeymap } from 'types';
+import type { Keymap } from 'types';
 
-export const TOP_ROW: KlavierKeymap = [
+export const TOP_ROW: Keymap = [
   { key: 'q', midiNumber: 60 },
   { key: '2', midiNumber: 61 },
   { key: 'w', midiNumber: 62 },
@@ -23,7 +23,7 @@ export const TOP_ROW: KlavierKeymap = [
   { key: ']', midiNumber: 79 },
 ];
 
-export const BOTTOM_ROW: KlavierKeymap = [
+export const BOTTOM_ROW: Keymap = [
   { key: 'z', midiNumber: 48 },
   { key: 's', midiNumber: 49 },
   { key: 'x', midiNumber: 50 },
@@ -46,4 +46,4 @@ export const BOTTOM_ROW: KlavierKeymap = [
   { key: '', midiNumber: 67 },
 ];
 
-export const DEFAULT_KEYMAP: KlavierKeymap = [...TOP_ROW, ...BOTTOM_ROW];
+export const DEFAULT_KEYMAP: Keymap = [...TOP_ROW, ...BOTTOM_ROW];

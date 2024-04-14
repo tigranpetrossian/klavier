@@ -1,5 +1,5 @@
 import React, { useMemo, useRef } from 'react';
-import type { KlavierKeymap, KlavierKeyInnerProps } from 'types';
+import type { Keymap, CustomKeyComponent } from 'types';
 import { DEFAULT_KEYMAP } from 'keymap';
 import { Key } from 'components/Key';
 import { defaultKeyComponents } from 'components/Key/defaultKeyComponents';
@@ -52,7 +52,7 @@ interface KlavierProps {
    * Mapping of computer keys to MIDI note numbers.
    * @example [{ key: 'q', midiNumber: 60 }, ..., { key: 'i', midiNumber: 72 }]
    */
-  keyMap?: KlavierKeymap;
+  keyMap?: Keymap;
 
   /**
    * Width of the piano. Accepts any valid CSS value. When unspecified, the piano fills it's container and is responsive.
@@ -89,8 +89,8 @@ interface KlavierProps {
    * <Klavier components={{ blackKey: CustomBlackKey, whiteKey: CustomWhiteKey }} />
    */
   components?: {
-    blackKey: React.ComponentType<KlavierKeyInnerProps>;
-    whiteKey: React.ComponentType<KlavierKeyInnerProps>;
+    blackKey: CustomKeyComponent;
+    whiteKey: CustomKeyComponent;
   };
 }
 
