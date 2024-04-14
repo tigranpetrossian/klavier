@@ -1,5 +1,5 @@
 import React, { useMemo, useRef } from 'react';
-import type { CSSProperties, KlavierKeymap, KlavierKeyInnerProps } from 'types';
+import type { KlavierKeymap, KlavierKeyInnerProps } from 'types';
 import { DEFAULT_KEYMAP } from 'keymap';
 import { Key } from 'components/Key';
 import { defaultKeyComponents } from 'components/Key/defaultKeyComponents';
@@ -152,7 +152,10 @@ const Klavier = (props: KlavierProps) => {
   );
 };
 
-const getRootStyles = (width: React.CSSProperties['width'], height: React.CSSProperties['height']): CSSProperties => ({
+const getRootStyles = (
+  width: React.CSSProperties['width'],
+  height: React.CSSProperties['height']
+): React.CSSProperties => ({
   display: 'grid',
   alignItems: 'stretch',
   gridAutoColumns: '1fr',
