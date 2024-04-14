@@ -57,11 +57,11 @@ By default, Klavier is responsive takes up the full width of its parent containe
 The visual appearance of the keyboard can be customized by specifying custom components for the black and white keys. This enables styling the keyboard with any approach.
 
 ```tsx
-const CustomBlackKey = ({ ...props }) => { return <div {…props} /> }
-const CustomWhiteKey = ({ ...props }) => { return <div {…props} /> }
+const CustomBlackKey = ({ innerProps, active, note }) => { return <div {...innerProps} /> }
+const CustomWhiteKey = ({ innerProps, active, note }) => { return <div {...innerProps} /> }
 
 <Klavier components={{ blackKey: CustomBlackKey, whiteKey: CustomWhiteKey }} />
 ```
 
-Provided `props` must be spread onto custom component's root element to preserve the library's functionality. <br/>
+Provided `innerProps` must be spread onto custom component's root element to preserve the library's functionality. <br/>
 **Important:** avoid defining components directly in the prop object, as it can cause performance issues.
