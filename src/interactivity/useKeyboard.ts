@@ -1,8 +1,10 @@
 import { useCallback, useEffect } from 'react';
 import type { Keymap } from 'types';
+import { noop } from 'utils/noop';
 
 type UseKeyboardProps = {
   enabled: boolean;
+  activeNotes: Array<number>;
   playNote: (midiNumber: number) => void;
   stopNote: (midiNumber: number) => void;
   noteRange: [number, number];
@@ -10,20 +12,20 @@ type UseKeyboardProps = {
 };
 
 function useKeyboard(props: UseKeyboardProps) {
-  const { enabled, playNote, stopNote, keyMap, noteRange } = props;
+  const { enabled, activeNotes, playNote, stopNote, keyMap, noteRange } = props;
 
   const handleKeyboardEvents = useCallback(
     (event: KeyboardEvent) => {
-      const actionMap = {
-        keydown: playNote,
-        keyup: stopNote,
-      };
       if (!isValidEvent(event)) return;
       const midiNumber = getMidiNumberForKey(event.key, keyMap);
       if (!isValidMidiNumber(midiNumber, noteRange)) return;
+      const actionMap = {
+        keydown: !activeNotes.includes(midiNumber) ? playNote : noop,
+        keyup: stopNote,
+      };
       actionMap[event.type](midiNumber);
     },
-    [noteRange, keyMap, playNote, stopNote]
+    [noteRange, keyMap, activeNotes, playNote, stopNote]
   );
 
   useEffect(() => {
