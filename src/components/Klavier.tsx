@@ -127,7 +127,14 @@ const Klavier = (props: KlavierProps) => {
   validateRange(noteRange);
 
   const handleMouseEvents = useMouse({ enabled: interactivitySettings.mouse, playNote, stopNote });
-  useKeyboard({ enabled: interactivitySettings.keyboard, keyMap, noteRange, playNote, stopNote });
+  useKeyboard({
+    enabled: interactivitySettings.keyboard,
+    activeNotes: state.activeNotes,
+    keyMap,
+    noteRange,
+    playNote,
+    stopNote,
+  });
   useTouch({ enabled: interactivitySettings.touch, klavierRootRef, playNote, stopNote });
 
   return (
