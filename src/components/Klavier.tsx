@@ -1,10 +1,11 @@
 import React, { useMemo, useRef } from 'react';
 import type { Keymap, CustomKeyComponent } from 'types';
 import { DEFAULT_KEYMAP } from 'keymap';
+import { DEFAULT_NOTE_RANGE } from 'lib/constants';
+import { range } from 'lib/range';
 import { Key } from 'components/Key';
 import { defaultKeyComponents } from 'components/Key/defaultKeyComponents';
-import { range } from 'utils/range';
-import { isMidiNumber } from 'utils/midi';
+import { isMidiNumber } from 'lib/midi';
 import { useKlavier } from 'state/useKlavier';
 import { useMouse } from 'interactivity/useMouse';
 import { useKeyboard } from 'interactivity/useKeyboard';
@@ -102,7 +103,7 @@ const Klavier = (props: KlavierProps) => {
     onNotePlay,
     onNoteStop,
     onChange,
-    noteRange = [21, 108],
+    noteRange = DEFAULT_NOTE_RANGE,
     interactive = true,
     keyMap = DEFAULT_KEYMAP,
     width,

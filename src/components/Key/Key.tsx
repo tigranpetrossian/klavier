@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
-import { midiToNote } from 'utils/midi';
-import type { KeyColor, CustomKeyComponent } from 'types';
+import { midiToNote } from 'lib/midi';
+import type { CustomKeyComponent, KeyColor } from 'types';
+import { DEFAULT_BLACK_KEY_HEIGHT, DEFAULT_WHITE_KEY_ASPECT_RATIO } from 'lib/constants';
 
 type KeyProps = {
   midiNumber: number;
@@ -38,11 +39,6 @@ const Key = React.memo((props: KeyProps) => {
   );
 });
 
-const DEFAULT_WHITE_KEY_ASPECT_RATIO = '24 / 150';
-const DEFAULT_BLACK_KEY_HEIGHT = '67.5%';
-const WHITE_KEY_COLUMN_SPAN = 12;
-const BLACK_KEY_COLUMN_SPAN = 8;
-
 function getKeyStyles(
   midiNumber: number,
   firstNoteMidiNumber: number,
@@ -50,6 +46,8 @@ function getKeyStyles(
   whiteKeyAspectRatio: React.CSSProperties['aspectRatio'] = DEFAULT_WHITE_KEY_ASPECT_RATIO,
   blackKeyHeight: React.CSSProperties['height'] = DEFAULT_BLACK_KEY_HEIGHT
 ): React.CSSProperties {
+  const WHITE_KEY_COLUMN_SPAN = 12;
+  const BLACK_KEY_COLUMN_SPAN = 8;
   const position = getKeyPosition(midiNumber, firstNoteMidiNumber);
   const { keyColor } = midiToNote(midiNumber);
   switch (keyColor) {
@@ -82,9 +80,9 @@ function getKeyComponent(components: KeyProps['components'], color: KeyColor) {
 // White keys span over 12 columns each, making the octave length 84 columns total.
 // Black keys span over 8 columns each, and are overlaid on top white keys.
 // Key positions (starting columns) of a single octave are calculated by hand to match a real piano keyboard as closely as possible.
-const KEY_POSITIONS = [1, 8, 13, 22, 25, 37, 44, 49, 57, 61, 70, 73];
-const OCTAVE_LENGTH_IN_COLUMNS = 84;
 function getAbsoluteKeyPosition(midiNumber: number) {
+  const KEY_POSITIONS = [1, 8, 13, 22, 25, 37, 44, 49, 57, 61, 70, 73];
+  const OCTAVE_LENGTH_IN_COLUMNS = 84;
   const { octave } = midiToNote(midiNumber);
   return octave * OCTAVE_LENGTH_IN_COLUMNS + KEY_POSITIONS[midiNumber % KEY_POSITIONS.length];
 }
