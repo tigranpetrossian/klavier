@@ -166,7 +166,6 @@ const getRootStyles = (
   display: 'grid',
   alignItems: 'stretch',
   gridAutoColumns: '1fr',
-  gap: '1px',
   position: 'relative',
   WebkitUserSelect: 'none',
   userSelect: 'none',

@@ -10,7 +10,8 @@ const WhiteKey = (props: CustomKeyProps) => {
   return (
     <div {...innerProps} className={className}>
       <svg
-        viewBox="0 0 58 374"
+        // Work around browser antialiasing issues by ever slightly reducing the viewbox width to make gaps appear even.
+        viewBox="0 0 23.5 150"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
@@ -30,13 +31,7 @@ const BlackKey = (props: CustomKeyProps) => {
 
   return (
     <div {...innerProps} className={className}>
-      <svg
-        viewBox="0 0 38 253"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none"
-        className="klavier-realistic-key-svg"
-      >
+      <svg viewBox="0 0 38 253" fill="none" xmlns="http://www.w3.org/2000/svg" className="klavier-realistic-key-svg">
         {SVG}
       </svg>
     </div>
@@ -46,49 +41,59 @@ const BlackKey = (props: CustomKeyProps) => {
 const whiteKeyVariants = {
   default: (
     <>
-      <path
-        d="M0 0H58V370C58 372.209 56.2091 374 54 374H4C1.79086 374 0 372.209 0 370V0Z"
-        fill="url(#paint0_linear_17_201)"
-      />
-      <path
-        d="M0 0H58V370C58 372.209 56.2091 374 54 374H4C1.79086 374 0 372.209 0 370V0Z"
-        fill="url(#paint1_linear_17_201)"
-        fillOpacity="0.5"
-      />
-      <defs>
-        <linearGradient id="paint0_linear_17_201" x1="29" y1="0" x2="29" y2="374" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#F0F0F0" />
-          <stop offset="1" stopColor="#EDEDED" />
-        </linearGradient>
-        <linearGradient
-          id="paint1_linear_17_201"
-          x1="-1.44734e-06"
-          y1="195.5"
-          x2="58"
-          y2="195.5"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor="white" stopOpacity="0" />
-          <stop offset="0.0342118" stopColor="white" stopOpacity="0.65" />
-          <stop offset="0.0343118" stopColor="white" stopOpacity="0.370609" />
-          <stop offset="0.0759001" stopColor="white" stopOpacity="0" />
-          <stop offset="0.957521" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="#333333" stopOpacity="0.6" />
-        </linearGradient>
-      </defs>
+      <svg width="24" height="150" viewBox="0 0 24 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M0.5 -0.000244141H23.5C23.5 57.8045 24 90.6699 24 147.812C23.788 147.812 23.6704 147.812 23.5 147.812C23.5 147.875 23.5 147.937 23.5 148C23.5 149.104 22.6046 150 21.5 150H2.5C1.39543 150 0.5 149.104 0.5 148V-0.000244141Z"
+          fill="url(#paint0_linear_236_893)"
+        />
+        <path
+          d="M0.5 -0.000244141H23.5C23.5 57.8045 24 90.6699 24 147.812C23.788 147.812 23.6704 147.812 23.5 147.812C23.5 147.875 23.5 147.937 23.5 148C23.5 149.104 22.6046 150 21.5 150H2.5C1.39543 150 0.5 149.104 0.5 148V-0.000244141Z"
+          fill="url(#paint1_linear_236_893)"
+          fillOpacity="0.5"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_236_893"
+            x1="12"
+            y1="2.65313e-09"
+            x2="12"
+            y2="150"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#EBEBEB" />
+            <stop offset="1" stopColor="#F2F2F2" />
+          </linearGradient>
+          <linearGradient
+            id="paint1_linear_236_893"
+            x1="0.499999"
+            y1="78.4091"
+            x2="23.5"
+            y2="78.4091"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#181818" stopOpacity="0.08" />
+            <stop offset="0.0177862" stopColor="#D0D0D0" stopOpacity="0.558294" />
+            <stop offset="0.0342118" stopColor="white" />
+            <stop offset="0.0549565" stopColor="white" stopOpacity="0.370609" />
+            <stop offset="0.957521" stopColor="white" stopOpacity="0" />
+            <stop offset="1" stopColor="#333333" stopOpacity="0.6" />
+          </linearGradient>
+        </defs>
+      </svg>
     </>
   ),
   active: (
     <>
-      <g clipPath="url(#clip0_25_395)">
-        <g>
+      <g clipPath="url(#clip0_218_4103)">
+        <rect width="24" height="150" fill="black" />
+        <g filter="url(#filter0_iiii_218_4103)">
           <path
-            d="M0 -31H58V368C58 370.209 56.2091 372 54 372H4C1.79086 372 0 370.209 0 368V-31Z"
-            fill="url(#paint0_linear_25_395)"
+            d="M0.5 -10.3173H23.5V148.028C23.5 149.132 22.6046 150.028 21.5 150.028H2.5C1.39543 150.028 0.5 149.132 0.5 148.028V-10.3173Z"
+            fill="url(#paint0_linear_218_4103)"
           />
           <path
-            d="M0 -31H58V368C58 370.209 56.2091 372 54 372H4C1.79086 372 0 370.209 0 368V-31Z"
-            fill="url(#paint1_linear_25_395)"
+            d="M0.5 -10.3173H23.5V148.028C23.5 149.132 22.6046 150.028 21.5 150.028H2.5C1.39543 150.028 0.5 149.132 0.5 148.028V-10.3173Z"
+            fill="url(#paint1_linear_218_4103)"
             fillOpacity="0.5"
           />
         </g>
@@ -96,15 +101,14 @@ const whiteKeyVariants = {
       <defs>
         <filter
           id="white-key-active-shadow"
-          x="0"
-          y="-31"
-          width="68"
-          height="418"
+          x="0.5"
+          y="-10.3173"
+          width="26.8793"
+          height="166.164"
           filterUnits="userSpaceOnUse"
           colorInterpolationFilters="sRGB"
         >
           <feFlood floodOpacity="0" result="BackgroundImageFix" />
-
           <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
           <feColorMatrix
             in="SourceAlpha"
@@ -112,58 +116,62 @@ const whiteKeyVariants = {
             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
             result="hardAlpha"
           />
-          <feOffset dx="10" dy="15" />
-          <feGaussianBlur stdDeviation="8.5" />
+          <feOffset dx="3.87931" dy="5.81897" />
+          <feGaussianBlur stdDeviation="3.29741" />
           <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
           <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
-
-          <feBlend mode="normal" in2="shape" result="effect1_innerShadow_25_395" />
+          <feBlend mode="normal" in2="shape" result="effect1_innerShadow_218_4103" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
             result="hardAlpha"
           />
-          <feOffset dx="6" dy="4" />
-          <feGaussianBlur stdDeviation="3" />
+          <feOffset dx="2.32759" dy="1.55172" />
+          <feGaussianBlur stdDeviation="1.16379" />
           <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
           <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
-
-          <feBlend mode="normal" in2="effect1_innerShadow_25_395" result="effect2_innerShadow_25_395" />
+          <feBlend mode="normal" in2="effect1_innerShadow_218_4103" result="effect2_innerShadow_218_4103" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
             result="hardAlpha"
           />
-          <feOffset dx="2" dy="2" />
-          <feGaussianBlur stdDeviation="1.5" />
+          <feOffset dx="0.775862" dy="0.775862" />
+          <feGaussianBlur stdDeviation="0.581897" />
           <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
-
-          <feBlend mode="normal" in2="effect2_innerShadow_25_395" result="effect3_innerShadow_25_395" />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
+          <feBlend mode="normal" in2="effect2_innerShadow_218_4103" result="effect3_innerShadow_218_4103" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
             result="hardAlpha"
           />
-          <feOffset dx="1" dy="" />
-          <feGaussianBlur stdDeviation="1" />
+          <feOffset dx="0.387931" dy="0.387931" />
+          <feGaussianBlur stdDeviation="0.387931" />
           <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
-          <feBlend mode="normal" in2="effect3_innerShadow_25_395" result="effect4_innerShadow_25_395" />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+          <feBlend mode="normal" in2="effect3_innerShadow_218_4103" result="effect4_innerShadow_218_4103" />
         </filter>
-        <linearGradient id="paint0_linear_25_395" x1="29" y1="-31" x2="29" y2="372" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#D6D6D6" />
-          <stop offset="1" stopColor="#CCCCCC" />
+        <linearGradient
+          id="paint0_linear_218_4103"
+          x1="12"
+          y1="-10.3173"
+          x2="12"
+          y2="150.028"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#D9D9D9" />
+          <stop offset="1" stopColor="#D6D6D6" />
         </linearGradient>
         <linearGradient
-          id="paint1_linear_25_395"
-          x1="-1.44734e-06"
-          y1="179.659"
-          x2="58"
-          y2="179.659"
+          id="paint1_linear_218_4103"
+          x1="0.499999"
+          y1="73.4994"
+          x2="23.5"
+          y2="73.4994"
           gradientUnits="userSpaceOnUse"
         >
           <stop stopColor="white" stopOpacity="0" />
@@ -173,8 +181,8 @@ const whiteKeyVariants = {
           <stop offset="0.957521" stopColor="white" stopOpacity="0" />
           <stop offset="1" stopColor="#333333" stopOpacity="0.6" />
         </linearGradient>
-        <clipPath id="clip0_25_395">
-          <rect width="58" height="374" fill="white" />
+        <clipPath id="clip0_218_4103">
+          <rect width="24" height="150" fill="white" />
         </clipPath>
       </defs>
     </>
