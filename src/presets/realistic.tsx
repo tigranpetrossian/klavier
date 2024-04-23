@@ -18,6 +18,121 @@ const WhiteKey = (props: CustomKeyProps) => {
         className="klavier-realistic-key-svg"
       >
         {SVG}
+        <defs>
+          <filter
+            id="white-key-active-shadow"
+            x="0.5"
+            y="-10.3173"
+            width="26.8793"
+            height="166.164"
+            filterUnits="userSpaceOnUse"
+            colorInterpolationFilters="sRGB"
+          >
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
+            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+            <feColorMatrix
+              in="SourceAlpha"
+              type="matrix"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+              result="hardAlpha"
+            />
+            <feOffset dx="3.87931" dy="5.81897" />
+            <feGaussianBlur stdDeviation="3.29741" />
+            <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            <feBlend mode="normal" in2="shape" result="effect1_innerShadow_218_4103" />
+            <feColorMatrix
+              in="SourceAlpha"
+              type="matrix"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+              result="hardAlpha"
+            />
+            <feOffset dx="2.32759" dy="1.55172" />
+            <feGaussianBlur stdDeviation="1.16379" />
+            <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
+            <feBlend mode="normal" in2="effect1_innerShadow_218_4103" result="effect2_innerShadow_218_4103" />
+            <feColorMatrix
+              in="SourceAlpha"
+              type="matrix"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+              result="hardAlpha"
+            />
+            <feOffset dx="0.775862" dy="0.775862" />
+            <feGaussianBlur stdDeviation="0.581897" />
+            <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
+            <feBlend mode="normal" in2="effect2_innerShadow_218_4103" result="effect3_innerShadow_218_4103" />
+            <feColorMatrix
+              in="SourceAlpha"
+              type="matrix"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+              result="hardAlpha"
+            />
+            <feOffset dx="0.387931" dy="0.387931" />
+            <feGaussianBlur stdDeviation="0.387931" />
+            <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+            <feBlend mode="normal" in2="effect3_innerShadow_218_4103" result="effect4_innerShadow_218_4103" />
+          </filter>
+          <linearGradient
+            id="paint0_linear_218_4103"
+            x1="12"
+            y1="-10.3173"
+            x2="12"
+            y2="150.028"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#D9D9D9" />
+            <stop offset="1" stopColor="#D6D6D6" />
+          </linearGradient>
+          <linearGradient
+            id="paint1_linear_218_4103"
+            x1="0.499999"
+            y1="73.4994"
+            x2="23.5"
+            y2="73.4994"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="white" stopOpacity="0" />
+            <stop offset="0.0342118" stopColor="white" stopOpacity="0.65" />
+            <stop offset="0.0343118" stopColor="white" stopOpacity="0.370609" />
+            <stop offset="0.0759001" stopColor="white" stopOpacity="0" />
+            <stop offset="0.957521" stopColor="white" stopOpacity="0" />
+            <stop offset="1" stopColor="#333333" stopOpacity="0.6" />
+          </linearGradient>
+
+          <linearGradient
+            id="paint0_linear_236_893"
+            x1="12"
+            y1="2.65313e-09"
+            x2="12"
+            y2="150"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#EBEBEB" />
+            <stop offset="1" stopColor="#F2F2F2" />
+          </linearGradient>
+          <linearGradient
+            id="paint1_linear_236_893"
+            x1="0.499999"
+            y1="78.4091"
+            x2="23.5"
+            y2="78.4091"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#181818" stopOpacity="0.08" />
+            <stop offset="0.0177862" stopColor="#D0D0D0" stopOpacity="0.558294" />
+            <stop offset="0.0342118" stopColor="white" />
+            <stop offset="0.0549565" stopColor="white" stopOpacity="0.370609" />
+            <stop offset="0.957521" stopColor="white" stopOpacity="0" />
+            <stop offset="1" stopColor="#333333" stopOpacity="0.6" />
+          </linearGradient>
+
+          <clipPath id="clip0_218_4103">
+            <rect width="24" height="150" fill="white" />
+          </clipPath>
+        </defs>
       </svg>
     </div>
   );
@@ -57,34 +172,6 @@ const whiteKeyVariants = {
           fill="url(#paint1_linear_236_893)"
           fillOpacity="0.5"
         />
-        <defs>
-          <linearGradient
-            id="paint0_linear_236_893"
-            x1="12"
-            y1="2.65313e-09"
-            x2="12"
-            y2="150"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#EBEBEB" />
-            <stop offset="1" stopColor="#F2F2F2" />
-          </linearGradient>
-          <linearGradient
-            id="paint1_linear_236_893"
-            x1="0.499999"
-            y1="78.4091"
-            x2="23.5"
-            y2="78.4091"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#181818" stopOpacity="0.08" />
-            <stop offset="0.0177862" stopColor="#D0D0D0" stopOpacity="0.558294" />
-            <stop offset="0.0342118" stopColor="white" />
-            <stop offset="0.0549565" stopColor="white" stopOpacity="0.370609" />
-            <stop offset="0.957521" stopColor="white" stopOpacity="0" />
-            <stop offset="1" stopColor="#333333" stopOpacity="0.6" />
-          </linearGradient>
-        </defs>
       </svg>
     </>
   ),
@@ -92,7 +179,7 @@ const whiteKeyVariants = {
     <>
       <g clipPath="url(#clip0_218_4103)">
         <rect width="24" height="150" fill="black" />
-        <g filter="url(#filter0_iiii_218_4103)">
+        <g>
           <path
             d="M0.5 -10.3173H23.5V148.028C23.5 149.132 22.6046 150.028 21.5 150.028H2.5C1.39543 150.028 0.5 149.132 0.5 148.028V-10.3173Z"
             fill="url(#paint0_linear_218_4103)"
@@ -104,93 +191,6 @@ const whiteKeyVariants = {
           />
         </g>
       </g>
-      <defs>
-        <filter
-          id="white-key-active-shadow"
-          x="0.5"
-          y="-10.3173"
-          width="26.8793"
-          height="166.164"
-          filterUnits="userSpaceOnUse"
-          colorInterpolationFilters="sRGB"
-        >
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
-          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-          <feColorMatrix
-            in="SourceAlpha"
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
-          <feOffset dx="3.87931" dy="5.81897" />
-          <feGaussianBlur stdDeviation="3.29741" />
-          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
-          <feBlend mode="normal" in2="shape" result="effect1_innerShadow_218_4103" />
-          <feColorMatrix
-            in="SourceAlpha"
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
-          <feOffset dx="2.32759" dy="1.55172" />
-          <feGaussianBlur stdDeviation="1.16379" />
-          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
-          <feBlend mode="normal" in2="effect1_innerShadow_218_4103" result="effect2_innerShadow_218_4103" />
-          <feColorMatrix
-            in="SourceAlpha"
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
-          <feOffset dx="0.775862" dy="0.775862" />
-          <feGaussianBlur stdDeviation="0.581897" />
-          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
-          <feBlend mode="normal" in2="effect2_innerShadow_218_4103" result="effect3_innerShadow_218_4103" />
-          <feColorMatrix
-            in="SourceAlpha"
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
-          <feOffset dx="0.387931" dy="0.387931" />
-          <feGaussianBlur stdDeviation="0.387931" />
-          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
-          <feBlend mode="normal" in2="effect3_innerShadow_218_4103" result="effect4_innerShadow_218_4103" />
-        </filter>
-        <linearGradient
-          id="paint0_linear_218_4103"
-          x1="12"
-          y1="-10.3173"
-          x2="12"
-          y2="150.028"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor="#D9D9D9" />
-          <stop offset="1" stopColor="#D6D6D6" />
-        </linearGradient>
-        <linearGradient
-          id="paint1_linear_218_4103"
-          x1="0.499999"
-          y1="73.4994"
-          x2="23.5"
-          y2="73.4994"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor="white" stopOpacity="0" />
-          <stop offset="0.0342118" stopColor="white" stopOpacity="0.65" />
-          <stop offset="0.0343118" stopColor="white" stopOpacity="0.370609" />
-          <stop offset="0.0759001" stopColor="white" stopOpacity="0" />
-          <stop offset="0.957521" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="#333333" stopOpacity="0.6" />
-        </linearGradient>
-        <clipPath id="clip0_218_4103">
-          <rect width="24" height="150" fill="white" />
-        </clipPath>
-      </defs>
     </>
   ),
 };
