@@ -31,7 +31,13 @@ const BlackKey = (props: CustomKeyProps) => {
 
   return (
     <div {...innerProps} className={className}>
-      <svg viewBox="0 0 38 253" fill="none" xmlns="http://www.w3.org/2000/svg" className="klavier-realistic-key-svg">
+      <svg
+        viewBox="0 0 38 253"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="klavier-realistic-key-svg"
+        preserveAspectRatio="none"
+      >
         {SVG}
       </svg>
     </div>
