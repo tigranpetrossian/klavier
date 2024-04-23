@@ -38,7 +38,7 @@ const Key = React.memo((props: KeyProps) => {
   );
 });
 
-const DEFAULT_WHITE_KEY_ASPECT_RATIO = '23 / 150';
+const DEFAULT_WHITE_KEY_ASPECT_RATIO = '24 / 150';
 const DEFAULT_BLACK_KEY_HEIGHT = '67.5%';
 const WHITE_KEY_COLUMN_SPAN = 12;
 const BLACK_KEY_COLUMN_SPAN = 8;
