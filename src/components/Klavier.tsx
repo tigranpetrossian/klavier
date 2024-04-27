@@ -4,7 +4,6 @@ import { DEFAULT_KEYMAP } from 'keymap';
 import { DEFAULT_NOTE_RANGE } from 'lib/constants';
 import { range } from 'lib/range';
 import { Key } from 'components/Key';
-import { defaultKeyComponents } from 'components/Key/defaultKeyComponents';
 import { isMidiNumber } from 'lib/midi';
 import { useKlavier } from 'state/useKlavier';
 import { useMouse } from 'interactivity/useMouse';
@@ -89,8 +88,8 @@ interface KlavierProps {
    * <Klavier components={{ blackKey: CustomBlackKey, whiteKey: CustomWhiteKey }} />
    */
   components?: {
-    blackKey: CustomKeyComponent;
-    whiteKey: CustomKeyComponent;
+    blackKey?: CustomKeyComponent;
+    whiteKey?: CustomKeyComponent;
   };
 }
 
@@ -109,7 +108,7 @@ const Klavier = (props: KlavierProps) => {
     height,
     whiteKeyAspectRatio,
     blackKeyHeight,
-    components = defaultKeyComponents,
+    components,
   } = props;
   const [first, last] = noteRange;
   const {
