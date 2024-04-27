@@ -1,5 +1,5 @@
-export const MIN_MIDI_NUMBER = 0;
-export const MAX_MIDI_NUMBER = 127;
+export const MIDI_NUMBER_MIN = 0;
+export const MIDI_NUMBER_MAX = 127;
 export const MIDI_NUMBER_C0 = 12;
 export const OCTAVE_LENGTH = 12;
 export const BLACK_KEY_MIDI_NUMBERS = [
