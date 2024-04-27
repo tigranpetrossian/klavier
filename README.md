@@ -31,21 +31,21 @@ const App = () => {
 
 ## Props
 
-| Prop                  | Default value    | Description                                                  |
-|-----------------------|------------------|--------------------------------------------------------------|
-| `noteRange`           | `[21, 108]`      | The lowest and the highest notes of the piano in MIDI numbers (0-127). |
-| `defaultActiveNotes`  | `[]`             | Notes that are pressed by default. Subsequent updates are ignored. Cleared when the user begins playing. |
-| `activeNotes`         |                  | Currently pressed notes. Puts component into controlled mode; active notes must be managed externally via callbacks. |
-| `onPlayNote`          |                  | Fired when a note is played.                                 |
-| `onStopNote`          |                  | Fired when a note is stopped.                                |
-| `onChange`            |                  | Fired when active notes are changed via user input.          |
-| `interactive`         | `true`           | Enable interaction with the piano via keyboard, mouse, or touch. |
+| Prop                  | Default value    | Description                                                                                                             |
+|-----------------------|------------------|-------------------------------------------------------------------------------------------------------------------------|
+| `noteRange`           | `[21, 108]`      | The lowest and the highest notes of the piano in MIDI numbers (0-127).                                                  |
+| `defaultActiveNotes`  | `[]`             | Notes that are pressed by default. Subsequent updates are ignored. Cleared when the user begins playing.                |
+| `activeNotes`         |                  | Currently pressed notes. Puts component into controlled mode; active notes must be managed externally via callbacks.    |
+| `onPlayNote`          |                  | Fired when a note is played.                                                                                            |
+| `onStopNote`          |                  | Fired when a note is stopped.                                                                                           |
+| `onChange`            |                  | Fired when active notes are changed via user input.                                                                     |
+| `interactive`         | `true`           | Enable interaction with the piano via keyboard, mouse, or touch.                                                        |
 | `keymap`              | `DEFAULT_KEYMAP` | Mapping of computer keys to MIDI note numbers, e.g. `[{ key: 'q', midiNumber: 60 }, ..., { key: 'i', midiNumber: 72 }]` |
-| `width`               | `"auto"`         | Width of the piano. Accepts any valid CSS value. When unspecified, the piano fills it's container and is responsive. |
-| `height`              | `"auto"`         | Height of the piano. Accepts any valid CSS value.            |
-| `whiteKeyAspectRatio` | `"24 / 150"`     | Aspect ratio of the white key in CSS format. Ignored when `height` is specified. |
-| `blackKeyHeight`      | `"67.5%"`        | Height of the black key. Allows tweaking the appearance of black keys in relation to white keys. |
-| `components`          |                  | Allows replacing default components for black and white keys.  |
+| `width`               | `"auto"`         | Width of the piano. Accepts any valid CSS value. When unspecified, the piano fills it's container and is responsive.    |
+| `height`              | `"auto"`         | Height of the piano. Accepts any valid CSS value.                                                                       |
+| `whiteKeyAspectRatio` | `"24 / 150"`     | Aspect ratio of the white key in CSS format. Ignored when `height` is specified.                                        |
+| `blackKeyHeight`      | `"67.5%"`        | Height of the black key. Allows tweaking the appearance of black keys in relation to white keys.                        |
+| `components`          |                  | Allows replacing default components for black and white keys and adding a custom label to each key.                     |
 
 
 ## Styling

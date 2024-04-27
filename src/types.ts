@@ -18,3 +18,12 @@ export type CustomKeyProps = {
 };
 
 export type CustomKeyComponent = React.ComponentType<CustomKeyProps>;
+
+export type CustomLabelProps = {
+  note: Note;
+  midiC0: number;
+  keyboardShortcut: string | undefined;
+  active: boolean;
+};
+
+export type CustomLabelComponent = React.ComponentType<CustomLabelProps>;
