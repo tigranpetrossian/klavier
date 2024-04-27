@@ -1,11 +1,13 @@
 /* prettier-ignore */
-.klavier-realistic-key-white.active:first-child > .klavier-realistic-key-svg g,
-.klavier-realistic-key-white:not(.active) + .klavier-realistic-key-white.active > .klavier-realistic-key-svg g,
-.klavier-realistic-key-white:not(.active) + .klavier-realistic-key-black + .klavier-realistic-key-white.active > .klavier-realistic-key-svg g {
+div[data-midi-number]:first-child > .klavier-realistic-key-white.active > g,
+div[data-midi-number]:has(.klavier-realistic-key-white:not(.active)) + div[data-midi-number]:has(.klavier-realistic-key-white.active) > svg > g,
+div[data-midi-number]:has(.klavier-realistic-key-white:not(.active)) + div[data-midi-number]:has(.klavier-realistic-key-black) + div[data-midi-number]:has(.klavier-realistic-key-white.active) > svg > g {
+  /* Only show shadow on a white key, when the previous white key isn't pressed  */
   filter: url('#white-key-active-shadow');
 }
 
-.klavier-realistic-key-svg {
+.klavier-realistic-key-white,
+.klavier-realistic-key-black {
   display: block;
   position: absolute;
   inset: 0;
@@ -15,8 +17,3 @@
      https://github.com/facebook/react/issues/20483#issuecomment-1670926431 */
   pointer-events: none;
 }
-
-/*
-1. Unmounting/mounting children elements often causes "mouseleave" not to fire:
-   https://github.com/facebook/react/issues/20483#issuecomment-1670926431
-*/
