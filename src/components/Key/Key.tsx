@@ -35,7 +35,9 @@ const Key = React.memo((props: KeyProps) => {
   );
 
   return (
-    <Component innerProps={{ style, 'data-midi-number': midiNumber, ...htmlAttributes }} active={active} note={note} />
+    <div style={style} {...htmlAttributes} data-midi-number={midiNumber}>
+      <Component active={active} note={note} />
+    </div>
   );
 });
 
