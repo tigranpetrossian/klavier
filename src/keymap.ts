@@ -36,14 +36,6 @@ export const BOTTOM_ROW: Keymap = [
   { key: 'n', midiNumber: 57 },
   { key: 'j', midiNumber: 58 },
   { key: 'm', midiNumber: 59 },
-  { key: ',', midiNumber: 60 },
-  { key: '', midiNumber: 61 },
-  { key: '', midiNumber: 62 },
-  { key: '', midiNumber: 63 },
-  { key: '', midiNumber: 64 },
-  { key: '', midiNumber: 65 },
-  { key: '', midiNumber: 66 },
-  { key: '', midiNumber: 67 },
 ];
 
 export const DEFAULT_KEYMAP: Keymap = [...TOP_ROW, ...BOTTOM_ROW];
