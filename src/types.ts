@@ -12,12 +12,7 @@ export type KeymapItem = { key: string; midiNumber: number };
 
 export type Keymap = Array<KeymapItem>;
 
-export type CustomKeyInnerProps = {
-  'data-midi-number': number;
-} & React.HTMLAttributes<HTMLElement>;
-
 export type CustomKeyProps = {
-  innerProps: CustomKeyInnerProps;
   active: boolean;
   note: Note;
 };

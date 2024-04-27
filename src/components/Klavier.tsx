@@ -81,12 +81,11 @@ interface KlavierProps {
   blackKeyHeight?: React.CSSProperties['height'];
 
   /**
-   * Allows replacing default components for black and white keys. Provided with `innerProps` which needs to be spread onto
-   * custom components root.
+   * Allows replacing default components for black and white keys.
    * Important: avoid defining components directly in the prop object, as it can cause performance issues.
    * @example:
-   * const CustomBlackKey = ({ innerProps, active, note }) => { return <div {...innerProps} /> }
-   * const CustomWhiteKey = ({ innerProps, active, note }) => { return <div {...innerProps} /> }
+   * const CustomBlackKey = ({ active, note }) => { return <div /> }
+   * const CustomWhiteKey = ({ active, note }) => { return <div /> }
    * <Klavier components={{ blackKey: CustomBlackKey, whiteKey: CustomWhiteKey }} />
    */
   components?: {
