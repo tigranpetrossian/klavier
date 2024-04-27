@@ -1,5 +1,5 @@
 import type { Note } from 'types';
-import { BLACK_KEY_MIDI_NUMBERS, MAX_MIDI_NUMBER, MIDI_NUMBER_C0, MIN_MIDI_NUMBER, OCTAVE_LENGTH } from 'lib/constants';
+import { MIDI_NUMBER_MIN, MIDI_NUMBER_MAX, MIDI_NUMBER_C0, OCTAVE_LENGTH, BLACK_KEY_MIDI_NUMBERS } from 'lib/constants';
 
 export function midiToNote(midiNumber: number): Note {
   if (!isMidiNumber(midiNumber)) {
@@ -14,7 +14,7 @@ export function midiToNote(midiNumber: number): Note {
 }
 
 export function isMidiNumber(input: unknown): input is number {
-  return typeof input === 'number' && Number.isInteger(input) && input >= MIN_MIDI_NUMBER && input <= MAX_MIDI_NUMBER;
+  return typeof input === 'number' && Number.isInteger(input) && input >= MIDI_NUMBER_MIN && input <= MIDI_NUMBER_MAX;
 }
 
 export function isBlackKey(midiNumber: number) {
