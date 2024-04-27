@@ -2,13 +2,14 @@ import React, { useMemo } from 'react';
 import { midiToNote } from 'lib/midi';
 import type { CustomKeyComponent, KeyColor } from 'types';
 import { DEFAULT_BLACK_KEY_HEIGHT, DEFAULT_WHITE_KEY_ASPECT_RATIO } from 'lib/constants';
+import { defaultKeyComponents } from 'components/Key/defaultKeyComponents';
 
 type KeyProps = {
   midiNumber: number;
   firstNoteMidiNumber: number;
-  components: {
-    blackKey: CustomKeyComponent;
-    whiteKey: CustomKeyComponent;
+  components?: {
+    blackKey?: CustomKeyComponent;
+    whiteKey?: CustomKeyComponent;
   };
   whiteKeyAspectRatio?: React.CSSProperties['aspectRatio'];
   blackKeyHeight?: React.CSSProperties['height'];
@@ -74,7 +75,7 @@ function getKeyStyles(
 }
 
 function getKeyComponent(components: KeyProps['components'], color: KeyColor) {
-  return components[`${color}Key`];
+  return components?.[`${color}Key`] ?? defaultKeyComponents[`${color}Key`];
 }
 
 // The keyboard is laid out on a horizontal CSS grid.
