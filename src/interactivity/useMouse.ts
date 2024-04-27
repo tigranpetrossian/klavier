@@ -22,6 +22,10 @@ export function useMouse(props: UseMouseProps) {
 
   const handleMouseEvents = useCallback(
     (event: React.MouseEvent) => {
+      if (!enabled) {
+        return;
+      }
+
       const dataNumber = event.currentTarget.getAttribute('data-midi-number');
       if (!dataNumber) {
         return;
@@ -47,12 +51,8 @@ export function useMouse(props: UseMouseProps) {
           break;
       }
     },
-    [handleGlobalMouseUp, playNote, stopNote, setMouseDown]
+    [enabled, handleGlobalMouseUp, playNote, stopNote, setMouseDown]
   );
-
-  if (!enabled) {
-    return;
-  }
 
   return handleMouseEvents;
 }

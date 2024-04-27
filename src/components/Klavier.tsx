@@ -68,12 +68,6 @@ interface KlavierProps {
   height?: React.CSSProperties['height'];
 
   /**
-   * Aspect ratio of the white key in CSS format. Ignored when `height` is specified.
-   * @defaultValue '23 / 150'
-   */
-  whiteKeyAspectRatio?: React.CSSProperties['aspectRatio'];
-
-  /**
    * Height of the black key. Allows tweaking the appearance of black keys in relation to white keys.
    * @defaultValue '67.5%'
    */
@@ -108,7 +102,6 @@ const Klavier = (props: KlavierProps) => {
     keyMap = DEFAULT_KEYMAP,
     width,
     height,
-    whiteKeyAspectRatio,
     blackKeyHeight,
     components,
   } = props;
@@ -150,8 +143,7 @@ const Klavier = (props: KlavierProps) => {
           onMouseUp={handleMouseEvents}
           onMouseLeave={handleMouseEvents}
           onMouseEnter={handleMouseEvents}
-          isFixedHeight={height !== undefined}
-          whiteKeyAspectRatio={whiteKeyAspectRatio}
+          height={height}
           blackKeyHeight={blackKeyHeight}
           components={components}
           keymap={keyMap}
