@@ -1,5 +1,5 @@
 import React, { useMemo, useRef } from 'react';
-import type { Keymap, CustomKeyComponent } from 'types';
+import type { Keymap, CustomKeyComponent, CustomLabelComponent } from 'types';
 import { DEFAULT_KEYMAP } from 'keymap';
 import { DEFAULT_NOTE_RANGE } from 'lib/constants';
 import { range } from 'lib/range';
@@ -85,11 +85,13 @@ interface KlavierProps {
    * @example:
    * const CustomBlackKey = ({ active, note }) => { return <div /> }
    * const CustomWhiteKey = ({ active, note }) => { return <div /> }
-   * <Klavier components={{ blackKey: CustomBlackKey, whiteKey: CustomWhiteKey }} />
+   * const CustomLabel = ({ active, note, midiC0, keyboardShortcut }) => { return <div/> }
+   * <Klavier components={{ blackKey: CustomBlackKey, whiteKey: CustomWhiteKey, label: CustomLabel }} />
    */
   components?: {
     blackKey?: CustomKeyComponent;
     whiteKey?: CustomKeyComponent;
+    label?: CustomLabelComponent;
   };
 }
 
@@ -152,6 +154,7 @@ const Klavier = (props: KlavierProps) => {
           whiteKeyAspectRatio={whiteKeyAspectRatio}
           blackKeyHeight={blackKeyHeight}
           components={components}
+          keymap={keyMap}
         />
       ))}
     </div>

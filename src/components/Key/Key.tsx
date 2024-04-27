@@ -1,20 +1,22 @@
 import React, { useMemo } from 'react';
 import { midiToNote } from 'lib/midi';
-import type { CustomKeyComponent, KeyColor } from 'types';
-import { DEFAULT_BLACK_KEY_HEIGHT, DEFAULT_WHITE_KEY_ASPECT_RATIO } from 'lib/constants';
+import type { CustomKeyComponent, CustomLabelComponent, KeyColor, Keymap } from 'types';
+import { DEFAULT_BLACK_KEY_HEIGHT, DEFAULT_WHITE_KEY_ASPECT_RATIO, MIDI_NUMBER_C0 } from 'lib/constants';
 import { defaultKeyComponents } from 'components/Key/defaultKeyComponents';
 
 type KeyProps = {
   midiNumber: number;
   firstNoteMidiNumber: number;
-  components?: {
-    blackKey?: CustomKeyComponent;
-    whiteKey?: CustomKeyComponent;
-  };
+  active: boolean;
   whiteKeyAspectRatio?: React.CSSProperties['aspectRatio'];
   blackKeyHeight?: React.CSSProperties['height'];
   isFixedHeight: boolean;
-  active: boolean;
+  components?: {
+    blackKey?: CustomKeyComponent;
+    whiteKey?: CustomKeyComponent;
+    label?: CustomLabelComponent;
+  };
+  keymap: Keymap | undefined;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const Key = React.memo((props: KeyProps) => {
@@ -26,18 +28,22 @@ const Key = React.memo((props: KeyProps) => {
     blackKeyHeight,
     isFixedHeight,
     components,
+    keymap,
     ...htmlAttributes
   } = props;
   const note = midiToNote(midiNumber);
-  const Component = getKeyComponent(components, note.keyColor);
+  const KeyComponent = getKeyComponent(components, note.keyColor);
+  const Label = components?.label;
   const style = useMemo(
     () => getKeyStyles(midiNumber, firstNoteMidiNumber, isFixedHeight, whiteKeyAspectRatio, blackKeyHeight),
     [midiNumber, firstNoteMidiNumber, isFixedHeight, whiteKeyAspectRatio, blackKeyHeight]
   );
+  const keyboardShortcut = useMemo(() => getKeyboardShortcut(midiNumber, keymap), [midiNumber, keymap]);
 
   return (
     <div style={style} {...htmlAttributes} data-midi-number={midiNumber}>
-      <Component active={active} note={note} />
+      <KeyComponent active={active} note={note} />
+      {Label ? <Label active={active} note={note} keyboardShortcut={keyboardShortcut} midiC0={MIDI_NUMBER_C0} /> : null}
     </div>
   );
 });
@@ -76,6 +82,10 @@ function getKeyStyles(
 
 function getKeyComponent(components: KeyProps['components'], color: KeyColor) {
   return components?.[`${color}Key`] ?? defaultKeyComponents[`${color}Key`];
+}
+
+function getKeyboardShortcut(midiNumber: number, keymap: KeyProps['keymap']) {
+  return keymap?.find((item) => item.midiNumber === midiNumber)?.key;
 }
 
 // The keyboard is laid out on a horizontal CSS grid.
