@@ -15,32 +15,32 @@ interface KlavierProps {
    * The lowest and the highest notes of the piano in MIDI numbers (0-127).
    * @defaultValue [21, 108]
    */
-  noteRange?: [number, number];
+  keyRange?: [number, number];
 
   /**
-   * Notes that are pressed by default. Subsequent updates are ignored. Cleared when the user begins playing.
+   * Keys that are pressed by default. Subsequent updates are ignored. Cleared when the user begins playing.
    */
-  defaultActiveNotes?: Array<number>;
+  defaultActiveKeys?: Array<number>;
 
   /**
-   * Currently pressed notes. Puts component into controlled mode; active notes must be managed externally via callbacks.
+   * Currently pressed keys. Puts component into controlled mode; active keys must be managed externally via callbacks.
    */
-  activeNotes?: Array<number>;
+  activeKeys?: Array<number>;
 
   /**
-   * Fired when a note is played.
+   * Fired when a key is played.
    */
-  onNotePlay?: (midiNumber: number) => void;
+  onKeyPress?: (midiNumber: number) => void;
 
   /**
-   * Fired when a note is stopped.
+   * Fired when a key is released.
    */
-  onNoteStop?: (midiNumber: number) => void;
+  onKeyRelease?: (midiNumber: number) => void;
 
   /**
-   * Fired when active notes are changed via user input.
+   * Fired when active keys are changed via user input.
    */
-  onChange?: (activeNotes: Array<number>) => void;
+  onChange?: (activeKeys: Array<number>) => void;
 
   /**
    * Enable interaction with the piano via keyboard, mouse, or touch.
@@ -92,12 +92,12 @@ interface KlavierProps {
 const Klavier = (props: KlavierProps) => {
   const klavierRootRef = useRef<HTMLDivElement>(null);
   const {
-    defaultActiveNotes,
-    activeNotes,
-    onNotePlay,
-    onNoteStop,
+    defaultActiveKeys,
+    activeKeys,
+    onKeyPress,
+    onKeyRelease,
     onChange,
-    noteRange = DEFAULT_NOTE_RANGE,
+    keyRange = DEFAULT_NOTE_RANGE,
     interactive = true,
     keyMap = DEFAULT_KEYMAP,
     width,
@@ -105,31 +105,31 @@ const Klavier = (props: KlavierProps) => {
     blackKeyHeight,
     components,
   } = props;
-  const [first, last] = noteRange;
+  const [first, last] = keyRange;
   const {
     state,
-    actions: { playNote, stopNote },
+    actions: { pressKey, releaseKey },
   } = useKlavier({
-    defaultActiveNotes,
-    activeNotes,
-    onNotePlay,
-    onNoteStop,
+    defaultActiveKeys,
+    activeKeys,
+    onKeyPress,
+    onKeyRelease,
     onChange,
   });
   const rootStyles = useMemo(() => getRootStyles(width, height), [width, height]);
   const interactivitySettings = determineInteractivitySettings(interactive);
-  validateRange(noteRange);
+  validateRange(keyRange);
 
-  const handleMouseEvents = useMouse({ enabled: interactivitySettings.mouse, playNote, stopNote });
+  const handleMouseEvents = useMouse({ enabled: interactivitySettings.mouse, pressKey, releaseKey });
   useKeyboard({
     enabled: interactivitySettings.keyboard,
-    activeNotes: state.activeNotes,
+    activeKeys: state.activeKeys,
     keyMap,
-    noteRange,
-    playNote,
-    stopNote,
+    keyRange,
+    pressKey,
+    releaseKey,
   });
-  useTouch({ enabled: interactivitySettings.touch, klavierRootRef, playNote, stopNote });
+  useTouch({ enabled: interactivitySettings.touch, klavierRootRef, pressKey, releaseKey });
 
   return (
     <div style={rootStyles} ref={klavierRootRef}>
@@ -138,7 +138,7 @@ const Klavier = (props: KlavierProps) => {
           key={midiNumber}
           midiNumber={midiNumber}
           firstNoteMidiNumber={first}
-          active={state.activeNotes.includes(midiNumber)}
+          active={state.activeKeys.includes(midiNumber)}
           onMouseDown={handleMouseEvents}
           onMouseUp={handleMouseEvents}
           onMouseLeave={handleMouseEvents}

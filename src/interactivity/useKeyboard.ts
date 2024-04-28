@@ -4,28 +4,28 @@ import { noop } from 'lib/noop';
 
 type UseKeyboardProps = {
   enabled: boolean;
-  activeNotes: Array<number>;
-  playNote: (midiNumber: number) => void;
-  stopNote: (midiNumber: number) => void;
-  noteRange: [number, number];
+  activeKeys: Array<number>;
+  pressKey: (midiNumber: number) => void;
+  releaseKey: (midiNumber: number) => void;
+  keyRange: [number, number];
   keyMap: Keymap;
 };
 
 function useKeyboard(props: UseKeyboardProps) {
-  const { enabled, activeNotes, playNote, stopNote, keyMap, noteRange } = props;
+  const { enabled, activeKeys, pressKey, releaseKey, keyMap, keyRange } = props;
 
   const handleKeyboardEvents = useCallback(
     (event: KeyboardEvent) => {
       if (!isValidEvent(event)) return;
       const midiNumber = getMidiNumberForKey(event.key, keyMap);
-      if (!isValidMidiNumber(midiNumber, noteRange)) return;
+      if (!isValidMidiNumber(midiNumber, keyRange)) return;
       const actionMap = {
-        keydown: !activeNotes.includes(midiNumber) ? playNote : noop,
-        keyup: stopNote,
+        keydown: !activeKeys.includes(midiNumber) ? pressKey : noop,
+        keyup: releaseKey,
       };
       actionMap[event.type](midiNumber);
     },
-    [noteRange, keyMap, activeNotes, playNote, stopNote]
+    [keyRange, keyMap, activeKeys, pressKey, releaseKey]
   );
 
   useEffect(() => {
