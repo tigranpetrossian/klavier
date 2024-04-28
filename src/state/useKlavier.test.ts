@@ -17,23 +17,23 @@ describe('Given no parameters (uncontrolled mode)', () => {
   });
 
   it('should add played note to active notes list', () => {
-    result.current.actions.playNote(midiNumber);
+    result.current.actions.pressKey(midiNumber);
     rerender();
-    expect(result.current.state.activeNotes).toContain(midiNumber);
+    expect(result.current.state.activeKeys).toContain(midiNumber);
   });
 
   it('should remove stopped note from active notes list', () => {
-    result.current.actions.playNote(midiNumber);
+    result.current.actions.pressKey(midiNumber);
     rerender();
-    result.current.actions.stopNote(midiNumber);
+    result.current.actions.releaseKey(midiNumber);
     rerender();
-    expect(result.current.state.activeNotes).not.toContain(midiNumber);
+    expect(result.current.state.activeKeys).not.toContain(midiNumber);
   });
 });
 
 describe('Given default active notes (uncontrolled mode)', () => {
   const props = {
-    defaultActiveNotes: [21, 23, 25],
+    defaultActiveKeys: [21, 23, 25],
   };
   const midiNumber = 10;
   let rerender: RenderHookResult<UseKlavierResult, UseKlavierProps>['rerender'];
@@ -47,26 +47,26 @@ describe('Given default active notes (uncontrolled mode)', () => {
 
   it('should correctly initialize with given default active notes', () => {
     expect(result.current.state).toEqual({
-      activeNotes: props.defaultActiveNotes,
+      activeKeys: props.defaultActiveKeys,
       touched: false,
     });
   });
 
   it('should clear default active notes upon first play', () => {
-    result.current.actions.playNote(midiNumber);
+    result.current.actions.pressKey(midiNumber);
     rerender();
-    expect(result.current.state.activeNotes).toEqual([midiNumber]);
+    expect(result.current.state.activeKeys).toEqual([midiNumber]);
   });
 });
 
 describe('Given callback props', () => {
   const onChange = vi.fn().mockImplementation(() => undefined);
-  const onNotePlay = vi.fn().mockImplementation(() => undefined);
-  const onNoteStop = vi.fn().mockImplementation(() => undefined);
+  const onKeyPress = vi.fn().mockImplementation(() => undefined);
+  const onKeyRelease = vi.fn().mockImplementation(() => undefined);
   const props: UseKlavierProps = {
     onChange,
-    onNotePlay,
-    onNoteStop,
+    onKeyPress,
+    onKeyRelease,
   };
   const midiNumber = 10;
   let rerender: RenderHookResult<UseKlavierResult, UseKlavierProps>['rerender'];
@@ -83,27 +83,27 @@ describe('Given callback props', () => {
   });
 
   it('should execute onChange with the correct parameter', () => {
-    result.current.actions.playNote(midiNumber);
+    result.current.actions.pressKey(midiNumber);
     rerender();
     expect(onChange).toHaveBeenCalledWith([midiNumber]);
   });
 
-  it('should execute onNotePlay with the correct parameter', () => {
-    result.current.actions.playNote(midiNumber);
-    expect(onNotePlay).toHaveBeenCalledWith(midiNumber);
+  it('should execute onKeyPress with the correct parameter', () => {
+    result.current.actions.pressKey(midiNumber);
+    expect(onKeyPress).toHaveBeenCalledWith(midiNumber);
   });
 
-  it('should execute onNoteStop with the correct parameter', () => {
-    result.current.actions.playNote(midiNumber);
+  it('should execute onKeyRelease with the correct parameter', () => {
+    result.current.actions.pressKey(midiNumber);
     rerender();
-    result.current.actions.stopNote(midiNumber);
-    expect(onNoteStop).toHaveBeenCalledWith(midiNumber);
+    result.current.actions.releaseKey(midiNumber);
+    expect(onKeyRelease).toHaveBeenCalledWith(midiNumber);
   });
 });
 
 describe('Given active notes and no callbacks (controlled mode)', () => {
   const props = {
-    activeNotes: [21, 23, 25],
+    activeKeys: [21, 23, 25],
   };
   const midiNumber = 10;
   let rerender: RenderHookResult<UseKlavierResult, UseKlavierProps>['rerender'];
@@ -117,26 +117,26 @@ describe('Given active notes and no callbacks (controlled mode)', () => {
 
   it('should correctly initialize with given default active notes', () => {
     expect(result.current.state).toEqual({
-      activeNotes: props.activeNotes,
+      activeKeys: props.activeKeys,
       touched: false,
     });
   });
 
   it('should not alter active notes from within', () => {
-    result.current.actions.playNote(midiNumber);
+    result.current.actions.pressKey(midiNumber);
     rerender();
-    expect(result.current.state.activeNotes).toEqual(props.activeNotes);
+    expect(result.current.state.activeKeys).toEqual(props.activeKeys);
   });
 });
 
 describe('Given active notes and callbacks (controlled mode)', () => {
   const onChange = vi.fn().mockImplementation(() => undefined);
   const initialProps = {
-    activeNotes: [21, 23, 25],
+    activeKeys: [21, 23, 25],
     onChange,
   };
   const newProps = {
-    activeNotes: [30, 31, 31],
+    activeKeys: [30, 31, 31],
     onChange,
   };
   const midiNumber = 10;
@@ -153,14 +153,14 @@ describe('Given active notes and callbacks (controlled mode)', () => {
     vi.restoreAllMocks();
   });
 
-  it('should not execute onChange when activeNotes prop was changed from outside', () => {
+  it('should not execute onChange when activeKeys prop was changed from outside', () => {
     rerender(newProps);
-    expect(result.current.state.activeNotes).toEqual(newProps.activeNotes);
+    expect(result.current.state.activeKeys).toEqual(newProps.activeKeys);
     expect(onChange).not.toHaveBeenCalled();
   });
 
-  it('should execute onChange when activeNotes prop was changed in response to action', () => {
-    result.current.actions.playNote(midiNumber);
+  it('should execute onChange when activeKeys prop was changed in response to action', () => {
+    result.current.actions.pressKey(midiNumber);
     rerender(initialProps);
     expect(onChange).toHaveBeenCalled();
   });

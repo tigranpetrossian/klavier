@@ -4,12 +4,12 @@ import { useActiveTouchPoints } from './useActiveTouchPoints';
 type UseTouchProps = {
   enabled: boolean;
   klavierRootRef: React.RefObject<HTMLDivElement>;
-  playNote: (midiNumber: number) => void;
-  stopNote: (midiNumber: number) => void;
+  pressKey: (midiNumber: number) => void;
+  releaseKey: (midiNumber: number) => void;
 };
 
 function useTouch(props: UseTouchProps) {
-  const { klavierRootRef, enabled, playNote, stopNote } = props;
+  const { klavierRootRef, enabled, pressKey, releaseKey } = props;
   const { activeTouchPoints, upsertTouchPoint, removeTouchPoint } = useActiveTouchPoints();
 
   const handleTouchStart = useCallback(
@@ -19,10 +19,10 @@ function useTouch(props: UseTouchProps) {
         const targetEvaluation = evaluateTarget(addedTouch.clientX, addedTouch.clientY);
         if (!targetEvaluation.isValidTarget) return;
         upsertTouchPoint(addedTouch.identifier, targetEvaluation.midiNumber);
-        playNote(targetEvaluation.midiNumber);
+        pressKey(targetEvaluation.midiNumber);
       });
     },
-    [playNote, upsertTouchPoint]
+    [pressKey, upsertTouchPoint]
   );
 
   const handleTouchEnd = useCallback(
@@ -33,11 +33,11 @@ function useTouch(props: UseTouchProps) {
 
         removeTouchPoint(removedTouch.identifier);
         if (wasLastTouchOnKey(targetEvaluation.midiNumber, removedTouch.identifier, event.touches)) {
-          stopNote(targetEvaluation.midiNumber);
+          releaseKey(targetEvaluation.midiNumber);
         }
       });
     },
-    [stopNote, removeTouchPoint]
+    [releaseKey, removeTouchPoint]
   );
 
   const handleTouchMove = useCallback(
@@ -52,7 +52,7 @@ function useTouch(props: UseTouchProps) {
 
         if (outcome.type === 'NEW_KEY') {
           upsertTouchPoint(movedTouch.identifier, outcome.midiNumber);
-          playNote(outcome.midiNumber);
+          pressKey(outcome.midiNumber);
         }
 
         if (outcome.type === 'OUTSIDE_KEY') {
@@ -60,21 +60,21 @@ function useTouch(props: UseTouchProps) {
         }
 
         if (wasLastTouchOnKey(previousMidiNumber, movedTouch.identifier, event.touches)) {
-          stopNote(previousMidiNumber);
+          releaseKey(previousMidiNumber);
         }
       });
     },
-    [activeTouchPoints, upsertTouchPoint, removeTouchPoint, playNote, stopNote]
+    [activeTouchPoints, upsertTouchPoint, removeTouchPoint, pressKey, releaseKey]
   );
 
   const handleTouchCancel = useCallback(
     (event: TouchEvent) => {
       Array.from(event.changedTouches).forEach((cancelledTouch) => {
-        stopNote(activeTouchPoints[cancelledTouch.identifier]);
+        releaseKey(activeTouchPoints[cancelledTouch.identifier]);
         removeTouchPoint(cancelledTouch.identifier);
       });
     },
-    [activeTouchPoints, removeTouchPoint, stopNote]
+    [activeTouchPoints, removeTouchPoint, releaseKey]
   );
 
   useEffect(() => {

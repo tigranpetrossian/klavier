@@ -3,7 +3,7 @@ import { useEffect, useReducer, useRef, useCallback } from 'react';
 
 type InternalState = {
   touched: boolean;
-  activeNotes: Array<number>;
+  activeKeys: Array<number>;
 };
 
 type Action =
@@ -17,33 +17,33 @@ type Action =
     };
 
 type UseKlavierProps = {
-  defaultActiveNotes?: Array<number>;
-  activeNotes?: Array<number>;
-  onNotePlay?: (midiNumber: number) => void;
-  onNoteStop?: (midiNumber: number) => void;
-  onChange?: (activeNotes: Array<number>) => void;
+  defaultActiveKeys?: Array<number>;
+  activeKeys?: Array<number>;
+  onKeyPress?: (midiNumber: number) => void;
+  onKeyRelease?: (midiNumber: number) => void;
+  onChange?: (activeKeys: Array<number>) => void;
 };
 
 type UseKlavierResult = {
   state: {
-    activeNotes: Array<number>;
+    activeKeys: Array<number>;
   };
   actions: {
-    playNote: (midiNumber: number) => void;
-    stopNote: (midiNumber: number) => void;
+    pressKey: (midiNumber: number) => void;
+    releaseKey: (midiNumber: number) => void;
   };
 };
 
 function useKlavier(props: UseKlavierProps): UseKlavierResult {
-  const { defaultActiveNotes = [], activeNotes, onNotePlay, onNoteStop, onChange } = props;
+  const { defaultActiveKeys = [], activeKeys, onKeyPress, onKeyRelease, onChange } = props;
   const lastActionRef = useRef<Action | null>(null);
   const [state, dispatch] = useReducer(reducer, {
     touched: false,
-    activeNotes: activeNotes ?? defaultActiveNotes,
+    activeKeys: activeKeys ?? defaultActiveKeys,
   });
 
-  useActiveNotesChangeDetection({
-    activeNotes: state.activeNotes,
+  useActiveKeysChangeDetection({
+    activeKeys: state.activeKeys,
     lastActionRef,
     onChange,
   });
@@ -60,27 +60,27 @@ function useKlavier(props: UseKlavierProps): UseKlavierResult {
     [dispatch]
   );
 
-  const playNote = useCallback(
+  const pressKey = useCallback(
     (midiNumber: number) => {
       toggleNote(midiNumber, 'ON');
-      onNotePlay?.(midiNumber);
+      onKeyPress?.(midiNumber);
     },
-    [toggleNote, onNotePlay]
+    [toggleNote, onKeyPress]
   );
 
-  const stopNote = useCallback(
+  const releaseKey = useCallback(
     (midiNumber: number) => {
       toggleNote(midiNumber, 'OFF');
-      onNoteStop?.(midiNumber);
+      onKeyRelease?.(midiNumber);
     },
-    [toggleNote, onNoteStop]
+    [toggleNote, onKeyRelease]
   );
 
   return {
-    state: getControlledState(state, { activeNotes }),
+    state: getControlledState(state, { activeKeys }),
     actions: {
-      playNote,
-      stopNote,
+      pressKey,
+      releaseKey,
     },
   };
 }
@@ -92,20 +92,20 @@ function reducer(state: InternalState, action: Action) {
         return {
           ...state,
           touched: true,
-          activeNotes: [action.payload],
+          activeKeys: [action.payload],
         };
       }
       return {
         ...state,
-        activeNotes: state.activeNotes.includes(action.payload)
-          ? state.activeNotes
-          : [...state.activeNotes, action.payload],
+        activeKeys: state.activeKeys.includes(action.payload)
+          ? state.activeKeys
+          : [...state.activeKeys, action.payload],
       };
 
     case 'NOTE_OFF':
       return {
         ...state,
-        activeNotes: state.activeNotes.filter((note) => note !== action.payload),
+        activeKeys: state.activeKeys.filter((note) => note !== action.payload),
       };
 
     default:
@@ -115,20 +115,20 @@ function reducer(state: InternalState, action: Action) {
 
 type UseStateChangeDetectionProps = {
   lastActionRef: React.MutableRefObject<Action | null>;
-  onChange?: (activeNotes: Array<number>) => void;
-  activeNotes: Array<number>;
+  onChange?: (activeKeys: Array<number>) => void;
+  activeKeys: Array<number>;
 };
 
-function useActiveNotesChangeDetection(props: UseStateChangeDetectionProps) {
-  const { activeNotes, lastActionRef, onChange } = props;
+function useActiveKeysChangeDetection(props: UseStateChangeDetectionProps) {
+  const { activeKeys, lastActionRef, onChange } = props;
 
   useEffect(() => {
     if (!lastActionRef.current) {
       return;
     }
-    onChange?.(activeNotes);
+    onChange?.(activeKeys);
     lastActionRef.current = null;
-  }, [activeNotes, lastActionRef, onChange]);
+  }, [activeKeys, lastActionRef, onChange]);
 }
 
 function getControlledState<State>(internalState: State, controlledProps: Partial<State>) {
