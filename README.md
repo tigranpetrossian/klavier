@@ -4,7 +4,7 @@
 
 <div align="center">
   <h1>Klavier</h1>
-  <h3>A lightweight, customizable, interactive piano library built with React.</h3>
+  <h3>A lightweight, customizable, interactive piano keyboard library built with React.</h3>
 </div>
 
 ## Features
@@ -33,12 +33,12 @@ const App = () => {
 
 | Prop                  | Default value    | Description                                                                                                             |
 |-----------------------|------------------|-------------------------------------------------------------------------------------------------------------------------|
-| `noteRange`           | `[21, 108]`      | The lowest and the highest notes of the piano in MIDI numbers (0-127).                                                  |
-| `defaultActiveNotes`  | `[]`             | Notes that are pressed by default. Subsequent updates are ignored. Cleared when the user begins playing.                |
-| `activeNotes`         |                  | Currently pressed notes. Puts component into controlled mode; active notes must be managed externally via callbacks.    |
-| `onPlayNote`          |                  | Fired when a note is played.                                                                                            |
-| `onStopNote`          |                  | Fired when a note is stopped.                                                                                           |
-| `onChange`            |                  | Fired when active notes are changed via user input.                                                                     |
+| `keyRange`            | `[21, 108]`      | The lowest and the highest notes of the piano in MIDI numbers (0-127).                                                  |
+| `defaultActiveKeys`   | `[]`             | Keys that are pressed by default. Subsequent updates are ignored. Cleared when the user begins playing.                 |
+| `activeKeys`          |                  | Currently pressed keys. Puts component into controlled mode; keys notes must be managed externally via callbacks.       |
+| `onKeyPress`          |                  | Fired when a key is pressed.                                                                                            |
+| `onKeyRelease`        |                  | Fired when a key is released.                                                                                           |
+| `onChange`            |                  | Fired when active keys are changed via user input.                                                                      |
 | `interactive`         | `true`           | Enable interaction with the piano via keyboard, mouse, or touch.                                                        |
 | `keymap`              | `DEFAULT_KEYMAP` | Mapping of computer keys to MIDI note numbers, e.g. `[{ key: 'q', midiNumber: 60 }, ..., { key: 'i', midiNumber: 72 }]` |
 | `width`               | `"auto"`         | Width of the piano. Accepts any valid CSS value. When unspecified, the piano fills it's container and is responsive.    |
@@ -51,7 +51,7 @@ const App = () => {
 ## Styling
 
 ### Layout
-By default, Klavier is responsive takes up the full width of its parent container. This can be changed by using a combination of `width`, `height`, `whiteKeyAspectRatio` and `blackKeyHeight` props. 
+By default, Klavier is responsive takes up the full width of its parent container. This can be changed by using a combination of `width`, `height`, and `blackKeyHeight` props. 
 
 ### Appearance
 The visual appearance of the keyboard can be customized by specifying custom components for the black and white keys. This enables styling the keyboard with any approach.

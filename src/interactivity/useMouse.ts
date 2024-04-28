@@ -2,12 +2,12 @@ import { useCallback, useRef } from 'react';
 
 type UseMouseProps = {
   enabled: boolean;
-  playNote: (midiNumber: number) => void;
-  stopNote: (midiNumber: number) => void;
+  pressKey: (midiNumber: number) => void;
+  releaseKey: (midiNumber: number) => void;
 };
 
 export function useMouse(props: UseMouseProps) {
-  const { enabled, playNote, stopNote } = props;
+  const { enabled, pressKey, releaseKey } = props;
   // keep handleMouseEvents stable to prevent re-rendering of up to 88 keys
   // on each mouse interaction by using ref instead of state
   const isMouseDown = useRef(false);
@@ -36,22 +36,22 @@ export function useMouse(props: UseMouseProps) {
         case 'mousedown':
           window.addEventListener('mouseup', handleGlobalMouseUp);
           setMouseDown(true);
-          playNote(midiNumber);
+          pressKey(midiNumber);
           break;
         case 'mouseup':
         case 'mouseleave':
           if (isMouseDown.current) {
-            stopNote(midiNumber);
+            releaseKey(midiNumber);
           }
           break;
         case 'mouseenter':
           if (isMouseDown.current) {
-            playNote(midiNumber);
+            pressKey(midiNumber);
           }
           break;
       }
     },
-    [enabled, handleGlobalMouseUp, playNote, stopNote, setMouseDown]
+    [enabled, handleGlobalMouseUp, pressKey, releaseKey, setMouseDown]
   );
 
   return handleMouseEvents;
