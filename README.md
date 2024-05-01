@@ -43,7 +43,6 @@ const App = () => {
 | `keymap`              | `DEFAULT_KEYMAP` | Mapping of computer keys to MIDI note numbers, e.g. `[{ key: 'q', midiNumber: 60 }, ..., { key: 'i', midiNumber: 72 }]` |
 | `width`               | `"auto"`         | Width of the piano. Accepts any valid CSS value. When unspecified, the piano fills it's container and is responsive.    |
 | `height`              | `"auto"`         | Height of the piano. Accepts any valid CSS value.                                                                       |
-| `whiteKeyAspectRatio` | `"24 / 150"`     | Aspect ratio of the white key in CSS format. Ignored when `height` is specified.                                        |
 | `blackKeyHeight`      | `"67.5%"`        | Height of the black key. Allows tweaking the appearance of black keys in relation to white keys.                        |
 | `components`          |                  | Allows replacing default components for black and white keys and adding a custom label to each key.                     |
 
