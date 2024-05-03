@@ -71,7 +71,7 @@ Interactivity can be completely or partially disabled.
 
 ## Customizing the size
 By default, Klavier is responsive takes up the full width of its parent container. This can be changed by using a 
-combination of `width`, `height`, and `blackKeyHeight` props. Those attributes accept any valid CSS values. 
+combination of `width` and `height` props. Those attributes accept any valid CSS values. 
 
 ### Fixed width:
 ```tsx
@@ -91,6 +91,13 @@ recommended, as it will the instrument to widen/shrink based on the viewport siz
 <div style={{ aspectRatio: '8 / 1' }}>
   <Klavier width="100%" height="100%"/>
 </div>
+```
+
+### Customizing black key height
+The default height of the black keys is based on standard piano actions. To customize its size, use the blackKeyHeight prop.
+For example, to set the black keys at half the height of the white keys:
+```tsx
+<Klavier blackKeyHeight="50%"/>
 ```
 
 ## Appearance
