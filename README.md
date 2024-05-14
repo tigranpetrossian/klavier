@@ -85,8 +85,8 @@ combination of `width` and `height` props. Those attributes accept any valid CSS
 
 ### Reducing the height in responsive mode
 Because height should be relative to the width of the keyboard, specifying a fixed height without a fixed width is not 
-recommended, as it will the instrument to widen/shrink based on the viewport size. Instead, you can utilize the CSS 
-`aspect-ratio` on the parent:
+recommended, as it will cause the instrument to widen/shrink based on the viewport size. Instead, you can utilize the CSS 
+`aspect-ratio` on the parent element:
 ```tsx
 <div style={{ aspectRatio: '8 / 1' }}>
   <Klavier width="100%" height="100%"/>
