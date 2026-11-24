@@ -1,1 +1,0 @@
-export { realistic } from './realistic';
