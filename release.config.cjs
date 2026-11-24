@@ -19,5 +19,5 @@ module.exports = {
     '@semantic-release/npm',
     '@semantic-release/github',
   ],
-  branches: ['main', 'next'],
+  branches: ['main', { name: 'beta', prerelease: true }],
 };
