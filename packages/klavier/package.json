@@ -1,0 +1,35 @@
+{
+  "name": "klavier",
+  "version": "2.0.1",
+  "description": "A lightweight, customizable, interactive piano library.",
+  "keywords": [
+    "piano",
+    "midi",
+    "interactive"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tigranpetrossian/klavier.git",
+    "directory": "packages/klavier"
+  },
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "tsdown": "0.23.7",
+    "vitest": "5.1.1"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  }
+}
