@@ -3,6 +3,8 @@
     "target": "es2022",
     "module": "esnext",
     "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "types": ["@vitest/browser-playwright"],
     "strict": true,
     "declaration": true,
     "isolatedDeclarations": true,

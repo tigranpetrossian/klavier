@@ -22,14 +22,32 @@
     "build": "tsdown",
     "dev": "tsdown --watch",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run && pnpm test:smoke",
+    "test:smoke": "tsdown && node --test \"smoke/*.test.js\""
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   },
   "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitest/browser-playwright": "5.1.1",
+    "fast-check": "4.11.0",
+    "playwright": "1.65.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "tsdown": "0.23.7",
-    "vitest": "5.1.1"
+    "vitest": "5.1.1",
+    "vitest-browser-react": "2.3.0"
   },
   "exports": {
     ".": "./dist/index.js",
+    "./react": "./dist/react.js",
     "./package.json": "./package.json"
   }
 }

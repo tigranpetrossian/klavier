@@ -1,4 +1,4 @@
-import { packageName } from 'klavier';
+import { Klavier } from 'klavier/react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -8,4 +8,8 @@ if (!rootElement) {
   throw new Error('Missing #root element in index.html');
 }
 
-createRoot(rootElement).render(<StrictMode>{packageName}</StrictMode>);
+createRoot(rootElement).render(
+  <StrictMode>
+    <Klavier computerKeyboard="global" style={{ maxWidth: 960, margin: '48px auto' }} />
+  </StrictMode>
+);

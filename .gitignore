@@ -26,3 +26,4 @@ dist-ssr
 # Generated
 tsconfig.tsbuildinfo
 .eslintcache
+.vitest

@@ -41,6 +41,10 @@ export default defineConfig(
     rules: { 'import-x/no-default-export': 'off' },
   },
   {
+    files: ['packages/*/smoke/**'],
+    languageOptions: { globals: globals.node },
+  },
+  {
     files: ['website/src/**'],
     extends: [reactRefresh.configs.vite],
   },
