@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import nextPlugin from '@next/eslint-plugin-next';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import prettier from 'eslint-config-prettier/flat';
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
@@ -9,7 +10,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default defineConfig(
-  globalIgnores(['**/dist']),
+  globalIgnores(['**/dist', 'website/.next', 'website/out', 'website/next-env.d.ts']),
   js.configs.recommended,
   tseslint.configs.recommended,
   reactHooks.configs.flat.recommended,
@@ -45,8 +46,13 @@ export default defineConfig(
     languageOptions: { globals: globals.node },
   },
   {
-    files: ['website/src/**'],
-    extends: [reactRefresh.configs.vite],
+    files: ['website/**'],
+    extends: [nextPlugin.configs['core-web-vitals'], reactRefresh.configs.next],
+    settings: { next: { rootDir: 'website/' } },
+  },
+  {
+    files: ['website/src/app/**/{page,layout}.tsx'],
+    rules: { 'import-x/no-default-export': 'off' },
   },
   prettier
 );
