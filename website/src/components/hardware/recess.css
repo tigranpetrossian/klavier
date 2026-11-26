@@ -1,0 +1,58 @@
+/*
+ * Recess is global. Components never override these values, they multiply them:
+ * --<component>-<part>-recess-<property>-scale, passed in as --recess-<property>-scale.
+ */
+
+@property --recess-depth {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.8;
+}
+
+@property --recess-highlight {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.28;
+}
+
+@property --recess-shadow {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.3;
+}
+
+:root {
+  --recess-color: #2b2e2a;
+  --recess-color-deep: #181a17;
+  --recess-depth: 0.8;
+  --recess-highlight: 0.28;
+  --recess-shadow: 0.3;
+  --recess-edge: 1px;
+  --recess-softness: 0.5px;
+}
+
+.hw-Recess {
+  --recess-fill: min(1, var(--recess-depth) * var(--recess-depth-scale, 1));
+  --recess-lit: min(1, var(--recess-highlight) * var(--recess-highlight-scale, 1) * var(--highlight-strength));
+  --recess-shaded: min(1, var(--recess-shadow) * var(--recess-shadow-scale, 1) * var(--shadow-strength));
+  --recess-blur: calc(var(--recess-softness) * var(--recess-softness-scale, 1));
+
+  --recess-near-floor: rgb(from var(--recess-color-deep) r g b / var(--recess-fill));
+  --recess-far-floor: rgb(from var(--recess-color) r g b / var(--recess-fill));
+  --recess-floor: linear-gradient(var(--shade-angle), var(--recess-near-floor), var(--recess-far-floor));
+
+  --recess-far-edge: rgb(
+    from color-mix(in oklab, var(--surface-color), var(--highlight-color) calc(var(--recess-lit) * 100%)) r g b /
+      min(1, var(--recess-lit) * 5)
+  );
+  --recess-near-edge: rgb(from var(--shadow-color) r g b / var(--recess-shaded));
+
+  --recess-ring: 0 0 var(--recess-blur) var(--recess-width, 0px) var(--recess-near-floor);
+  --recess-edges:
+    calc(var(--shade-x) * var(--recess-edge)) calc(var(--shade-y) * var(--recess-edge)) var(--recess-blur)
+      var(--recess-width, 0px) var(--recess-far-edge),
+    calc(var(--light-x) * var(--recess-edge)) calc(var(--light-y) * var(--recess-edge)) var(--recess-blur)
+      var(--recess-width, 0px) var(--recess-near-edge);
+  --recess-inner: inset calc(var(--shade-x) * var(--recess-reach, 1px)) calc(var(--shade-y) * var(--recess-reach, 1px))
+    calc(var(--recess-reach, 1px) * 2) 0 rgb(0 0 0 / min(1, var(--recess-shaded) * 2));
+}

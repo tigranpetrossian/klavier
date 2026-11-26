@@ -1,0 +1,124 @@
+:root {
+  --selector-gap: 6px;
+  --selector-popup-radius: 10px;
+  --selector-item-height: 28px;
+}
+
+.hw-Selector {
+  display: inline-flex;
+  flex: none;
+  align-items: stretch;
+  gap: var(--selector-gap);
+}
+
+.hw-SelectorDisplay {
+  --screen-radius: calc(var(--key-radius) + var(--key-hole));
+  --screen-bezel: 2px;
+
+  flex: 1;
+  min-width: 0;
+  height: calc(var(--key-height) + var(--key-hole) * 2);
+  margin: 0;
+  border: 0;
+  font: inherit;
+  cursor: default;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hw-SelectorDisplay:focus-visible {
+  outline: 1.5px solid var(--ink-color);
+  outline-offset: 2px;
+}
+
+.hw-SelectorReadout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  padding: 0 10px 0 12px;
+  white-space: nowrap;
+}
+
+.hw-SelectorValue {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hw-SelectorIcon {
+  display: flex;
+  flex: none;
+  opacity: 0.7;
+  transition: rotate 160ms ease-out;
+}
+
+.hw-SelectorDisplay[data-popup-open] .hw-SelectorIcon {
+  rotate: 180deg;
+}
+
+.hw-SelectorPositioner {
+  z-index: 10;
+  outline: none;
+}
+
+.hw-SelectorPopup {
+  min-width: var(--anchor-width);
+  padding: 4px;
+  border-radius: var(--selector-popup-radius);
+  background:
+    radial-gradient(
+      ellipse 120% 100% at calc(50% + var(--light-x) * 55%) calc(50% + var(--light-y) * 75%),
+      var(--screen-color-lit) 0%,
+      transparent 70%
+    ),
+    var(--screen-color);
+  box-shadow:
+    inset calc(var(--shade-x) * 1px) calc(var(--shade-y) * 1px) 0 0 rgb(255 255 255 / 0.1),
+    inset 0 0 0 0.5px rgb(255 255 255 / 0.06),
+    0 0 0 1px rgb(0 0 0 / 0.7),
+    calc(var(--shade-x) * 3px * var(--elevation)) calc(var(--shade-y) * 3px * var(--elevation)) 4px 0
+      rgb(0 0 0 / calc(0.4 * var(--shadow-strength))),
+    calc(var(--shade-x) * 10px * var(--elevation)) calc(var(--shade-y) * 10px * var(--elevation)) 18px 0
+      rgb(0 0 0 / calc(0.4 * var(--shadow-strength))),
+    calc(var(--shade-x) * 24px * var(--elevation)) calc(var(--shade-y) * 24px * var(--elevation)) 44px 0
+      rgb(0 0 0 / calc(0.35 * var(--shadow-strength)));
+  color: var(--screen-ink-color);
+  outline: none;
+  transform-origin: var(--transform-origin);
+  transition:
+    opacity 140ms ease-out,
+    scale 140ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.hw-SelectorPopup[data-starting-style],
+.hw-SelectorPopup[data-ending-style] {
+  opacity: 0;
+  scale: 0.96;
+}
+
+.hw-SelectorItem {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: var(--selector-item-height);
+  padding: 0 12px 0 9px;
+  border-radius: calc(var(--selector-popup-radius) - 4px);
+  white-space: nowrap;
+  color: rgb(from var(--screen-ink-color) r g b / 0.72);
+  cursor: default;
+  outline: none;
+  user-select: none;
+}
+
+.hw-SelectorItem[data-highlighted] {
+  background: rgb(from var(--screen-ink-color) r g b / 0.09);
+  color: var(--screen-ink-color);
+}
+
+.hw-SelectorItem[data-selected] {
+  color: var(--screen-ink-color);
+}

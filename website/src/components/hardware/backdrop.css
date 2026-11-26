@@ -1,0 +1,39 @@
+@property --backdrop-glow {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.09;
+}
+
+@property --backdrop-grain {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.5;
+}
+
+:root {
+  --backdrop-glow: 0.09;
+  --backdrop-grain: 0.5;
+}
+
+.hw-Backdrop {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      ellipse 85% 85% at calc(50% + var(--light-x) * 45%) calc(50% + var(--light-y) * 55%),
+      color-mix(in oklab, var(--page-color), white calc(var(--backdrop-glow) * 100%)) 0%,
+      var(--page-color) 75%
+    ),
+    var(--page-color);
+}
+
+.hw-Backdrop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url('./textures/noise.webp') 0 0 / var(--grain-size) var(--grain-size);
+  mix-blend-mode: overlay;
+  opacity: var(--backdrop-grain);
+  pointer-events: none;
+}

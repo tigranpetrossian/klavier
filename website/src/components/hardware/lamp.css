@@ -1,0 +1,57 @@
+:root {
+  --lamp-housing-color: #636a6a;
+}
+
+.hw-Lamp {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 6px;
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--lamp-housing-color), var(--lamp-color) calc(var(--lamp-idle-tint) * 100%));
+  box-shadow:
+    calc(var(--shade-x) * 1px) calc(var(--shade-y) * 1px) 1px 0 var(--highlight-3),
+    calc(var(--light-x) * 1px) calc(var(--light-y) * 1px) 1px 0 var(--shadow-3),
+    inset 0 0 1px 1px var(--shadow-3),
+    inset calc(var(--shade-x) * 1px) calc(var(--shade-y) * 1px) 1px 0 var(--shadow-3);
+}
+
+.hw-Lamp[data-shape='round'] {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.hw-Lamp::before,
+.hw-Lamp::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 140ms ease-out;
+}
+
+.hw-Lamp::before {
+  inset: 0.5px;
+  background: radial-gradient(
+    ellipse at calc(50% + var(--light-x) * 18%) calc(50% + var(--light-y) * 18%),
+    var(--lamp-core) 0%,
+    var(--lamp-color) 65%
+  );
+  filter: blur(0.4px);
+}
+
+.hw-Lamp::after {
+  inset: 0;
+  box-shadow:
+    0 0 2px 0 var(--lamp-bloom-1),
+    0 0 6px 1px var(--lamp-bloom-1),
+    0 0 14px 2px var(--lamp-bloom-2),
+    0 0 32px 6px var(--lamp-bloom-3);
+}
+
+.hw-Lamp[data-on]::before,
+.hw-Lamp[data-on]::after {
+  opacity: 1;
+}

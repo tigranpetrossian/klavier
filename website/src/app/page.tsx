@@ -1,5 +1,10 @@
-import { Klavier } from '../components/klavier';
+import { DemoSynth } from '@/components/demo-synth/demo-synth';
+import { Backdrop } from '@/components/hardware/backdrop';
 
 export default function HomePage() {
-  return <Klavier computerKeyboard="global" style={{ maxWidth: 960, margin: '48px auto' }} />;
+  return (
+    <Backdrop className="demo-Page">
+      <DemoSynth />
+    </Backdrop>
+  );
 }

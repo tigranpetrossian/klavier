@@ -95,6 +95,9 @@ importers:
 
   website:
     dependencies:
+      '@base-ui/react':
+        specifier: 1.9.0
+        version: 1.9.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       klavier:
         specifier: workspace:*
         version: link:../packages/klavier
@@ -120,9 +123,6 @@ importers:
       '@babel/types':
         specifier: 8.1.2
         version: 8.1.2
-      '@base-ui/react':
-        specifier: 1.9.0
-        version: 1.9.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@tanstack/react-hotkeys':
         specifier: 0.27.0
         version: 0.27.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)

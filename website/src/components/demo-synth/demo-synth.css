@@ -1,0 +1,343 @@
+@property --demo-key-bay-recess-depth-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --demo-key-bay-recess-highlight-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --demo-key-bay-recess-shadow-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --demo-key-bay-recess-softness-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+:root {
+  --demo-key-bay-recess-depth-scale: 1.3;
+  --demo-key-bay-recess-highlight-scale: 1.3;
+  --demo-key-bay-recess-shadow-scale: 1.3;
+  --demo-key-bay-recess-softness-scale: 1;
+  --demo-margin: 36px;
+  --demo-gutter: 40px;
+  --demo-row-gap: 26px;
+  --demo-stack-gap: 22px;
+  --demo-keyboard-height: 148px;
+}
+
+.demo-Page {
+  display: flex;
+  min-height: 100dvh;
+  padding: var(--demo-margin);
+}
+
+.demo-Synth {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-self: flex-start;
+  gap: var(--demo-row-gap);
+  min-width: 0;
+  container-type: inline-size;
+}
+
+.demo-Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.demo-Brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 14px;
+}
+
+.demo-ModuleTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.demo-Wordmark {
+  flex: none;
+  height: 12px;
+  color: var(--ink-color);
+  filter: drop-shadow(calc(var(--shade-x) * 0.5px) calc(var(--shade-y) * 0.5px) 0.5px var(--shadow-4));
+}
+
+.demo-PowerIcon {
+  display: grid;
+}
+
+.demo-PowerIcon > svg {
+  grid-area: 1 / 1;
+}
+
+.demo-PowerIconLit {
+  color: color-mix(in srgb, var(--lamp-color) 70%, #999);
+  filter: drop-shadow(0 0 1.5px rgb(from var(--lamp-core) r g b / 0.7))
+    drop-shadow(0 0 4px rgb(from var(--lamp-core) r g b / 0.35));
+  opacity: 0;
+  transition: opacity 140ms ease-out;
+}
+
+[data-pressed] .demo-PowerIconLit {
+  opacity: 1;
+}
+
+.demo-Status {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 32px;
+}
+
+.demo-StatusItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.demo-Modules {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--demo-gutter);
+  row-gap: var(--demo-row-gap);
+}
+
+.demo-Module {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  grid-column: span var(--span);
+  justify-content: space-between;
+  gap: var(--demo-stack-gap);
+  min-width: 0;
+}
+
+.demo-ModuleDivider {
+  position: absolute;
+  inset-block: 0;
+  left: calc(var(--demo-gutter) / -2);
+}
+
+.demo-Module:first-child .demo-ModuleDivider {
+  display: none;
+}
+
+.demo-Row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.demo-Row[data-spread] {
+  justify-content: space-between;
+}
+
+.demo-Row[data-balanced] > .hw-Legend {
+  flex: 1 1 0;
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.demo-Row[data-balanced] > .hw-Legend:last-child {
+  text-align: right;
+}
+
+.demo-Row[data-inset] {
+  padding: 12px 14px 0;
+}
+
+.demo-Row > .hw-Key[data-shape='rect'] {
+  flex: 1;
+}
+
+.demo-Module > .hw-Selector,
+.demo-Module > .hw-Segmented {
+  display: flex;
+}
+
+.demo-Labeled {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.demo-Labeled[data-size='large'] {
+  gap: 22px;
+}
+
+.demo-ScopeScreen {
+  flex: 1;
+  min-height: 132px;
+}
+
+.demo-Scope {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px 14px;
+}
+
+.demo-ScopeRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.demo-ScopeDim {
+  opacity: 0.6;
+}
+
+.demo-ScopePlot {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background:
+    linear-gradient(rgb(from var(--screen-ink-color) r g b / 0.16), rgb(from var(--screen-ink-color) r g b / 0.16)) 0
+      50% / 100% 1px no-repeat,
+    repeating-linear-gradient(
+      90deg,
+      rgb(from var(--screen-ink-color) r g b / 0.08) 0px,
+      rgb(from var(--screen-ink-color) r g b / 0.08) 1px,
+      transparent 1px,
+      transparent 12.5%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgb(from var(--screen-ink-color) r g b / 0.08) 0px,
+      rgb(from var(--screen-ink-color) r g b / 0.08) 1px,
+      transparent 1px,
+      transparent 25%
+    );
+}
+
+.demo-ScopePlot svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.demo-ScopeTrace {
+  fill: none;
+  stroke: var(--screen-ink-color);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 calc(5px * var(--screen-glow)) rgb(from var(--screen-ink-color) r g b / 0.8));
+}
+
+.demo-Scope:not([data-live]) {
+  opacity: 0.25;
+}
+
+.demo-OutputMeter {
+  height: 176px;
+}
+
+.demo-Keys {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--demo-gutter);
+  align-items: stretch;
+}
+
+.demo-KeysControls {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.demo-KeysControls > .hw-Segmented {
+  display: flex;
+}
+
+.demo-KeyBay {
+  --recess-depth-scale: var(--demo-key-bay-recess-depth-scale);
+  --recess-highlight-scale: var(--demo-key-bay-recess-highlight-scale);
+  --recess-shadow-scale: var(--demo-key-bay-recess-shadow-scale);
+  --recess-softness-scale: var(--demo-key-bay-recess-softness-scale);
+  --recess-reach: 2px;
+
+  grid-column: span 10;
+  height: var(--demo-keyboard-height);
+  padding: 4px;
+  border-radius: 8px;
+  background: var(--recess-floor);
+  box-shadow: var(--recess-edges), var(--recess-inner);
+}
+
+.demo-Keyboard {
+  height: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+@container (width < 1040px) {
+  .demo-Header {
+    flex-wrap: wrap;
+    row-gap: 16px;
+  }
+
+  .demo-Modules {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .demo-Keys {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  }
+
+  .demo-Module,
+  .demo-KeysControls,
+  .demo-KeyBay {
+    grid-column: auto;
+  }
+
+  .demo-Module:nth-child(odd) .demo-ModuleDivider {
+    display: none;
+  }
+}
+
+@container (width < 700px) {
+  .demo-Status {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 14px 24px;
+  }
+
+  .demo-Modules,
+  .demo-Keys {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .demo-ModuleDivider {
+    display: none;
+  }
+
+  .demo-Keys {
+    row-gap: var(--demo-row-gap);
+  }
+}

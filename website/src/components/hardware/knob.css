@@ -1,0 +1,334 @@
+@property --knob-hole {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.03;
+}
+
+@property --knob-hole-recess-depth-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --knob-hole-recess-highlight-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --knob-hole-recess-shadow-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --knob-hole-recess-softness-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --knob-arc-recess-depth-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --knob-arc-recess-highlight-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --knob-arc-recess-shadow-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --knob-arc-recess-softness-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --knob-wall-shade {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.7;
+}
+
+@property --knob-wall {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.025;
+}
+
+@property --knob-shadow {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.1;
+}
+
+@property --knob-specular {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --knob-brushed {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.5;
+}
+
+@property --knob-streaks {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.5;
+}
+
+@property --knob-pointer-length {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.19;
+}
+
+@property --knob-pointer-width {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.024;
+}
+
+@property --knob-pointer-inset {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.09;
+}
+
+@property --knob-scale-opacity {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.8;
+}
+
+:root {
+  --knob-color: #bab4af;
+  --knob-wall-color: #625e58;
+  --knob-pointer-color: #f6f5f0;
+  --knob-hole: 0.02;
+  --knob-hole-recess-depth-scale: 1.15;
+  --knob-hole-recess-highlight-scale: 0.45;
+  --knob-hole-recess-shadow-scale: 1.15;
+  --knob-hole-recess-softness-scale: 1;
+  --knob-wall: 0.04;
+  --knob-wall-shade: 0.6;
+  --knob-shadow: 0.215;
+  --knob-bevel: 0.5px;
+  --knob-specular: 1;
+  --knob-brushed: 1.2;
+  --knob-streaks: 0;
+  --knob-pointer-length: 0.19;
+  --knob-pointer-width: 0.024;
+  --knob-pointer-inset: 0.09;
+  --knob-scale-gap: 9px;
+  --knob-arc-width: 2px;
+  --knob-arc-recess-depth-scale: 0.75;
+  --knob-arc-recess-highlight-scale: 0.55;
+  --knob-arc-recess-shadow-scale: 0.92;
+  --knob-arc-recess-softness-scale: 1;
+  --knob-dot-size: 2.5px;
+  --knob-scale-opacity: 0.5;
+}
+
+.hw-Knob {
+  --hole: calc(var(--size) * var(--knob-hole));
+  --recess-depth-scale: var(--knob-hole-recess-depth-scale);
+  --recess-highlight-scale: var(--knob-hole-recess-highlight-scale);
+  --recess-shadow-scale: var(--knob-hole-recess-shadow-scale);
+  --recess-softness-scale: var(--knob-hole-recess-softness-scale);
+  --recess-width: var(--hole);
+  --wall: calc(var(--size) * var(--knob-wall));
+  --drop: calc(var(--size) * var(--knob-shadow) * var(--elevation));
+  --gloss: calc(var(--knob-specular) * var(--highlight-strength));
+  --brush-hi: rgb(from var(--highlight-color) r g b / calc(var(--knob-brushed) * var(--highlight-strength)));
+  --brush-lo: rgb(from var(--shadow-color) r g b / calc(var(--knob-brushed) * var(--shadow-strength)));
+
+  position: relative;
+  flex: none;
+  width: var(--size);
+  height: var(--size);
+  border: var(--wall) solid transparent;
+  border-radius: 50%;
+  background:
+    linear-gradient(
+        var(--shade-angle),
+        rgb(from var(--highlight-color) r g b / calc(0.22 * var(--sheen) * var(--highlight-strength))) 0%,
+        transparent 50%,
+        rgb(from var(--shadow-color) r g b / calc(0.18 * var(--sheen) * var(--shadow-strength))) 100%
+      )
+      padding-box,
+    conic-gradient(
+        from var(--light-angle),
+        rgb(from var(--brush-hi) r g b / calc(alpha * 0.62)) 0deg,
+        rgb(from var(--brush-hi) r g b / calc(alpha * 0.14)) 20deg,
+        rgb(from var(--brush-lo) r g b / calc(alpha * 0.3)) 86deg,
+        rgb(from var(--brush-lo) r g b / calc(alpha * 0.1)) 140deg,
+        rgb(from var(--brush-hi) r g b / calc(alpha * 0.36)) 178deg,
+        rgb(from var(--brush-hi) r g b / calc(alpha * 0.08)) 204deg,
+        rgb(from var(--brush-lo) r g b / calc(alpha * 0.26)) 266deg,
+        rgb(from var(--brush-lo) r g b / calc(alpha * 0.08)) 320deg,
+        rgb(from var(--brush-hi) r g b / calc(alpha * 0.62)) 360deg
+      )
+      padding-box,
+    repeating-conic-gradient(
+        from var(--light-angle),
+        rgb(from var(--highlight-color) r g b / calc(0.09 * var(--knob-streaks))) 0deg,
+        transparent 0.7deg,
+        rgb(from var(--shadow-color) r g b / calc(0.09 * var(--knob-streaks))) 1.3deg,
+        transparent 2.2deg,
+        rgb(from var(--highlight-color) r g b / calc(0.09 * var(--knob-streaks))) 3.1deg
+      )
+      padding-box,
+    linear-gradient(var(--knob-color), var(--knob-color)) padding-box,
+    radial-gradient(
+        closest-side,
+        transparent calc(100% - var(--wall)),
+        rgb(from var(--shadow-color) r g b / calc(var(--knob-wall-shade) * var(--shadow-strength))) 100%
+      )
+      border-box,
+    linear-gradient(
+        var(--shade-angle),
+        color-mix(in oklab, var(--knob-wall-color), var(--highlight-color) 40%) 15%,
+        color-mix(in oklab, var(--knob-wall-color), var(--shadow-color) 60%) 85%
+      )
+      border-box;
+  box-shadow:
+    inset calc(var(--shade-x) * 1px) calc(var(--shade-y) * 1px) 0.5px 0
+      rgb(from var(--highlight-color) r g b / calc(0.9 * var(--gloss))),
+    inset calc(var(--shade-x) * var(--knob-bevel)) calc(var(--shade-y) * var(--knob-bevel))
+      calc(var(--knob-bevel) * 1.5) 0 rgb(from var(--highlight-color) r g b / calc(0.35 * var(--gloss))),
+    inset calc(var(--light-x) * var(--knob-bevel)) calc(var(--light-y) * var(--knob-bevel))
+      calc(var(--knob-bevel) * 1.5) 0 rgb(from var(--shadow-color) r g b / calc(0.35 * var(--shadow-strength))),
+    var(--recess-ring),
+    var(--recess-edges),
+    calc(var(--shade-x) * var(--drop) * 0.3) calc(var(--shade-y) * var(--drop) * 0.3) calc(var(--drop) * 0.5)
+      var(--hole) var(--shadow-1),
+    calc(var(--shade-x) * var(--drop)) calc(var(--shade-y) * var(--drop)) calc(var(--drop) * 1.4) var(--hole)
+      var(--shadow-2),
+    calc(var(--shade-x) * var(--drop) * 2.2) calc(var(--shade-y) * var(--drop) * 2.2) calc(var(--drop) * 3) var(--hole)
+      var(--shadow-3),
+    calc(var(--shade-x) * var(--drop) * 4.5) calc(var(--shade-y) * var(--drop) * 4.5) calc(var(--drop) * 6) var(--hole)
+      var(--shadow-4);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hw-Knob[data-dragging] {
+  cursor: grabbing;
+}
+
+.hw-Knob[data-disabled] {
+  cursor: default;
+}
+
+.hw-Knob:has(.hw-KnobInput:focus-visible) {
+  outline: 1.5px solid var(--ink-color);
+  outline-offset: calc(var(--hole) + 2px);
+}
+
+.hw-KnobInput {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hw-KnobPointer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  rotate: var(--angle);
+}
+
+.hw-KnobPointer::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--size) * var(--knob-pointer-inset));
+  left: 50%;
+  width: max(1.5px, calc(var(--size) * var(--knob-pointer-width)));
+  height: calc(var(--size) * var(--knob-pointer-length));
+  translate: -50% 0;
+  border-radius: 1px;
+  background: var(--knob-pointer-color);
+  box-shadow:
+    0 0 0 0.5px var(--shadow-2),
+    0 0 2px 0 var(--shadow-3);
+}
+
+.hw-KnobScale {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.hw-KnobScale circle {
+  cx: 50%;
+  cy: 50%;
+  r: calc(var(--size) / 2 + var(--hole) + var(--knob-scale-gap));
+  fill: none;
+  stroke-width: var(--knob-arc-width);
+  stroke-linecap: round;
+  transform-box: fill-box;
+  transform-origin: center;
+  rotate: var(--scale-start);
+}
+
+.hw-KnobScale[data-kind='dots'] circle {
+  stroke-width: var(--knob-dot-size);
+}
+
+.hw-KnobScale[data-kind='arc'] {
+  --recess-depth-scale: var(--knob-arc-recess-depth-scale);
+  --recess-highlight-scale: var(--knob-arc-recess-highlight-scale);
+  --recess-shadow-scale: var(--knob-arc-recess-shadow-scale);
+  --recess-softness-scale: var(--knob-arc-recess-softness-scale);
+}
+
+.hw-KnobScaleTrack {
+  stroke: var(--recess-near-floor);
+}
+
+.hw-KnobScaleEdge {
+  filter: blur(calc(var(--recess-blur) / 2));
+}
+
+.hw-KnobScaleEdge[data-side='far'] {
+  stroke: var(--recess-far-edge);
+  translate: calc(var(--shade-x) * var(--recess-edge)) calc(var(--shade-y) * var(--recess-edge));
+}
+
+.hw-KnobScaleEdge[data-side='near'] {
+  stroke: var(--recess-near-edge);
+  translate: calc(var(--light-x) * var(--recess-edge)) calc(var(--light-y) * var(--recess-edge));
+}
+
+.hw-KnobScaleMark {
+  stroke: rgb(from var(--ink-color) r g b / var(--knob-scale-opacity));
+}
+
+.hw-KnobScale[data-lit] .hw-KnobScaleMark {
+  stroke: color-mix(in oklab, var(--recess-color), var(--lamp-color) calc(var(--lamp-idle-tint) * 100%));
+}
+
+.hw-KnobScaleLit {
+  stroke: color-mix(in oklab, var(--lamp-color) 78%, white);
+  filter: drop-shadow(0 0 1.5px var(--lamp-bloom-1)) drop-shadow(0 0 5px var(--lamp-bloom-1))
+    drop-shadow(0 0 12px var(--lamp-bloom-2));
+}

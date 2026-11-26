@@ -1,0 +1,51 @@
+@property --rule-recess-depth-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --rule-recess-highlight-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --rule-recess-shadow-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --rule-recess-softness-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+:root {
+  --rule-recess-depth-scale: 0.46;
+  --rule-recess-highlight-scale: 1.07;
+  --rule-recess-shadow-scale: 0;
+  --rule-recess-softness-scale: 0;
+}
+
+.hw-Rule {
+  --recess-depth-scale: var(--rule-recess-depth-scale);
+  --recess-highlight-scale: var(--rule-recess-highlight-scale);
+  --recess-shadow-scale: var(--rule-recess-shadow-scale);
+  --recess-softness-scale: var(--rule-recess-softness-scale);
+
+  flex: none;
+  align-self: stretch;
+  border-radius: 1px;
+  background: var(--recess-near-floor);
+  box-shadow: var(--recess-edges);
+}
+
+.hw-Rule[data-orientation='horizontal'] {
+  height: 1px;
+}
+
+.hw-Rule[data-orientation='vertical'] {
+  width: 1px;
+}

@@ -1,0 +1,39 @@
+@property --legend-weight {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 550;
+}
+
+@property --legend-dim {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.6;
+}
+
+:root {
+  --legend-size: 11px;
+  --legend-weight: 550;
+  --legend-tracking: -0.013em;
+  --legend-dim: 0.6;
+}
+
+.hw-LegendType {
+  font-family: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--legend-size);
+  font-weight: var(--legend-weight);
+  line-height: 1;
+  letter-spacing: var(--legend-tracking);
+}
+
+.hw-Legend {
+  position: relative;
+  z-index: 1;
+  color: var(--ink-color);
+  white-space: nowrap;
+  text-shadow: calc(var(--shade-x) * 0.5px) calc(var(--shade-y) * 0.5px) 0.5px var(--shadow-4);
+  user-select: none;
+}
+
+.hw-Legend[data-tone='dim'] {
+  color: rgb(from var(--ink-color) r g b / var(--legend-dim));
+}

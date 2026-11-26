@@ -1,0 +1,65 @@
+:root {
+  --segment-gap: 0px;
+  --segment-inner-radius: 2px;
+}
+
+.hw-Segmented {
+  --recess-depth-scale: var(--key-hole-recess-depth-scale);
+  --recess-highlight-scale: var(--key-hole-recess-highlight-scale);
+  --recess-shadow-scale: var(--key-hole-recess-shadow-scale);
+  --recess-softness-scale: var(--key-hole-recess-softness-scale);
+
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  gap: var(--segment-gap);
+  padding: var(--key-hole);
+  border-radius: calc(var(--key-radius) + var(--key-hole));
+  background: var(--recess-near-floor);
+  isolation: isolate;
+}
+
+.hw-Segmented::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: calc(var(--segment-count) * 2);
+  border-radius: inherit;
+  box-shadow: var(--recess-edges);
+  pointer-events: none;
+}
+
+.hw-Segmented:has(:focus-visible) {
+  outline: 1.5px solid var(--ink-color);
+  outline-offset: 2px;
+}
+
+.hw-Segment.hw-Key {
+  --hole: 0px;
+  --socket: 0 0 transparent;
+  --corner-start: var(--segment-inner-radius);
+  --corner-end: var(--segment-inner-radius);
+  --sheen-size: calc(var(--segment-count) * 100%) 100%;
+  --sheen-position: calc(var(--segment-index) / max(1, var(--segment-count) - 1) * 100%) 0;
+
+  z-index: calc(var(--segment-count) + var(--segment-index) * sign(var(--shade-x)));
+  flex: 1;
+  padding: 0 10px;
+}
+
+.hw-Segment.hw-Key:focus-visible {
+  outline: none;
+}
+
+.hw-Segment.hw-Key[data-checked],
+.hw-Segment.hw-Key:active:not([data-disabled]) {
+  z-index: 0;
+}
+
+.hw-Segment.hw-Key:nth-child(1 of .hw-Segment) {
+  --corner-start: var(--key-radius);
+}
+
+.hw-Segment.hw-Key:nth-last-child(1 of .hw-Segment) {
+  --corner-end: var(--key-radius);
+}

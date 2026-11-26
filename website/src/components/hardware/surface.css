@@ -1,0 +1,99 @@
+@property --surface-chamfer {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --surface-vignette {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --surface-drop {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+:root {
+  --surface-color-lit: #a5a9a3;
+  --surface-color: #818578;
+  --surface-color-shade: #81857f;
+  --surface-edge-color: #50534c;
+  --surface-radius: 28px;
+  --surface-padding: 30px;
+  --surface-thickness: 3px;
+  --surface-chamfer: 1;
+  --surface-vignette: 1;
+  --surface-drop: 1;
+}
+
+.hw-Surface {
+  --drop: calc(var(--surface-drop) * var(--elevation));
+
+  position: relative;
+  isolation: isolate;
+  padding: var(--surface-padding);
+  border-radius: var(--surface-radius);
+  background:
+    radial-gradient(
+      ellipse 80% 130% at calc(50% + var(--light-x) * 62%) calc(50% + var(--light-y) * 85%),
+      rgb(from var(--highlight-color) r g b / calc(0.2 * var(--sheen) * var(--highlight-strength))),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 80% 130% at calc(50% + var(--shade-x) * 62%) calc(50% + var(--shade-y) * 85%),
+      rgb(from var(--shadow-color) r g b / calc(0.2 * var(--sheen) * var(--shadow-strength))),
+      transparent 72%
+    ),
+    linear-gradient(
+      var(--shade-angle),
+      var(--surface-color-lit) 0%,
+      var(--surface-color) 41%,
+      var(--surface-color-shade) 100%
+    );
+  box-shadow:
+    inset calc(var(--shade-x) * 1px) calc(var(--shade-y) * 1px) 0 0
+      rgb(from var(--highlight-color) r g b / calc(0.6 * var(--surface-chamfer) * var(--highlight-strength))),
+    inset calc(var(--light-x) * 1px) calc(var(--light-y) * 1px) 0 0
+      rgb(from var(--shadow-color) r g b / calc(0.5 * var(--surface-chamfer) * var(--shadow-strength))),
+    inset calc(var(--shade-x) * 3px) calc(var(--shade-y) * 3px) 5px 0
+      rgb(from var(--highlight-color) r g b / calc(0.2 * var(--surface-chamfer) * var(--highlight-strength))),
+    inset calc(var(--light-x) * 5px) calc(var(--light-y) * 5px) 8px 0
+      rgb(from var(--shadow-color) r g b / calc(0.26 * var(--surface-chamfer) * var(--shadow-strength))),
+    inset 0 0 70px 0 rgb(from var(--shadow-color) r g b / calc(0.16 * var(--surface-vignette) * var(--shadow-strength))),
+    calc(var(--shade-x) * var(--surface-thickness)) calc(var(--shade-y) * var(--surface-thickness)) 0 0
+      var(--surface-edge-color),
+    calc(var(--shade-x) * var(--surface-thickness)) calc(var(--shade-y) * var(--surface-thickness)) 0 1px
+      rgb(0 0 0 / 0.55),
+    calc(var(--shade-x) * 8px * var(--drop)) calc(var(--shade-y) * 8px * var(--drop)) calc(10px * var(--drop)) 0
+      rgb(0 0 0 / calc(0.4 * var(--shadow-strength))),
+    calc(var(--shade-x) * 24px * var(--drop)) calc(var(--shade-y) * 24px * var(--drop)) calc(36px * var(--drop)) 0
+      rgb(0 0 0 / calc(0.4 * var(--shadow-strength))),
+    calc(var(--shade-x) * 60px * var(--drop)) calc(var(--shade-y) * 60px * var(--drop)) calc(110px * var(--drop)) 0
+      rgb(0 0 0 / calc(0.45 * var(--shadow-strength)));
+}
+
+.hw-Surface::before,
+.hw-Surface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.hw-Surface::before {
+  background: url('./textures/noise.webp') 0 0 / var(--grain-size) var(--grain-size);
+  mix-blend-mode: overlay;
+  opacity: var(--grain);
+}
+
+.hw-Surface::after {
+  background: url('./textures/noise.webp') 173px 91px / calc(var(--grain-size) * 1.9) calc(var(--grain-size) * 1.9);
+  filter: brightness(0.85) contrast(60);
+  mix-blend-mode: screen;
+  opacity: var(--speckle);
+}

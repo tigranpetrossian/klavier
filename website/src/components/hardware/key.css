@@ -1,0 +1,207 @@
+@property --key-specular {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --key-pressed-shade {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.1;
+}
+
+@property --key-hole-recess-depth-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --key-hole-recess-highlight-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --key-hole-recess-shadow-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --key-hole-recess-softness-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --key-held-depth {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1.6;
+}
+
+:root {
+  --key-color: #cbc4c0;
+  --key-wall-color: #6f6b65;
+  --key-legend-color: #3a3d37;
+  --key-height: 30px;
+  --key-radius: 7px;
+  --key-round-size: 36px;
+  --key-hole: 0.5px;
+  --key-hole-recess-depth-scale: 1;
+  --key-hole-recess-highlight-scale: 0.6;
+  --key-hole-recess-shadow-scale: 1;
+  --key-hole-recess-softness-scale: 0.2;
+  --key-wall: 1px;
+  --key-bevel: 0.5px;
+  --key-specular: 1;
+  --key-shadow: 1.5px;
+  --key-press: 2px;
+  --key-pressed-shade: 0.1;
+  --key-held-depth: 1.6;
+}
+
+.hw-Key {
+  --hole: var(--key-hole);
+  --recess-depth-scale: var(--key-hole-recess-depth-scale);
+  --recess-highlight-scale: var(--key-hole-recess-highlight-scale);
+  --recess-shadow-scale: var(--key-hole-recess-shadow-scale);
+  --recess-softness-scale: var(--key-hole-recess-softness-scale);
+  --recess-width: var(--hole);
+  --socket: var(--recess-ring), var(--recess-edges);
+  --corner-start: var(--key-radius);
+  --corner-end: var(--key-radius);
+  --wall-corner: min(var(--corner-start), var(--corner-end));
+  --drop: calc(var(--key-shadow) * var(--elevation));
+  --sink: 0px;
+  --dim: 0;
+  --gloss: calc(var(--key-specular) * var(--highlight-strength));
+  --edge-shade: var(--shadow-strength);
+  --wall-toward-light: color-mix(in oklab, var(--key-wall-color), var(--highlight-color) 40%);
+  --wall-away-from-light: color-mix(in oklab, var(--key-wall-color), var(--shadow-color) 60%);
+  --wall-top: color-mix(
+    in oklab,
+    var(--wall-toward-light) calc(var(--lit-top) * 100%),
+    var(--wall-away-from-light) calc(var(--lit-bottom) * 100%)
+  );
+  --wall-right: color-mix(
+    in oklab,
+    var(--wall-toward-light) calc(var(--lit-right) * 100%),
+    var(--wall-away-from-light) calc(var(--lit-left) * 100%)
+  );
+  --wall-bottom: color-mix(
+    in oklab,
+    var(--wall-toward-light) calc(var(--lit-bottom) * 100%),
+    var(--wall-away-from-light) calc(var(--lit-top) * 100%)
+  );
+  --wall-left: color-mix(
+    in oklab,
+    var(--wall-toward-light) calc(var(--lit-left) * 100%),
+    var(--wall-away-from-light) calc(var(--lit-right) * 100%)
+  );
+
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: var(--key-height);
+  margin: var(--hole);
+  padding: 0 12px;
+  border: var(--key-wall) solid transparent;
+  border-radius: var(--corner-start) var(--corner-end) var(--corner-end) var(--corner-start);
+  background:
+    linear-gradient(
+        var(--shade-angle),
+        rgb(from var(--highlight-color) r g b / calc(0.3 * var(--sheen) * var(--highlight-strength))) 0%,
+        transparent 50%,
+        rgb(from var(--shadow-color) r g b / calc(0.16 * var(--sheen) * var(--shadow-strength))) 100%
+      )
+      var(--sheen-position, 0 0) / var(--sheen-size, auto) padding-box,
+    linear-gradient(var(--key-color), var(--key-color)) padding-box,
+    linear-gradient(
+        to bottom,
+        var(--wall-top) var(--key-wall),
+        transparent var(--wall-corner),
+        transparent calc(100% - var(--wall-corner)),
+        var(--wall-bottom) calc(100% - var(--key-wall))
+      )
+      border-box,
+    linear-gradient(
+        to right,
+        var(--wall-left) var(--key-wall),
+        transparent var(--corner-start),
+        transparent calc(100% - var(--corner-end)),
+        var(--wall-right) calc(100% - var(--key-wall))
+      )
+      border-box,
+    color-mix(in oklab, var(--wall-toward-light), var(--wall-away-from-light));
+  box-shadow:
+    inset calc(var(--shade-x) * 1px) calc(var(--shade-y) * 1px) 0.5px 0
+      rgb(from var(--highlight-color) r g b / calc(0.85 * var(--gloss))),
+    inset calc(var(--shade-x) * var(--key-bevel)) calc(var(--shade-y) * var(--key-bevel)) calc(var(--key-bevel) * 1.5) 0
+      rgb(from var(--highlight-color) r g b / calc(0.35 * var(--gloss))),
+    inset calc(var(--light-x) * var(--key-bevel)) calc(var(--light-y) * var(--key-bevel)) calc(var(--key-bevel) * 1.5) 0
+      rgb(from var(--shadow-color) r g b / calc(0.3 * var(--edge-shade))),
+    inset calc(var(--shade-x) * var(--sink) * 0.4) calc(var(--shade-y) * var(--sink) * 0.4) var(--sink) 0
+      var(--shadow-2),
+    inset 0 0 0 999px rgb(from var(--shadow-color) r g b / var(--dim)),
+    var(--socket),
+    calc(var(--shade-x) * var(--drop) * 0.4) calc(var(--shade-y) * var(--drop) * 0.4) calc(var(--drop) * 0.6)
+      var(--hole) var(--shadow-1),
+    calc(var(--shade-x) * var(--drop) * 1.2) calc(var(--shade-y) * var(--drop) * 1.2) calc(var(--drop) * 1.8)
+      var(--hole) var(--shadow-3),
+    calc(var(--shade-x) * var(--drop) * 3) calc(var(--shade-y) * var(--drop) * 3) calc(var(--drop) * 4) var(--hole)
+      var(--shadow-4);
+  white-space: nowrap;
+  color: var(--key-legend-color);
+  text-shadow: calc(var(--shade-x) * 0.5px) calc(var(--shade-y) * 0.5px) 0 var(--highlight-2);
+  cursor: default;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: box-shadow 90ms ease-out;
+}
+
+.hw-Key[data-pressed],
+.hw-Key[data-checked],
+.hw-Key:active:not([data-disabled]) {
+  --drop: 0px;
+  --sink: var(--key-press);
+  --dim: var(--key-pressed-shade);
+  --gloss: 0;
+  --edge-shade: 0;
+  --wall-toward-light: color-mix(in oklab, var(--key-wall-color), var(--shadow-color) 60%);
+}
+
+.hw-Key:active:not([data-disabled]) {
+  --sink: calc(var(--key-press) * var(--key-held-depth));
+  --dim: calc(var(--key-pressed-shade) * var(--key-held-depth));
+}
+
+.hw-Key:focus-visible {
+  outline: 1.5px solid var(--ink-color);
+  outline-offset: calc(var(--hole) + 2px);
+}
+
+.hw-Key[data-shape='round'] {
+  --corner-start: 50%;
+  --corner-end: 50%;
+
+  flex-direction: column;
+  gap: 4px;
+  width: var(--key-round-size);
+  height: var(--key-round-size);
+  min-height: 0;
+  padding: 0;
+}
+
+.hw-Key[data-shape='square'] {
+  width: var(--key-height);
+  padding: 0;
+}
+
+.hw-Key svg {
+  display: block;
+  flex: none;
+}

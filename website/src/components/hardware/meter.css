@@ -1,0 +1,72 @@
+@property --meter-off-opacity {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.1;
+}
+
+:root {
+  --meter-color: #e3ecd4;
+  --meter-peak-color: #ee895e;
+  --meter-segment-gap: 2px;
+  --meter-segment-thickness: 4px;
+  --meter-segment-length: 9px;
+  --meter-off-opacity: 0.1;
+  --meter-padding: 4px;
+}
+
+.hw-Meter {
+  display: inline-flex;
+  flex: none;
+}
+
+.hw-MeterWindow {
+  --screen-radius: 5px;
+  --screen-bezel: 2px;
+
+  flex: 1;
+}
+
+.hw-MeterWindow .hw-ScreenGlass::before {
+  display: none;
+}
+
+.hw-MeterColumns {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  gap: 3px;
+  padding: var(--meter-padding);
+}
+
+.hw-MeterColumn {
+  display: flex;
+  flex: 1;
+  flex-direction: column-reverse;
+  gap: var(--meter-segment-gap);
+}
+
+.hw-MeterSegment {
+  --segment-color: var(--meter-color);
+
+  flex: 1;
+  min-width: var(--meter-segment-length);
+  min-height: var(--meter-segment-thickness);
+  border-radius: 1px;
+  background: rgb(from var(--segment-color) r g b / var(--meter-off-opacity));
+  transition:
+    background-color 90ms linear,
+    box-shadow 90ms linear;
+}
+
+.hw-MeterSegment[data-zone='peak'] {
+  --segment-color: var(--meter-peak-color);
+}
+
+.hw-MeterSegment[data-lit] {
+  background: color-mix(in oklab, var(--segment-color) 82%, white);
+  box-shadow:
+    0 0 3px 0 rgb(from var(--segment-color) r g b / calc(0.8 * var(--lamp-glow))),
+    0 0 9px 0 rgb(from var(--segment-color) r g b / calc(0.4 * var(--lamp-glow)));
+  transition-duration: 0ms;
+}

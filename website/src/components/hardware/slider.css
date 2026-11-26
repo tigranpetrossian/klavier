@@ -1,0 +1,362 @@
+@property --slider-slot-recess-depth-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --slider-slot-recess-highlight-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --slider-slot-recess-shadow-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --slider-slot-recess-softness-scale {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --slider-cap-specular {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --slider-cap-scoop {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --slider-cap-ridges {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.7;
+}
+
+@property --slider-tick-opacity {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.75;
+}
+
+:root {
+  --slider-slot-width: 6px;
+  --slider-slot-recess-depth-scale: 1;
+  --slider-slot-recess-highlight-scale: 1;
+  --slider-slot-recess-shadow-scale: 1;
+  --slider-slot-recess-softness-scale: 1;
+  --slider-cap-color: #c1bcb6;
+  --slider-cap-wall-color: #6f6b65;
+  --slider-cap-length: 40px;
+  --slider-cap-width: 26px;
+  --slider-cap-radius: 4px;
+  --slider-cap-wall: 1px;
+  --slider-cap-bevel: 2px;
+  --slider-cap-specular: 1;
+  --slider-cap-shadow: 5px;
+  --slider-cap-scoop: 1;
+  --slider-cap-ridges: 0.7;
+  --slider-line-color: #b8b8b8;
+  --slider-tick-length: 6px;
+  --slider-tick-gap: 4px;
+  --slider-tick-opacity: 0.75;
+  --slider-strip-width: 2px;
+}
+
+.hw-Slider {
+  --gutter: calc(var(--slider-tick-gap) + var(--slider-tick-length));
+
+  position: relative;
+  display: flex;
+  flex: none;
+  touch-action: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hw-Slider[data-orientation='vertical'] {
+  --travel-direction: to bottom;
+
+  width: calc(var(--slider-cap-width) + var(--gutter) * 2);
+  height: var(--length);
+  padding: calc(var(--slider-cap-length) / 2) var(--gutter);
+}
+
+.hw-Slider[data-orientation='horizontal'] {
+  --travel-direction: to right;
+
+  width: var(--length);
+  height: calc(var(--slider-cap-width) + var(--gutter) * 2);
+  padding: var(--gutter) calc(var(--slider-cap-length) / 2);
+}
+
+.hw-SliderControl {
+  position: relative;
+  flex: 1;
+  cursor: grab;
+}
+
+.hw-Slider[data-dragging] .hw-SliderControl {
+  cursor: grabbing;
+}
+
+.hw-SliderTrack {
+  width: 100%;
+  height: 100%;
+}
+
+.hw-SliderSlot {
+  --recess-depth-scale: var(--slider-slot-recess-depth-scale);
+  --recess-highlight-scale: var(--slider-slot-recess-highlight-scale);
+  --recess-shadow-scale: var(--slider-slot-recess-shadow-scale);
+  --recess-softness-scale: var(--slider-slot-recess-softness-scale);
+
+  position: absolute;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--recess-floor);
+  box-shadow: var(--recess-edges), var(--recess-inner);
+}
+
+.hw-Slider[data-orientation='vertical'] .hw-SliderSlot {
+  inset-block: calc(var(--slider-cap-length) / -2);
+  left: 50%;
+  width: var(--slider-slot-width);
+  translate: -50% 0;
+}
+
+.hw-Slider[data-orientation='horizontal'] .hw-SliderSlot {
+  inset-inline: calc(var(--slider-cap-length) / -2);
+  top: 50%;
+  height: var(--slider-slot-width);
+  translate: 0 -50%;
+}
+
+.hw-SliderStrips {
+  position: absolute;
+  inset: 2px;
+  display: flex;
+  justify-content: center;
+  gap: 1px;
+}
+
+.hw-Slider[data-orientation='vertical'] .hw-SliderStrips {
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.hw-Slider[data-orientation='horizontal'] .hw-SliderStrips {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hw-SliderStrip {
+  flex: none;
+  border-radius: 999px;
+  background: linear-gradient(var(--strip-direction), var(--lamp-color), var(--lamp-core));
+  box-shadow:
+    0 0 3px 0 var(--lamp-bloom-1),
+    0 0 8px 0 var(--lamp-bloom-2);
+}
+
+.hw-Slider[data-orientation='vertical'] .hw-SliderStrip {
+  --strip-direction: to top;
+
+  width: var(--slider-strip-width);
+  height: var(--strip-size);
+}
+
+.hw-Slider[data-orientation='horizontal'] .hw-SliderStrip {
+  --strip-direction: to right;
+
+  width: var(--strip-size);
+  height: var(--slider-strip-width);
+}
+
+.hw-SliderStrip[data-kind='fill'] {
+  --strip-size: calc(var(--turn) * (100% - var(--slider-cap-length) + 4px) + var(--slider-cap-length) / 2 - 2px);
+}
+
+.hw-SliderStrip[data-kind='meter'] {
+  --strip-size: calc(var(--level) * 100%);
+
+  transition:
+    height 60ms linear,
+    width 60ms linear;
+}
+
+.hw-SliderTick {
+  position: absolute;
+  opacity: var(--slider-tick-opacity);
+}
+
+.hw-SliderTick::before,
+.hw-SliderTick::after {
+  content: '';
+  position: absolute;
+  border-radius: 0.5px;
+  background: var(--ink-color);
+}
+
+.hw-SliderTick[data-rank='minor'] {
+  --tick: calc(var(--slider-tick-length) * 0.55);
+
+  opacity: calc(var(--slider-tick-opacity) * 0.6);
+}
+
+.hw-SliderTick[data-rank='major'] {
+  --tick: var(--slider-tick-length);
+}
+
+.hw-Slider[data-orientation='vertical'] .hw-SliderTick {
+  inset-inline: calc(var(--gutter) * -1);
+  bottom: calc(var(--at) * 100%);
+  height: 0;
+}
+
+.hw-Slider[data-orientation='vertical'] .hw-SliderTick::before,
+.hw-Slider[data-orientation='vertical'] .hw-SliderTick::after {
+  top: -0.5px;
+  width: var(--tick);
+  height: 1px;
+}
+
+.hw-Slider[data-orientation='vertical'] .hw-SliderTick::before {
+  left: calc(var(--slider-tick-length) - var(--tick));
+}
+
+.hw-Slider[data-orientation='vertical'] .hw-SliderTick::after {
+  right: calc(var(--slider-tick-length) - var(--tick));
+}
+
+.hw-Slider[data-orientation='horizontal'] .hw-SliderTick {
+  inset-block: calc(var(--gutter) * -1);
+  left: calc(var(--at) * 100%);
+  width: 0;
+}
+
+.hw-Slider[data-orientation='horizontal'] .hw-SliderTick::before,
+.hw-Slider[data-orientation='horizontal'] .hw-SliderTick::after {
+  left: -0.5px;
+  width: 1px;
+  height: var(--tick);
+}
+
+.hw-Slider[data-orientation='horizontal'] .hw-SliderTick::before {
+  top: calc(var(--slider-tick-length) - var(--tick));
+}
+
+.hw-Slider[data-orientation='horizontal'] .hw-SliderTick::after {
+  bottom: calc(var(--slider-tick-length) - var(--tick));
+}
+
+.hw-SliderThumb {
+  --wall: var(--slider-cap-wall);
+  --drop: calc(var(--slider-cap-shadow) * var(--elevation));
+  --gloss: calc(var(--slider-cap-specular) * var(--highlight-strength));
+  --scoop-hi: rgb(from var(--highlight-color) r g b / calc(var(--slider-cap-scoop) * var(--highlight-strength)));
+  --scoop-lo: rgb(from var(--shadow-color) r g b / calc(var(--slider-cap-scoop) * var(--shadow-strength)));
+
+  border: var(--wall) solid transparent;
+  border-radius: var(--slider-cap-radius);
+  background:
+    linear-gradient(
+        var(--travel-direction),
+        rgb(from var(--scoop-hi) r g b / calc(alpha * 0.5)) 0%,
+        rgb(from var(--scoop-hi) r g b / calc(alpha * 0.14)) 14%,
+        rgb(from var(--scoop-lo) r g b / calc(alpha * 0.24)) 50%,
+        rgb(from var(--scoop-hi) r g b / calc(alpha * 0.24)) 88%,
+        rgb(from var(--scoop-lo) r g b / calc(alpha * 0.2)) 100%
+      )
+      padding-box,
+    linear-gradient(var(--slider-cap-color), var(--slider-cap-color)) padding-box,
+    linear-gradient(
+        var(--shade-angle),
+        color-mix(in oklab, var(--slider-cap-wall-color), var(--highlight-color) 40%) 15%,
+        color-mix(in oklab, var(--slider-cap-wall-color), var(--shadow-color) 60%) 85%
+      )
+      border-box;
+  box-shadow:
+    inset calc(var(--shade-x) * 1px) calc(var(--shade-y) * 1px) 0.5px 0
+      rgb(from var(--highlight-color) r g b / calc(0.85 * var(--gloss))),
+    inset calc(var(--shade-x) * var(--slider-cap-bevel)) calc(var(--shade-y) * var(--slider-cap-bevel))
+      calc(var(--slider-cap-bevel) * 1.5) 0 rgb(from var(--highlight-color) r g b / calc(0.35 * var(--gloss))),
+    inset calc(var(--light-x) * var(--slider-cap-bevel)) calc(var(--light-y) * var(--slider-cap-bevel))
+      calc(var(--slider-cap-bevel) * 1.5) 0 rgb(from var(--shadow-color) r g b / calc(0.3 * var(--shadow-strength))),
+    0 0 0 0.5px var(--shadow-1),
+    calc(var(--shade-x) * var(--drop) * 0.4) calc(var(--shade-y) * var(--drop) * 0.4) calc(var(--drop) * 0.6) 0
+      var(--shadow-1),
+    calc(var(--shade-x) * var(--drop) * 1.2) calc(var(--shade-y) * var(--drop) * 1.2) calc(var(--drop) * 1.6) 0
+      var(--shadow-3),
+    calc(var(--shade-x) * var(--drop) * 2.8) calc(var(--shade-y) * var(--drop) * 2.8) calc(var(--drop) * 3.6) 0
+      var(--shadow-4);
+  outline: none;
+}
+
+.hw-Slider[data-orientation='vertical'] .hw-SliderThumb {
+  left: 50%;
+  width: var(--slider-cap-width);
+  height: var(--slider-cap-length);
+}
+
+.hw-Slider[data-orientation='horizontal'] .hw-SliderThumb {
+  top: 50%;
+  width: var(--slider-cap-length);
+  height: var(--slider-cap-width);
+}
+
+.hw-SliderThumb:has(:focus-visible) {
+  outline: 1.5px solid var(--ink-color);
+  outline-offset: calc(var(--wall) + 2px);
+}
+
+.hw-SliderThumb::before,
+.hw-SliderThumb::after {
+  content: '';
+  position: absolute;
+  border-radius: 1px;
+}
+
+.hw-SliderThumb::before {
+  inset: 3px;
+  background: repeating-linear-gradient(
+    var(--travel-direction),
+    transparent 0px,
+    transparent 1.6px,
+    rgb(from var(--shadow-color) r g b / calc(0.5 * var(--slider-cap-ridges) * var(--shadow-strength))) 1.6px,
+    rgb(from var(--shadow-color) r g b / calc(0.5 * var(--slider-cap-ridges) * var(--shadow-strength))) 2.3px,
+    rgb(from var(--highlight-color) r g b / calc(0.5 * var(--slider-cap-ridges) * var(--highlight-strength))) 2.3px,
+    rgb(from var(--highlight-color) r g b / calc(0.5 * var(--slider-cap-ridges) * var(--highlight-strength))) 3px
+  );
+  mask: linear-gradient(
+    var(--travel-direction),
+    black 0%,
+    black 30%,
+    transparent 31%,
+    transparent 69%,
+    black 70%,
+    black 100%
+  );
+}
+
+.hw-SliderThumb::after {
+  background: var(--slider-line-color);
+  box-shadow:
+    0 0 0 0.5px var(--shadow-2),
+    0 0 2px 0 var(--shadow-3);
+}
+
+.hw-Slider[data-orientation='vertical'] .hw-SliderThumb::after {
+  inset: calc(50% - 1px) 3px;
+}
+
+.hw-Slider[data-orientation='horizontal'] .hw-SliderThumb::after {
+  inset: 3px calc(50% - 1px);
+}

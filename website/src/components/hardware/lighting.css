@@ -1,0 +1,91 @@
+@property --elevation {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --shadow-strength {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --highlight-strength {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --sheen {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --grain {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.5;
+}
+
+@property --speckle {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.22;
+}
+
+@property --lamp-glow {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --lamp-idle-tint {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.14;
+}
+
+:root {
+  --light-angle: -16deg;
+  --elevation: 1;
+  --shadow-strength: 1;
+  --highlight-strength: 0.96;
+  --sheen: 0.6;
+  --grain: 0.5;
+  --grain-size: 512px;
+  --speckle: 0.14;
+  --lamp-glow: 0.1;
+  --lamp-idle-tint: 0.14;
+
+  --shadow-color: #343632;
+  --highlight-color: #f0f2ee;
+  --lamp-color: #e76026;
+  --ink-color: #eef2e9;
+  --page-color: #171916;
+
+  --light-x: sin(var(--light-angle));
+  --light-y: calc(-1 * cos(var(--light-angle)));
+  --shade-x: calc(-1 * sin(var(--light-angle)));
+  --shade-y: cos(var(--light-angle));
+  --shade-angle: calc(var(--light-angle) + 180deg);
+
+  --lit-top: max(0.001, -1 * var(--light-y));
+  --lit-right: max(0.001, var(--light-x));
+  --lit-bottom: max(0.001, var(--light-y));
+  --lit-left: max(0.001, -1 * var(--light-x));
+
+  --shadow-1: rgb(from var(--shadow-color) r g b / calc(0.6 * var(--shadow-strength)));
+  --shadow-2: rgb(from var(--shadow-color) r g b / calc(0.42 * var(--shadow-strength)));
+  --shadow-3: rgb(from var(--shadow-color) r g b / calc(0.26 * var(--shadow-strength)));
+  --shadow-4: rgb(from var(--shadow-color) r g b / calc(0.14 * var(--shadow-strength)));
+  --highlight-1: rgb(from var(--highlight-color) r g b / calc(0.7 * var(--highlight-strength)));
+  --highlight-2: rgb(from var(--highlight-color) r g b / calc(0.4 * var(--highlight-strength)));
+  --highlight-3: rgb(from var(--highlight-color) r g b / calc(0.2 * var(--highlight-strength)));
+  --highlight-4: rgb(from var(--highlight-color) r g b / calc(0.1 * var(--highlight-strength)));
+
+  --lamp-core: color-mix(in oklab, var(--lamp-color) 40%, white);
+  --lamp-bloom-1: rgb(from var(--lamp-color) r g b / calc(0.85 * var(--lamp-glow)));
+  --lamp-bloom-2: rgb(from var(--lamp-color) r g b / calc(0.45 * var(--lamp-glow)));
+  --lamp-bloom-3: rgb(from var(--lamp-color) r g b / calc(0.2 * var(--lamp-glow)));
+}
