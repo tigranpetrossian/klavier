@@ -1,0 +1,16 @@
+:root {
+  --surface: #ffffff;
+  --brand: #0d99ff;
+  --link: var(--brand);
+}
+
+.dark {
+  --surface: #0a0a0a;
+  --brand: #ff9900;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #111111;
+  }
+}

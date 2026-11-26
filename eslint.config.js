@@ -54,5 +54,20 @@ export default defineConfig(
     files: ['website/src/app/**/{page,layout}.tsx'],
     rules: { 'import-x/no-default-export': 'off' },
   },
+  {
+    files: ['website/src/lib/tuner/**', 'website/src/dev-tools/**'],
+    rules: {
+      'import-x/exports-last': 'off',
+      'react-refresh/only-export-components': 'off',
+    },
+  },
+  {
+    files: [
+      'website/src/lib/tuner/transform/loader.ts',
+      'website/src/lib/tuner/**/*.d.ts',
+      'website/src/lib/tuner/browser-tests/**',
+    ],
+    rules: { 'import-x/no-default-export': 'off' },
+  },
   prettier
 );

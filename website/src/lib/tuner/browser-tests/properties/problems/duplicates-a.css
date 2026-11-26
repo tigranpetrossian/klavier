@@ -1,0 +1,18 @@
+:root {
+  --radius: 4px;
+  --gap: 4px;
+}
+
+.card {
+  --pad: 1px;
+}
+
+.card {
+  --pad: 2px;
+}
+
+@layer components {
+  :root {
+    --layered: 1px;
+  }
+}

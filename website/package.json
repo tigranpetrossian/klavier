@@ -3,9 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3200",
     "build": "next build",
-    "typecheck": "next typegen && tsc --noEmit"
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "klavier": "workspace:*",
@@ -14,8 +15,25 @@
     "react-dom": "19.3.1"
   },
   "devDependencies": {
+    "@babel/generator": "8.1.2",
+    "@babel/parser": "8.1.2",
+    "@babel/traverse": "8.1.2",
+    "@babel/types": "8.1.2",
+    "@base-ui/react": "1.9.0",
+    "@tanstack/react-hotkeys": "0.27.0",
+    "@types/culori": "4.0.1",
     "@types/node": "24.19.2",
     "@types/react": "19.3.0",
-    "@types/react-dom": "19.3.0"
+    "@types/react-dom": "19.3.0",
+    "@vitest/browser-playwright": "5.1.1",
+    "culori": "4.0.2",
+    "diff": "9.0.0",
+    "fast-check": "4.11.0",
+    "figma-kit": "1.0.0-beta.49",
+    "playwright": "1.65.1",
+    "postcss": "8.5.33",
+    "prettier": "3.10.1",
+    "vitest": "5.1.1",
+    "vitest-browser-react": "2.3.0"
   }
 }

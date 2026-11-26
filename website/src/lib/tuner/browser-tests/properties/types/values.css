@@ -1,0 +1,32 @@
+@property --glow {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --stack {
+  syntax: '<length>+';
+  inherits: false;
+  initial-value: 0px;
+}
+
+:root {
+  --glow: #00ff88;
+  --stack: 1px 2px;
+  --gap: 12px;
+  --ratio: 1.5;
+  --columns: 3;
+  --spin: 45deg;
+  --fade: 200ms;
+  --half: 50%;
+  --inset: calc(10px + 5%);
+  --font: Inter, system-ui, sans-serif;
+  --accent: #0d99ff;
+  --link: var(--accent);
+  --ring: calc(var(--gap) + 4px);
+}
+
+.nowhere {
+  --hidden-accent: #ff0000;
+  --hidden-link: var(--accent);
+}

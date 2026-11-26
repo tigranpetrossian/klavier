@@ -1,0 +1,22 @@
+:root {
+  --gap: 12px;
+  --accent: #0d99ff;
+  --link: var(--accent);
+  --muted: #888888;
+  --font: Inter, system-ui, sans-serif;
+  --radius: calc(var(--gap) / 2);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --gap: 16px;
+  }
+}
+
+.competing {
+  --gap: 99px;
+}
+
+.important-host {
+  --pinned: 2px !important;
+}

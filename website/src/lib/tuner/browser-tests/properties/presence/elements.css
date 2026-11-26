@@ -1,0 +1,7 @@
+.icon::before {
+  --icon-size: 4px;
+}
+
+.chip {
+  --chip-pad: 4px;
+}

@@ -1,0 +1,77 @@
+.tuner-Trigger {
+  position: fixed;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: 2147483647;
+  background-color: var(--figma-color-bg);
+  box-shadow: var(--elevation-200);
+}
+
+.tuner-Trigger:hover {
+  background-color: var(--figma-color-bg-hover);
+}
+
+.tuner-Trigger[data-popup-open] {
+  visibility: hidden;
+}
+
+.tuner-Viewport {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.tuner-Panel {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  max-width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  background-color: var(--figma-color-bg);
+  box-shadow: var(--elevation-500);
+  outline: none;
+  transform: translateX(var(--drawer-swipe-movement-x, 0px));
+}
+
+.tuner-Panel[data-swiping] {
+  user-select: none;
+}
+
+.tuner-Header,
+.tuner-Footer {
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: var(--space-10);
+}
+
+.tuner-Header {
+  padding-inline: var(--space-4) var(--space-2);
+  border-bottom: 1px solid var(--figma-color-border);
+}
+
+.tuner-Title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tuner-Body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.tuner-Footer {
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding-inline: var(--space-2);
+  border-top: 1px solid var(--figma-color-border);
+}

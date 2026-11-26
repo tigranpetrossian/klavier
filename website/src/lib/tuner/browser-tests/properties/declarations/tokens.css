@@ -1,0 +1,9 @@
+:root {
+  --accent: #0d99ff;
+  --link: var(--accent);
+  --ring: color-mix(in oklab, var(--accent) 40%, transparent);
+}
+
+.dark {
+  --accent: #66c2ff;
+}

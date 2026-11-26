@@ -1,0 +1,9 @@
+.chip {
+  @variant hover {
+    --chip: 2px;
+  }
+
+  @variant focus {
+    --chip: 3px;
+  }
+}

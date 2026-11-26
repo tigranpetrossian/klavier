@@ -1,0 +1,9 @@
+@media (hover: hover) {
+  .chip:hover {
+    --chip: 2px;
+  }
+}
+
+.chip:focus {
+  --chip: 3px;
+}

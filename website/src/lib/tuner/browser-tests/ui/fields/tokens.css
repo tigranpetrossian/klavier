@@ -1,0 +1,8 @@
+:root {
+  --size: 18px;
+  --tracking: 0.008em;
+  --ink: #3c3c3c;
+  --accent: #0d99ff;
+  --link: var(--accent);
+  --align: left;
+}

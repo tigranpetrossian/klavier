@@ -1,0 +1,102 @@
+.tuner-PanelPopover {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  max-height: var(--available-height);
+}
+
+.tuner-PanelPopoverBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.tuner-PopoverToggle {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-width: 0;
+  padding: var(--space-1);
+  border-radius: var(--radius-medium);
+}
+
+.tuner-PopoverToggle:focus-visible {
+  outline: 1px solid var(--figma-color-border-selected);
+  outline-offset: -1px;
+}
+
+.tuner-Row:has(> .tuner-RowField > .tuner-PopoverToggle) {
+  align-items: center;
+  padding-inline: 0;
+  border-radius: var(--radius-medium);
+}
+
+.tuner-SectionBody > .tuner-Row:has(> .tuner-RowField > .tuner-PopoverToggle) {
+  margin-inline: var(--space-3) var(--space-2);
+}
+
+.tuner-Row:has(> .tuner-RowField > .tuner-PopoverToggle) + .tuner-Row:has(> .tuner-RowField > .tuner-PopoverToggle) {
+  margin-block-start: calc(-1 * var(--space-2));
+}
+
+.tuner-Row:has(> .tuner-RowField > .tuner-PopoverToggle):hover,
+.tuner-Row:has(> .tuner-RowField > .tuner-PopoverToggle[aria-expanded='true']) {
+  background-color: var(--figma-color-bg-hover);
+}
+
+.tuner-PopoverToggleIcon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-8);
+  height: var(--space-8);
+  border: 1px solid var(--figma-color-border);
+  border-radius: var(--radius-medium);
+  background-color: var(--figma-color-bg);
+}
+
+.tuner-PopoverToggleText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tuner-PopoverToggleLabel,
+.tuner-PopoverToggleSummary {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tuner-PanelPopoverBody .tuner-Row {
+  padding-inline: 0;
+}
+
+.tuner-PanelPopoverBody .tuner-Row:not(:has(> .tuner-RowRail)) {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.tuner-PanelPopoverBody .tuner-Row[data-inline]:not(:has(> .tuner-RowRail)) {
+  grid-template-columns: var(--tuner-inline-label-width) minmax(0, 1fr);
+}
+
+.tuner-TypeSettings {
+  width: 280px;
+}
+
+.tuner-TypeSettingsTabs {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.tuner-TypeSettingsFeatures {
+  max-height: 320px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}

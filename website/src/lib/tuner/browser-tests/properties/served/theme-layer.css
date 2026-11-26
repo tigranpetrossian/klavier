@@ -1,0 +1,7 @@
+@layer theme {
+  :root,
+  :host {
+    --font-sans: ui-sans-serif, system-ui, sans-serif;
+    --color-brand: #0d99ff;
+  }
+}

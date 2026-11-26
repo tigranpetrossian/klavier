@@ -1,0 +1,34 @@
+@import 'tailwindcss';
+
+:root {
+  --tint: oklch(70% 0.1 200);
+  --pad: 12px;
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --pad: 20px;
+  }
+}
+
+.card {
+  --title-size: 18px;
+
+  .title {
+    --title-size: 20px;
+  }
+}
+
+.tv {
+  --tv: 1px;
+
+  @variant dark {
+    --tv: 2px;
+  }
+}
+
+.panel {
+  @media (width >= 40rem) {
+    --panel-pad: 20px;
+  }
+}

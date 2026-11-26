@@ -1,0 +1,52 @@
+.tuner-Row {
+  --tuner-inline-label-width: 76px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) var(--space-6);
+  column-gap: var(--space-2);
+  align-items: end;
+  padding-inline: var(--space-4) var(--space-2);
+}
+
+.tuner-RowField {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 1;
+  min-width: 0;
+}
+
+.tuner-RowField[data-span='2'] {
+  grid-column: span 2;
+}
+
+.tuner-RowLabel {
+  display: block;
+  padding-block-end: var(--space-0_5);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tuner-RowRail {
+  display: flex;
+  grid-column: 3;
+  align-items: center;
+  justify-content: center;
+  height: var(--space-6);
+}
+
+.tuner-Row[data-inline] {
+  grid-template-columns: var(--tuner-inline-label-width) minmax(0, 1fr) var(--space-6);
+  align-items: center;
+}
+
+.tuner-Row[data-inline] .tuner-RowField {
+  display: contents;
+}
+
+.tuner-Row[data-inline] .tuner-RowLabel {
+  padding-block-end: 0;
+}
+
+.tuner-Row[data-inline] .tuner-RowField > :not(.tuner-RowLabel) {
+  grid-column: 2;
+}

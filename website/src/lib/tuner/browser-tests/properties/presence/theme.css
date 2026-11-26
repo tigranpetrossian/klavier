@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-brand: #0d99ff;
+  --spacing-unused: 3px;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist);
+}

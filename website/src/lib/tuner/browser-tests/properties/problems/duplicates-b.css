@@ -1,0 +1,15 @@
+:root {
+  --radius: 8px;
+}
+
+@layer base {
+  :root {
+    --gap: 6px;
+  }
+}
+
+@layer base {
+  :root {
+    --layered: 2px;
+  }
+}

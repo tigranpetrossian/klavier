@@ -1,0 +1,25 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.tuner-Scope {
+  all: initial;
+  display: contents;
+  color: var(--figma-color-text);
+  font-family: var(--font-family-default);
+  font-size: var(--font-size-default);
+  font-weight: var(--font-weight-default);
+  line-height: var(--line-height-default);
+  letter-spacing: var(--letter-spacing-default);
+  font-feature-settings:
+    'liga' 1,
+    'calt' 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+[data-base-ui-portal] {
+  position: relative;
+  z-index: 2147483647;
+}

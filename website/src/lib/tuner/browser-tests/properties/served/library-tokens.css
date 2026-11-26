@@ -1,0 +1,32 @@
+@layer properties {
+  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) {
+    *,
+    :before,
+    :after,
+    ::backdrop {
+      --tw-shadow: 0 0 #0000;
+    }
+  }
+}
+
+@layer theme {
+  :root,
+  :host {
+    --font-sans: ui-sans-serif, system-ui;
+  }
+}
+
+:root {
+  --library-gap: 4px;
+  --library-tint: #40b1b7;
+}
+
+@supports (color: lab(0% 0 0)) {
+  :root {
+    --library-tint: lab(66.1711% -31.3595 -12.905);
+  }
+}
+
+.shadow {
+  --tw-shadow: 0 1px 3px #0000001a;
+}

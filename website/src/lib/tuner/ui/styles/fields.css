@@ -1,0 +1,65 @@
+.tuner-ResetButton[data-unchanged] {
+  visibility: hidden;
+}
+
+.tuner-SelectValue {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tuner-ColorSwatch {
+  all: unset;
+  box-sizing: border-box;
+  flex: none;
+  align-self: center;
+  width: var(--space-3_5);
+  height: var(--space-3_5);
+  margin-inline: var(--space-1_5) var(--space-0_5);
+  border-radius: var(--radius-small);
+  box-shadow: inset 0 0 0 1px var(--figma-color-border);
+}
+
+.tuner-ColorSwatch:focus-visible {
+  outline: 1px solid var(--figma-color-border-selected);
+  outline-offset: 1px;
+}
+
+.tuner-ColorField > .tuner-ColorSwatch + .fp-ValueFieldRoot {
+  border-left: 0;
+}
+
+.tuner-ColorField > .tuner-ColorFieldAlpha {
+  flex: 0 0 var(--space-14);
+}
+
+.tuner-SwitchField {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--space-6);
+}
+
+.tuner-SwitchFieldLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tuner-SwitchFieldDetail {
+  flex: none;
+  color: var(--figma-color-text-tertiary);
+}
+
+.tuner-TextField {
+  width: 100%;
+}
+
+.tuner-FontPickerPreview {
+  font-size: var(--font-size-8);
+  line-height: var(--line-height-6);
+}

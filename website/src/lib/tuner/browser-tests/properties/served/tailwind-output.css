@@ -1,0 +1,34 @@
+:root {
+  --tint: #40b1b7;
+  --pad: 12px;
+}
+
+@supports (color: lab(0% 0 0)) {
+  :root {
+    --tint: lab(66.1711% -31.3595 -12.905);
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --pad: 20px;
+  }
+}
+
+.card {
+  --title-size: 18px;
+}
+
+.card .title {
+  --title-size: 20px;
+}
+
+.tv {
+  --tv: 1px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tv {
+    --tv: 2px;
+  }
+}

@@ -1,0 +1,9 @@
+.box {
+  container-type: inline-size;
+}
+
+@container (min-width: 200px) {
+  .inner {
+    --inner-gap: 6px;
+  }
+}

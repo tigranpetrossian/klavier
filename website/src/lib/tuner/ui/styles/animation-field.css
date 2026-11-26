@@ -1,0 +1,51 @@
+.tuner-AnimationPopover {
+  width: 288px;
+}
+
+.tuner-AnimationCurve {
+  position: relative;
+  border-radius: var(--radius-medium);
+  background-color: var(--figma-color-bg-secondary);
+}
+
+.tuner-AnimationCurveGraph {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  touch-action: none;
+}
+
+.tuner-AnimationCurveLine {
+  fill: none;
+  stroke: var(--figma-color-bg-brand);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.tuner-AnimationCurveTarget,
+.tuner-AnimationCurveBase {
+  stroke: var(--figma-color-border);
+}
+
+.tuner-AnimationCurveTarget {
+  stroke-dasharray: 3 3;
+}
+
+.tuner-AnimationCurveArm {
+  stroke: var(--figma-color-icon-tertiary);
+}
+
+.tuner-AnimationCurveHandle {
+  fill: var(--figma-color-bg);
+  stroke: var(--figma-color-bg-brand);
+  stroke-width: 1.5;
+  cursor: grab;
+}
+
+.tuner-AnimationCurveCaption {
+  position: absolute;
+  right: var(--space-2);
+  bottom: var(--space-1);
+  pointer-events: none;
+}
